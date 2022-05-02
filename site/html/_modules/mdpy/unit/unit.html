@@ -211,14 +211,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/constraint/generated/mdpy.constraint.CharmmImproperConstraint.html">mdpy.constraint.CharmmImproperConstraint</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/integrator/index.html">mdpy.integrator</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/integrator/generated/mdpy.integrator.VerletIntegrator.html">mdpy.integrator.VerletIntegrator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/integrator/generated/mdpy.integrator.LangevinIntegrator.html">mdpy.integrator.LangevinIntegrator</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/minimizer/index.html">mdpy.minimizer</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/minimizer/index.html">mdpy.minimizer</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/minimizer/generated/mdpy.minimizer.SteepestDescentMinimizer.html">mdpy.minimizer.SteepestDescentMinimizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/minimizer/generated/mdpy.minimizer.ConjugateGradientMinimizer.html">mdpy.minimizer.ConjugateGradientMinimizer</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/integrator/index.html">mdpy.integrator</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/integrator/generated/mdpy.integrator.VerletIntegrator.html">mdpy.integrator.VerletIntegrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/integrator/generated/mdpy.integrator.LangevinIntegrator.html">mdpy.integrator.LangevinIntegrator</a></li>
 </ul>
 </li>
 </ul>
@@ -282,9 +282,9 @@
 <span class="sd">            the dimension of unit</span>
 <span class="sd">        relative_value : int or float</span>
 <span class="sd">            the relative value of ``self`` to the basic unit of ``base_dimension``</span>
-<span class="sd">        '''</span>        
+<span class="sd">        '''</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span> <span class="o">=</span> <span class="n">base_dimension</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">UNIT_FLOAT</span><span class="p">(</span><span class="n">relative_value</span><span class="p">)</span> <span class="c1"># The relative value to the normal unit like angstrom in Length </span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">UNIT_FLOAT</span><span class="p">(</span><span class="n">relative_value</span><span class="p">)</span> <span class="c1"># The relative value to the normal unit like angstrom in Length</span></div>
 
     <span class="k">def</span> <span class="nf">is_dimension_less</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
@@ -295,16 +295,16 @@
 <span class="sd">        bool</span>
 <span class="sd">            - True, the unit is dimensionless</span>
 <span class="sd">            - False, the unit isn't dimensionless</span>
-<span class="sd">        '''</span>        
+<span class="sd">        '''</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span><span class="o">.</span><span class="n">is_dimension_less</span><span class="p">():</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
-    
+
     <span class="k">def</span> <span class="nf">set_relative_value_to_one</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        set_relative_value_to_one sets ``self.relative_value = 1``</span>
-<span class="sd">        '''</span>        
+<span class="sd">        '''</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span> <span class="o">=</span> <span class="mi">1</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -344,10 +344,10 @@
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s1">'+ between </span><span class="si">%s</span><span class="s1"> and mdpy.unit.Unit is not implemented'</span> 
+                <span class="s1">'+ between </span><span class="si">%s</span><span class="s1"> and mdpy.unit.Unit is not implemented'</span>
                 <span class="o">%</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
             <span class="p">)</span>
-    
+
     <span class="fm">__iadd__</span> <span class="o">=</span> <span class="fm">__add__</span>
 
     <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -363,7 +363,7 @@
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s1">'+ between mdpy.unit.Unit and </span><span class="si">%s</span><span class="s1"> is not implemented'</span> 
+                <span class="s1">'+ between mdpy.unit.Unit and </span><span class="si">%s</span><span class="s1"> is not implemented'</span>
                 <span class="o">%</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
             <span class="p">)</span>
 
@@ -380,7 +380,7 @@
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s1">'- between </span><span class="si">%s</span><span class="s1"> and mdpy.unit.Unit is not implemented'</span> 
+                <span class="s1">'- between </span><span class="si">%s</span><span class="s1"> and mdpy.unit.Unit is not implemented'</span>
                 <span class="o">%</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
             <span class="p">)</span>
 
@@ -399,7 +399,7 @@
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s1">'- between mdpy.unit.Unit and </span><span class="si">%s</span><span class="s1"> is not implemented'</span> 
+                <span class="s1">'- between mdpy.unit.Unit and </span><span class="si">%s</span><span class="s1"> is not implemented'</span>
                 <span class="o">%</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
             <span class="p">)</span>
 
@@ -411,7 +411,7 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s1">'* between </span><span class="si">%s</span><span class="s1"> and mdpy.unit.Unit is not implemented'</span> 
+                <span class="s1">'* between </span><span class="si">%s</span><span class="s1"> and mdpy.unit.Unit is not implemented'</span>
                 <span class="o">%</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
             <span class="p">)</span>
 
@@ -426,7 +426,7 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s1">'/ between </span><span class="si">%s</span><span class="s1"> and mdpy.unit.Unit is not implemented'</span> 
+                <span class="s1">'/ between </span><span class="si">%s</span><span class="s1"> and mdpy.unit.Unit is not implemented'</span>
                 <span class="o">%</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
             <span class="p">)</span>
 
@@ -445,7 +445,7 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s1">'/ between mdpy.unit.Unit and </span><span class="si">%s</span><span class="s1"> is not implemented'</span> 
+                <span class="s1">'/ between mdpy.unit.Unit and </span><span class="si">%s</span><span class="s1"> is not implemented'</span>
                 <span class="o">%</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
             <span class="p">)</span>
 
@@ -458,7 +458,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span><span class="o">**</span><span class="n">value</span>
             <span class="p">)</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'The power term should be a single number'</span><span class="p">)</span>
-        
+
 
     <span class="k">def</span> <span class="nf">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
@@ -468,12 +468,12 @@
 <span class="sd">        -------</span>
 <span class="sd">        Unit</span>
 <span class="sd">            square root of ``self``</span>
-<span class="sd">        '''</span>        
+<span class="sd">        '''</span>
         <span class="k">return</span> <span class="n">Unit</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(),</span>
             <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span><span class="p">)</span>
         <span class="p">)</span>
-            
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">unit_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
@@ -483,7 +483,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        str</span>
 <span class="sd">            the name of unit</span>
-<span class="sd">        '''</span>        
+<span class="sd">        '''</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_dimension</span><span class="o">.</span><span class="n">name</span>
 
     <span class="nd">@property</span>
@@ -495,7 +495,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        BaseDimension</span>
 <span class="sd">            the dimension of unit</span>
-<span class="sd">        '''</span>        
+<span class="sd">        '''</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span>
 
     <span class="nd">@property</span>
@@ -507,7 +507,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        int or float</span>
 <span class="sd">            the relative value to the basic unit</span>
-<span class="sd">        '''</span>        
+<span class="sd">        '''</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span></div>
 </pre></div>
         </article>

@@ -47,8 +47,8 @@ Table of content
    api_reference/core/index
    api_reference/io/index
    api_reference/constraint/index
-   api_reference/integrator/index
    api_reference/minimizer/index
+   api_reference/integrator/index
 
 .. toctree::
    :maxdepth: 1
