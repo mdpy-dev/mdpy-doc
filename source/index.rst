@@ -16,7 +16,7 @@ Table of content
    :maxdepth: 1
    :caption: Theory behind MDPy
 
-   theory_behind_mdpy/default_unit
+   theory_behind_mdpy/unit_system
    theory_behind_mdpy/neighbor_list
    theory_behind_mdpy/ewald_sum
    theory_behind_mdpy/thermostat
