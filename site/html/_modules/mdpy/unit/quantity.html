@@ -317,16 +317,16 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_unit</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">"&lt;Quantity object: </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> at 0x</span><span class="si">%x</span><span class="s2">&gt;"</span> <span class="o">%</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unit</span><span class="o">.</span><span class="n">relative_value</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_unit</span><span class="o">.</span><span class="n">base_dimension</span><span class="p">,</span>
+        <span class="k">return</span> <span class="s2">"&lt;Quantity object: </span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">) at 0x</span><span class="si">%x</span><span class="s2">&gt;"</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_unit</span><span class="p">,</span>
             <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">"</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unit</span><span class="o">.</span><span class="n">relative_value</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_unit</span><span class="o">.</span><span class="n">base_dimension</span><span class="p">,</span>
+        <span class="k">return</span> <span class="s2">"</span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">)"</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_unit</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">is_dimension_less</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
