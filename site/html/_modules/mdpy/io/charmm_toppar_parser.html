@@ -1,13 +1,13 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
         <title>mdpy.io.charmm_toppar_parser - MDPy</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -148,28 +148,31 @@
   <span class="sidebar-brand-text">MDPy</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Quick start</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/cite.html">Cite MDPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html#framework">Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html#performance">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html#cite-mdpy">Cite MDPy</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Theory behind MDPy</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/default_unit.html">Default unit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/neighbor_list.html">Neighbor list</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/pme.html">Particle Mesh Ewald</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/ewald_sum.html">Ewald summation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/thermostat.html">Thermostat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/barostat.html">Barostat</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorial/how_to_use_unit_package.html">How to use mdpy.unit package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/how_to_create_an_ensemble.html">How to create an Ensemble object</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API reference</span></p>
 <ul>
@@ -210,12 +213,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/constraint/generated/mdpy.constraint.CharmmImproperConstraint.html">mdpy.constraint.CharmmImproperConstraint</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/minimizer/index.html">mdpy.minimizer</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/recipe/index.html">mdpy.recipe</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/recipe/generated/mdpy.recipe.CharmmRecipe.html">mdpy.recipe.CharmmRecipe</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/minimizer/index.html">mdpy.minimizer</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/minimizer/generated/mdpy.minimizer.SteepestDescentMinimizer.html">mdpy.minimizer.SteepestDescentMinimizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/minimizer/generated/mdpy.minimizer.ConjugateGradientMinimizer.html">mdpy.minimizer.ConjugateGradientMinimizer</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/integrator/index.html">mdpy.integrator</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/integrator/index.html">mdpy.integrator</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/integrator/generated/mdpy.integrator.VerletIntegrator.html">mdpy.integrator.VerletIntegrator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/integrator/generated/mdpy.integrator.LangevinIntegrator.html">mdpy.integrator.LangevinIntegrator</a></li>
 </ul>
@@ -224,6 +231,10 @@
 <p class="caption" role="heading"><span class="caption-text">Exception reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../exception_reference/index.html">Exception reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a></li>
 </ul>
 
 </div>
@@ -242,8 +253,7 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -260,12 +270,12 @@
           <h1>Source code for mdpy.io.charmm_toppar_parser</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- encoding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">file : charmm_param_parser.py</span>
 <span class="sd">created time : 2021/10/08</span>
 <span class="sd">author : Zhenyu Wei</span>
 <span class="sd">copyright : (C)Copyright 2021-present, mdpy organization</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -274,8 +284,8 @@
 <span class="kn">from</span> <span class="nn">mdpy.environment</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">RMIN_TO_SIGMA_FACTOR</span> <span class="o">=</span> <span class="n">NUMPY_FLOAT</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">USED_BLOCK_LABELS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ATOMS&quot;</span><span class="p">,</span> <span class="s2">&quot;BONDS&quot;</span><span class="p">,</span> <span class="s2">&quot;ANGLES&quot;</span><span class="p">,</span> <span class="s2">&quot;DIHEDRALS&quot;</span><span class="p">,</span> <span class="s2">&quot;IMPROPER&quot;</span><span class="p">,</span> <span class="s2">&quot;NONBONDED&quot;</span><span class="p">]</span>
-<span class="n">UNUSED_BLOCK_LABELS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CMAP&quot;</span><span class="p">,</span> <span class="s2">&quot;NBFIX&quot;</span><span class="p">,</span> <span class="s2">&quot;HBOND&quot;</span><span class="p">,</span> <span class="s2">&quot;END&quot;</span><span class="p">]</span>
+<span class="n">USED_BLOCK_LABELS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"ATOMS"</span><span class="p">,</span> <span class="s2">"BONDS"</span><span class="p">,</span> <span class="s2">"ANGLES"</span><span class="p">,</span> <span class="s2">"DIHEDRALS"</span><span class="p">,</span> <span class="s2">"IMPROPER"</span><span class="p">,</span> <span class="s2">"NONBONDED"</span><span class="p">]</span>
+<span class="n">UNUSED_BLOCK_LABELS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"CMAP"</span><span class="p">,</span> <span class="s2">"NBFIX"</span><span class="p">,</span> <span class="s2">"HBOND"</span><span class="p">,</span> <span class="s2">"END"</span><span class="p">]</span>
 <span class="n">BLOCK_LABELS</span> <span class="o">=</span> <span class="n">USED_BLOCK_LABELS</span> <span class="o">+</span> <span class="n">UNUSED_BLOCK_LABELS</span>
 
 
@@ -285,27 +295,27 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_file_path_list</span> <span class="o">=</span> <span class="n">file_path_list</span>
         <span class="c1"># Set attributes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;atom&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s2">&quot;mass&quot;</span><span class="p">:</span> <span class="p">{},</span>
-            <span class="s2">&quot;charge&quot;</span><span class="p">:</span> <span class="p">{},</span>
-            <span class="s2">&quot;bond&quot;</span><span class="p">:</span> <span class="p">{},</span>
-            <span class="s2">&quot;angle&quot;</span><span class="p">:</span> <span class="p">{},</span>
-            <span class="s2">&quot;nonbonded&quot;</span><span class="p">:</span> <span class="p">{},</span>
-            <span class="s2">&quot;dihedral&quot;</span><span class="p">:</span> <span class="p">{},</span>
-            <span class="s2">&quot;improper&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"atom"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"mass"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"charge"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"bond"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"angle"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"nonbonded"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"dihedral"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"improper"</span><span class="p">:</span> <span class="p">{},</span>
         <span class="p">}</span>
         <span class="c1"># Parse file</span>
         <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_path_list</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">file_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;toppar&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">file_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"toppar"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"str"</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">parse_toppar_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">file_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;par&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;prm&quot;</span><span class="p">):</span>
+            <span class="k">elif</span> <span class="n">file_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"par"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"prm"</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">parse_par_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">file_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;top&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;rtf&quot;</span><span class="p">):</span>
+            <span class="k">elif</span> <span class="n">file_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"top"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"rtf"</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">parse_top_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">FileFormatError</span><span class="p">(</span>
-                    <span class="s2">&quot;Keyword: top, par, or toppar do not appear in </span><span class="si">%s</span><span class="s2">, unsupported by CharmmTopparParser.&quot;</span>
-                    <span class="o">%</span> <span class="n">file_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="s2">"Keyword: top, par, or toppar do not appear in </span><span class="si">%s</span><span class="s2">, unsupported by CharmmTopparParser."</span>
+                    <span class="o">%</span> <span class="n">file_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
                 <span class="p">)</span></div>
 
     <span class="nd">@property</span>
@@ -313,7 +323,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">parse_par_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Data info:</span>
+        <span class="sd">"""Data info:</span>
 <span class="sd">        - BONDS: V(bond) = Kb(b - b0)**2;</span>
 <span class="sd">            - Kb: kcal/mole/A**2</span>
 <span class="sd">            - b0: A</span>
@@ -330,16 +340,16 @@
 <span class="sd">        NONBONDED: V(Lennard-Jones) = Eps,i,j[(Rmin,i,j/ri,j)**12 - 2(Rmin,i,j/ri,j)**6]</span>
 <span class="sd">            - epsilon: kcal/mole, Eps,i,j = sqrt(eps,i * eps,j)</span>
 <span class="sd">            - Rmin/2: A, Rmin,i,j = Rmin/2,i + Rmin/2,j</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">info</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
         <span class="n">info_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fine_par_info</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_mass_block</span><span class="p">(</span><span class="n">info_dict</span><span class="p">[</span><span class="s2">&quot;ATOMS&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_bond_block</span><span class="p">(</span><span class="n">info_dict</span><span class="p">[</span><span class="s2">&quot;BONDS&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_angle_block</span><span class="p">(</span><span class="n">info_dict</span><span class="p">[</span><span class="s2">&quot;ANGLES&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_dihedral_block</span><span class="p">(</span><span class="n">info_dict</span><span class="p">[</span><span class="s2">&quot;DIHEDRALS&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_improper_block</span><span class="p">(</span><span class="n">info_dict</span><span class="p">[</span><span class="s2">&quot;IMPROPER&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_nonbonded_block</span><span class="p">(</span><span class="n">info_dict</span><span class="p">[</span><span class="s2">&quot;NONBONDED&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_mass_block</span><span class="p">(</span><span class="n">info_dict</span><span class="p">[</span><span class="s2">"ATOMS"</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_bond_block</span><span class="p">(</span><span class="n">info_dict</span><span class="p">[</span><span class="s2">"BONDS"</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_angle_block</span><span class="p">(</span><span class="n">info_dict</span><span class="p">[</span><span class="s2">"ANGLES"</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_dihedral_block</span><span class="p">(</span><span class="n">info_dict</span><span class="p">[</span><span class="s2">"DIHEDRALS"</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_improper_block</span><span class="p">(</span><span class="n">info_dict</span><span class="p">[</span><span class="s2">"IMPROPER"</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_nonbonded_block</span><span class="p">(</span><span class="n">info_dict</span><span class="p">[</span><span class="s2">"NONBONDED"</span><span class="p">])</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_fine_par_info</span><span class="p">(</span><span class="n">info</span><span class="p">):</span>
@@ -360,28 +370,28 @@
                 <span class="k">if</span> <span class="n">head</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">block_label</span><span class="p">):</span>
                     <span class="n">info_dict</span><span class="p">[</span><span class="n">block_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">info_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">remove_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">val</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+            <span class="n">remove_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">val</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"!"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="s2">""</span><span class="p">]</span>
             <span class="p">[</span><span class="n">val</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">remove_list</span><span class="p">]</span>
-            <span class="n">info_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">val</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">info_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"!"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">val</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
         <span class="k">return</span> <span class="n">info_dict</span>
 
     <span class="k">def</span> <span class="nf">_embed_x_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pair</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;X&quot;</span> <span class="ow">in</span> <span class="n">pair</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="s2">"X"</span> <span class="ow">in</span> <span class="n">pair</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">pair</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">pair</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="s2">&quot;X&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;atom&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pair</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+                <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="s2">"X"</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"atom"</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pair</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"-"</span><span class="p">)</span>
             <span class="p">]</span>
             <span class="n">pairs</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">pair</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
-                <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pair</span><span class="p">))</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"-"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pair</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">res</span>
 
     <span class="k">def</span> <span class="nf">_parse_par_mass_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">infos</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">infos</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;atom&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;mass&quot;</span><span class="p">][</span><span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"atom"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"mass"</span><span class="p">][</span><span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="n">Quantity</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">dalton</span><span class="p">)</span><span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">default_mass_unit</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
             <span class="p">)</span>
 
@@ -395,11 +405,11 @@
                 <span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">default_length_unit</span><span class="p">)</span>
                 <span class="o">.</span><span class="n">value</span><span class="p">,</span>
             <span class="p">]</span>
-            <span class="n">target_keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_x_element</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-            <span class="n">target_keys</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_embed_x_element</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+            <span class="n">target_keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_x_element</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">target_keys</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_embed_x_element</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">target_keys</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;bond&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;bond&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"bond"</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"bond"</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span>
 
     <span class="k">def</span> <span class="nf">_parse_par_angle_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">infos</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">infos</span><span class="p">:</span>
@@ -415,14 +425,14 @@
                     <span class="n">Quantity</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">angstrom</span><span class="p">)</span><span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">default_length_unit</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
                 <span class="p">]</span>
                 <span class="n">target_keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_x_element</span><span class="p">(</span>
-                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
                 <span class="p">)</span>
                 <span class="n">target_keys</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_embed_x_element</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_embed_x_element</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
                 <span class="p">)</span>
                 <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">target_keys</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;angle&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;angle&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"angle"</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"angle"</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span>
             <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
                 <span class="n">res</span> <span class="o">=</span> <span class="p">[</span>
                     <span class="n">Quantity</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">kilocalorie_permol</span><span class="p">)</span>
@@ -437,19 +447,19 @@
                     <span class="o">.</span><span class="n">value</span><span class="p">,</span>
                 <span class="p">]</span>
                 <span class="n">target_keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_x_element</span><span class="p">(</span>
-                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
                 <span class="p">)</span>
                 <span class="n">target_keys</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_embed_x_element</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_embed_x_element</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
                 <span class="p">)</span>
                 <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">target_keys</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;angle&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;angle&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"angle"</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"angle"</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span>
 
     <span class="k">def</span> <span class="nf">_parse_par_dihedral_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">infos</span><span class="p">):</span>
         <span class="n">x_include_pairs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">infos</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s2">&quot;X&quot;</span> <span class="ow">in</span> <span class="s2">&quot;-&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">info</span><span class="p">[:</span><span class="mi">4</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="s2">"X"</span> <span class="ow">in</span> <span class="s2">"-"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">info</span><span class="p">[:</span><span class="mi">4</span><span class="p">]):</span>
                 <span class="n">x_include_pairs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">res</span> <span class="o">=</span> <span class="p">[</span>
@@ -460,15 +470,15 @@
                     <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">Quantity</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span><span class="o">.</span><span class="n">value</span><span class="p">),</span>
                 <span class="p">]</span>
                 <span class="n">target_keys</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
-                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                    <span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+                    <span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
                 <span class="p">]</span>
                 <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">target_keys</span><span class="p">:</span>
-                    <span class="c1"># if not key in self._parameters[&#39;dihedral&#39;].keys():</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;dihedral&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;dihedral&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">res</span><span class="p">]</span>
+                    <span class="c1"># if not key in self._parameters['dihedral'].keys():</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"dihedral"</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"dihedral"</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">res</span><span class="p">]</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;dihedral&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"dihedral"</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">x_include_pairs</span><span class="p">:</span>
             <span class="n">res</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">Quantity</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span> <span class="n">kilocalorie_permol</span><span class="p">)</span>
@@ -478,16 +488,16 @@
                 <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">Quantity</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span><span class="o">.</span><span class="n">value</span><span class="p">),</span>
             <span class="p">]</span>
             <span class="n">target_keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_x_element</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+                <span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
             <span class="p">)</span>
             <span class="n">target_keys</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_embed_x_element</span><span class="p">(</span>
-                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
                 <span class="p">)</span>
             <span class="p">)</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">target_keys</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;dihedral&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;dihedral&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">res</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"dihedral"</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"dihedral"</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">res</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_parse_par_improper_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">infos</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">infos</span><span class="p">:</span>
@@ -499,15 +509,15 @@
             <span class="p">]</span>
             <span class="n">target_keys</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">target_key</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">info</span><span class="p">[:</span><span class="mi">4</span><span class="p">]):</span>
-                <span class="n">target_keys</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_embed_x_element</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">target_key</span><span class="p">)))</span>
+                <span class="n">target_keys</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_embed_x_element</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">target_key</span><span class="p">)))</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">target_keys</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;improper&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;improper&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"improper"</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"improper"</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span>
 
     <span class="k">def</span> <span class="nf">_parse_par_nonbonded_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">infos</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">infos</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;nonbonded&quot;</span><span class="p">][</span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"nonbonded"</span><span class="p">][</span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
                     <span class="o">-</span><span class="n">Quantity</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">kilocalorie_permol</span><span class="p">)</span>
                     <span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">default_energy_unit</span><span class="p">)</span>
                     <span class="o">.</span><span class="n">value</span><span class="p">,</span>
@@ -518,7 +528,7 @@
                     <span class="o">*</span> <span class="n">RMIN_TO_SIGMA_FACTOR</span><span class="p">,</span>
                 <span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;nonbonded&quot;</span><span class="p">][</span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"nonbonded"</span><span class="p">][</span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
                     <span class="o">-</span><span class="n">Quantity</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">kilocalorie_permol</span><span class="p">)</span>
                     <span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">default_energy_unit</span><span class="p">)</span>
                     <span class="o">.</span><span class="n">value</span><span class="p">,</span>
@@ -538,8 +548,8 @@
                 <span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">parse_top_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">info</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
         <span class="n">info_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fine_top_info</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parse_top_charge_block</span><span class="p">(</span><span class="n">info_dict</span><span class="p">)</span>
 
@@ -548,7 +558,7 @@
         <span class="n">new_info</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">start_index</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">cur_index</span><span class="p">,</span> <span class="n">cur_info</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">info</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">cur_info</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;RESI&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">cur_info</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;PRES&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">cur_info</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"RESI"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">cur_info</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"PRES"</span><span class="p">):</span>
                 <span class="n">new_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="n">start_index</span><span class="p">:</span><span class="n">cur_index</span><span class="p">])</span>
                 <span class="n">start_index</span> <span class="o">=</span> <span class="n">cur_index</span>
         <span class="n">new_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="n">start_index</span><span class="p">:])</span>
@@ -556,44 +566,44 @@
         <span class="n">info_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">new_info</span><span class="p">:</span>
             <span class="n">key</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">remove_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">info</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;ATOM&quot;</span><span class="p">)]</span>
+            <span class="n">remove_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">info</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"ATOM"</span><span class="p">)]</span>
             <span class="p">[</span><span class="n">info</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">remove_list</span><span class="p">]</span>
-            <span class="n">info_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">info</span><span class="p">]</span>
+            <span class="n">info_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"!"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">info</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">info_dict</span>
 
     <span class="k">def</span> <span class="nf">_parse_top_charge_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info_dict</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">info_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">val</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;charge&quot;</span><span class="p">][</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">])]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"charge"</span><span class="p">][</span><span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">])]</span> <span class="o">=</span> <span class="p">(</span>
                         <span class="n">Quantity</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">elementary_charge</span><span class="p">)</span>
                         <span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">default_charge_unit</span><span class="p">)</span>
                         <span class="o">.</span><span class="n">value</span>
                     <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>  <span class="c1"># group name is the same as atom name: ion</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">&quot;charge&quot;</span><span class="p">][</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="s2">"charge"</span><span class="p">][</span><span class="s2">"</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
                         <span class="n">Quantity</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">elementary_charge</span><span class="p">)</span>
                         <span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">default_charge_unit</span><span class="p">)</span>
                         <span class="o">.</span><span class="n">value</span>
                     <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">parse_toppar_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">info</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
         <span class="n">top_info_dict</span><span class="p">,</span> <span class="n">par_info_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fine_toppar_info</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
         <span class="c1"># Top data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parse_top_charge_block</span><span class="p">(</span><span class="n">top_info_dict</span><span class="p">)</span>
         <span class="c1"># Par data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_mass_block</span><span class="p">(</span><span class="n">par_info_dict</span><span class="p">[</span><span class="s2">&quot;ATOMS&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_bond_block</span><span class="p">(</span><span class="n">par_info_dict</span><span class="p">[</span><span class="s2">&quot;BONDS&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_angle_block</span><span class="p">(</span><span class="n">par_info_dict</span><span class="p">[</span><span class="s2">&quot;ANGLES&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_dihedral_block</span><span class="p">(</span><span class="n">par_info_dict</span><span class="p">[</span><span class="s2">&quot;DIHEDRALS&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_improper_block</span><span class="p">(</span><span class="n">par_info_dict</span><span class="p">[</span><span class="s2">&quot;IMPROPER&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_nonbonded_block</span><span class="p">(</span><span class="n">par_info_dict</span><span class="p">[</span><span class="s2">&quot;NONBONDED&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_mass_block</span><span class="p">(</span><span class="n">par_info_dict</span><span class="p">[</span><span class="s2">"ATOMS"</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_bond_block</span><span class="p">(</span><span class="n">par_info_dict</span><span class="p">[</span><span class="s2">"BONDS"</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_angle_block</span><span class="p">(</span><span class="n">par_info_dict</span><span class="p">[</span><span class="s2">"ANGLES"</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_dihedral_block</span><span class="p">(</span><span class="n">par_info_dict</span><span class="p">[</span><span class="s2">"DIHEDRALS"</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_improper_block</span><span class="p">(</span><span class="n">par_info_dict</span><span class="p">[</span><span class="s2">"IMPROPER"</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_par_nonbonded_block</span><span class="p">(</span><span class="n">par_info_dict</span><span class="p">[</span><span class="s2">"NONBONDED"</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_fine_toppar_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">info</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;END&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"END"</span><span class="p">):</span>
                 <span class="n">split_index</span> <span class="o">=</span> <span class="n">i</span>
                 <span class="k">break</span>
         <span class="n">top_info</span><span class="p">,</span> <span class="n">par_info</span> <span class="o">=</span> <span class="n">info</span><span class="p">[:</span> <span class="n">split_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="n">split_index</span><span class="p">:]</span>
@@ -639,8 +649,9 @@
     </aside>
   </div>
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>

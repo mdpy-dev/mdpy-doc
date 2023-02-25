@@ -1,13 +1,13 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
         <title>mdpy.io.pdb_writer - MDPy</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -148,28 +148,31 @@
   <span class="sidebar-brand-text">MDPy</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Quick start</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/cite.html">Cite MDPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html#framework">Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html#performance">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html#cite-mdpy">Cite MDPy</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Theory behind MDPy</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/default_unit.html">Default unit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/neighbor_list.html">Neighbor list</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/pme.html">Particle Mesh Ewald</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/ewald_sum.html">Ewald summation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/thermostat.html">Thermostat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/barostat.html">Barostat</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorial/how_to_use_unit_package.html">How to use mdpy.unit package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/how_to_create_an_ensemble.html">How to create an Ensemble object</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API reference</span></p>
 <ul>
@@ -210,12 +213,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/constraint/generated/mdpy.constraint.CharmmImproperConstraint.html">mdpy.constraint.CharmmImproperConstraint</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/minimizer/index.html">mdpy.minimizer</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/recipe/index.html">mdpy.recipe</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/recipe/generated/mdpy.recipe.CharmmRecipe.html">mdpy.recipe.CharmmRecipe</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/minimizer/index.html">mdpy.minimizer</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/minimizer/generated/mdpy.minimizer.SteepestDescentMinimizer.html">mdpy.minimizer.SteepestDescentMinimizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/minimizer/generated/mdpy.minimizer.ConjugateGradientMinimizer.html">mdpy.minimizer.ConjugateGradientMinimizer</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/integrator/index.html">mdpy.integrator</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/integrator/index.html">mdpy.integrator</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/integrator/generated/mdpy.integrator.VerletIntegrator.html">mdpy.integrator.VerletIntegrator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/integrator/generated/mdpy.integrator.LangevinIntegrator.html">mdpy.integrator.LangevinIntegrator</a></li>
 </ul>
@@ -224,6 +231,10 @@
 <p class="caption" role="heading"><span class="caption-text">Exception reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../exception_reference/index.html">Exception reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a></li>
 </ul>
 
 </div>
@@ -242,8 +253,7 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -260,12 +270,12 @@
           <h1>Source code for mdpy.io.pdb_writer</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- encoding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">file : pdb_writer.py</span>
 <span class="sd">created time : 2022/02/24</span>
 <span class="sd">author : Zhenyu Wei</span>
 <span class="sd">copyright : (C)Copyright 2021-present, mdpy organization</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -276,39 +286,39 @@
 <span class="kn">from</span> <span class="nn">mdpy.environment</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">STD_RES_NAMES</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;ALA&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ARG&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ASN&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ASP&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;CYS&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;GLN&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;GLU&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;GLY&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;HIS&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ILE&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;LEU&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;LYS&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;MET&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;PHE&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;PRO&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;SER&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;THR&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;TRP&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;TYR&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;VAL&quot;</span><span class="p">,</span>
+    <span class="s2">"ALA"</span><span class="p">,</span>
+    <span class="s2">"ARG"</span><span class="p">,</span>
+    <span class="s2">"ASN"</span><span class="p">,</span>
+    <span class="s2">"ASP"</span><span class="p">,</span>
+    <span class="s2">"CYS"</span><span class="p">,</span>
+    <span class="s2">"GLN"</span><span class="p">,</span>
+    <span class="s2">"GLU"</span><span class="p">,</span>
+    <span class="s2">"GLY"</span><span class="p">,</span>
+    <span class="s2">"HIS"</span><span class="p">,</span>
+    <span class="s2">"ILE"</span><span class="p">,</span>
+    <span class="s2">"LEU"</span><span class="p">,</span>
+    <span class="s2">"LYS"</span><span class="p">,</span>
+    <span class="s2">"MET"</span><span class="p">,</span>
+    <span class="s2">"PHE"</span><span class="p">,</span>
+    <span class="s2">"PRO"</span><span class="p">,</span>
+    <span class="s2">"SER"</span><span class="p">,</span>
+    <span class="s2">"THR"</span><span class="p">,</span>
+    <span class="s2">"TRP"</span><span class="p">,</span>
+    <span class="s2">"TYR"</span><span class="p">,</span>
+    <span class="s2">"VAL"</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="c1"># COLUMNS       DATA  TYPE     FIELD             DEFINITION</span>
 <span class="c1"># ------------------------------------------------------------------------------------</span>
-<span class="c1">#  1 -  6       Record name    &quot;HEADER&quot;</span>
+<span class="c1">#  1 -  6       Record name    "HEADER"</span>
 <span class="c1"># 11 - 50       String(40)     classification    Classifies the molecule(s).</span>
 <span class="c1"># 51 - 59       Date           depDate           Deposition date. This is the date the</span>
 <span class="c1">#                                                coordinates  were received at the PDB.</span>
 <span class="c1"># 63 - 66       IDcode         idCode            This identifier is unique within the PDB.</span>
-<span class="n">HEADER</span> <span class="o">=</span> <span class="s2">&quot;HEADER&quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">%-40s%-11s</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">HEADER</span> <span class="o">=</span> <span class="s2">"HEADER"</span> <span class="o">+</span> <span class="s2">" "</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="s2">"</span><span class="si">%-40s%-11s</span><span class="se">\n</span><span class="s2">"</span>
 <span class="c1"># COLUMNS       DATA  TYPE    FIELD          DEFINITION</span>
 <span class="c1"># -------------------------------------------------------------</span>
-<span class="c1">#  1 -  6       Record name   &quot;CRYST1&quot;</span>
+<span class="c1">#  1 -  6       Record name   "CRYST1"</span>
 <span class="c1">#  7 - 15       Real(9.3)     a              a (Angstroms).</span>
 <span class="c1"># 16 - 24       Real(9.3)     b              b (Angstroms).</span>
 <span class="c1"># 25 - 33       Real(9.3)     c              c (Angstroms).</span>
@@ -317,16 +327,16 @@
 <span class="c1"># 48 - 54       Real(7.2)     gamma          gamma (degrees).</span>
 <span class="c1"># 56 - 66       LString       sGroup         Space  group.</span>
 <span class="c1"># 67 - 70       Integer       z              Z value.</span>
-<span class="n">CRYST1</span> <span class="o">=</span> <span class="s2">&quot;CRYST1&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">%9.3f%9.3f%9.3f%7.2f%7.2f%7.2f</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">CRYST1</span> <span class="o">=</span> <span class="s2">"CRYST1"</span> <span class="o">+</span> <span class="s2">"</span><span class="si">%9.3f%9.3f%9.3f%7.2f%7.2f%7.2f</span><span class="se">\n</span><span class="s2">"</span>
 <span class="c1"># COLUMNS        DATA  TYPE    FIELD          DEFINITION</span>
 <span class="c1"># ---------------------------------------------------------------------------------------</span>
-<span class="c1">#  1 -  6        Record name   &quot;MODEL &quot;</span>
+<span class="c1">#  1 -  6        Record name   "MODEL "</span>
 <span class="c1"># 11 - 14        Integer       serial         Model serial number.</span>
-<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">&quot;MODEL &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">%4d</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="n">ENDMDL</span> <span class="o">=</span> <span class="s2">&quot;ENDMDL</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">"MODEL "</span> <span class="o">+</span> <span class="s2">" "</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="s2">"</span><span class="si">%4d</span><span class="se">\n</span><span class="s2">"</span>
+<span class="n">ENDMDL</span> <span class="o">=</span> <span class="s2">"ENDMDL</span><span class="se">\n</span><span class="s2">"</span>
 <span class="c1"># COLUMNS        DATA  TYPE    FIELD        DEFINITION</span>
 <span class="c1"># -------------------------------------------------------------------------------------</span>
-<span class="c1">#  1 -  6        Record name   &quot;ATOM  &quot;</span>
+<span class="c1">#  1 -  6        Record name   "ATOM  "</span>
 <span class="c1">#  7 - 11        Integer       serial       Atom  serial number.</span>
 <span class="c1"># 13 - 16        Atom          name         Atom name.</span>
 <span class="c1"># 17             Character     altLoc       Alternate location indicator.</span>
@@ -342,23 +352,23 @@
 <span class="c1"># 77 - 78        LString(2)    element      Element symbol, right-justified.</span>
 <span class="c1"># 79 - 80        LString(2)    charge       Charge  on the atom.</span>
 <span class="c1"># Serial atomname resname chainid resid x y z 0 0 element</span>
-<span class="c1"># ATOM = &#39;ATOM  &#39; + &#39;%5d&#39; + &#39; &#39;*2 + &#39;%-4s%-4s%1s%4d&#39; + &#39; &#39;*3 + &#39;%8.3f%8.3f%8.3f%6.2f%6.2f&#39; + &#39; &#39;*10 + &#39;%-2s\n&#39;</span>
+<span class="c1"># ATOM = 'ATOM  ' + '%5d' + ' '*2 + '%-4s%-4s%1s%4d' + ' '*3 + '%8.3f%8.3f%8.3f%6.2f%6.2f' + ' '*10 + '%-2s\n'</span>
 <span class="k">def</span> <span class="nf">ATOM</span><span class="p">(</span><span class="n">serial</span><span class="p">,</span> <span class="n">particle_name</span><span class="p">,</span> <span class="n">molecule_name</span><span class="p">,</span> <span class="n">chain_id</span><span class="p">,</span> <span class="n">molecule_id</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="s2">&quot;ATOM  &quot;</span>
-    <span class="n">len_serial</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%5d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">serial</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%5s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">serial</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">7</span> <span class="o">-</span> <span class="n">len_serial</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%-4s%-4s%1s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">particle_name</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">molecule_name</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">chain_id</span><span class="p">[:</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">len_molecule_id</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%4d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">molecule_id</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%4d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">molecule_id</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="n">len_molecule_id</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%8.3f%8.3f%8.3f%6.2f%6.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">10</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%-2s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">element</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="s2">"ATOM  "</span>
+    <span class="n">len_serial</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s2">"</span><span class="si">%5d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">serial</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">"</span><span class="si">%5s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">serial</span> <span class="o">+</span> <span class="s2">" "</span> <span class="o">*</span> <span class="p">(</span><span class="mi">7</span> <span class="o">-</span> <span class="n">len_serial</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">"</span><span class="si">%-4s%-4s%1s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">particle_name</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">molecule_name</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">chain_id</span><span class="p">[:</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">len_molecule_id</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s2">"</span><span class="si">%4d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">molecule_id</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">"</span><span class="si">%4d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">molecule_id</span> <span class="o">+</span> <span class="s2">" "</span> <span class="o">*</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="n">len_molecule_id</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">"</span><span class="si">%8.3f%8.3f%8.3f%6.2f%6.2f</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">" "</span> <span class="o">*</span> <span class="mi">10</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">"</span><span class="si">%-2s</span><span class="se">\n</span><span class="s2">"</span> <span class="o">%</span> <span class="n">element</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">res</span>
 
 
 <span class="c1"># COLUMNS       DATA  TYPE     FIELD         DEFINITION</span>
 <span class="c1"># -----------------------------------------------------------------------</span>
-<span class="c1">#  1 - 6        Record name    &quot;HETATM&quot;)</span>
+<span class="c1">#  1 - 6        Record name    "HETATM")</span>
 <span class="c1">#  7 - 11       Integer        serial        Atom serial number.</span>
 <span class="c1"># 14 - 16       Atom           name          Atom name.</span>
 <span class="c1"># 17            Character      altLoc        Alternate location indicator.</span>
@@ -374,60 +384,60 @@
 <span class="c1"># 77 - 78       LString(2)     element       Element symbol; right-justified.</span>
 <span class="c1"># 79 - 80       LString(2)     charge        Charge on the atom.</span>
 <span class="c1"># Serial atomname resname chainid resid x y z 0 0 element</span>
-<span class="c1"># HETATM = &#39;HETATM&#39; + &#39;%5d&#39; + &#39; &#39;*2 + &#39;%-4s%-4s%1s%5d&#39; + &#39; &#39;*3 + &#39;%8.3f%8.3f%8.3f%6.2f%6.2f&#39; + &#39; &#39;*10 + &#39;%-2s\n&#39;</span>
+<span class="c1"># HETATM = 'HETATM' + '%5d' + ' '*2 + '%-4s%-4s%1s%5d' + ' '*3 + '%8.3f%8.3f%8.3f%6.2f%6.2f' + ' '*10 + '%-2s\n'</span>
 <span class="k">def</span> <span class="nf">HETATM</span><span class="p">(</span>
     <span class="n">serial</span><span class="p">,</span> <span class="n">particle_name</span><span class="p">,</span> <span class="n">molecule_name</span><span class="p">,</span> <span class="n">chain_id</span><span class="p">,</span> <span class="n">molecule_id</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">element</span>
 <span class="p">):</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="s2">&quot;HETATM&quot;</span>
-    <span class="n">len_serial</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%5d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">serial</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%5s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">serial</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">7</span> <span class="o">-</span> <span class="n">len_serial</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%-4s%-4s%1s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">particle_name</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">molecule_name</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">chain_id</span><span class="p">[:</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">len_molecule_id</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%4d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">molecule_id</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%4d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">molecule_id</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="n">len_molecule_id</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%8.3f%8.3f%8.3f%6.2f%6.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">10</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%-2s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">element</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="s2">"HETATM"</span>
+    <span class="n">len_serial</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s2">"</span><span class="si">%5d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">serial</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">"</span><span class="si">%5s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">serial</span> <span class="o">+</span> <span class="s2">" "</span> <span class="o">*</span> <span class="p">(</span><span class="mi">7</span> <span class="o">-</span> <span class="n">len_serial</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">"</span><span class="si">%-4s%-4s%1s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">particle_name</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">molecule_name</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">chain_id</span><span class="p">[:</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">len_molecule_id</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s2">"</span><span class="si">%4d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">molecule_id</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">"</span><span class="si">%4d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">molecule_id</span> <span class="o">+</span> <span class="s2">" "</span> <span class="o">*</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="n">len_molecule_id</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">"</span><span class="si">%8.3f%8.3f%8.3f%6.2f%6.2f</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">" "</span> <span class="o">*</span> <span class="mi">10</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">"</span><span class="si">%-2s</span><span class="se">\n</span><span class="s2">"</span> <span class="o">%</span> <span class="n">element</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">res</span>
 
 
 <span class="c1"># COLUMNS        DATA  TYPE    FIELD           DEFINITION</span>
 <span class="c1"># -------------------------------------------------------------------------</span>
-<span class="c1">#  1 -  6        Record name   &quot;TER   &quot;</span>
+<span class="c1">#  1 -  6        Record name   "TER   "</span>
 <span class="c1">#  7 - 11        Integer       serial          Serial number.</span>
 <span class="c1"># 18 - 20        Residue name  resName         Residue name.</span>
 <span class="c1"># 22             Character     chainID         Chain identifier.</span>
 <span class="c1"># 23 - 26        Integer       resSeq          Residue sequence number.</span>
 <span class="c1"># 27             AChar         iCode           Insertion code.</span>
 <span class="c1"># Serial resname chainid resid</span>
-<span class="c1"># TER = &#39;TER   &#39; + &#39;%5d&#39; + &#39; &#39;*6 + &#39;%-4s%1s%5d\n&#39;</span>
+<span class="c1"># TER = 'TER   ' + '%5d' + ' '*6 + '%-4s%1s%5d\n'</span>
 <span class="k">def</span> <span class="nf">TER</span><span class="p">(</span><span class="n">serial</span><span class="p">,</span> <span class="n">molecule_name</span><span class="p">,</span> <span class="n">chain_id</span><span class="p">,</span> <span class="n">molecule_id</span><span class="p">):</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="s2">&quot;TER   &quot;</span>
-    <span class="n">len_serial</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%5d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">serial</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%5s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">serial</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">11</span> <span class="o">-</span> <span class="n">len_serial</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%-4s%1s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">molecule_name</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">chain_id</span><span class="p">[:</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">len_molecule_id</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%4d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">molecule_id</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%4d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">molecule_id</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="n">len_molecule_id</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="s2">"TER   "</span>
+    <span class="n">len_serial</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s2">"</span><span class="si">%5d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">serial</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">"</span><span class="si">%5s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">serial</span> <span class="o">+</span> <span class="s2">" "</span> <span class="o">*</span> <span class="p">(</span><span class="mi">11</span> <span class="o">-</span> <span class="n">len_serial</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">"</span><span class="si">%-4s%1s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">molecule_name</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">chain_id</span><span class="p">[:</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">len_molecule_id</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s2">"</span><span class="si">%4d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">molecule_id</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s2">"</span><span class="si">%4d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">molecule_id</span> <span class="o">+</span> <span class="s2">" "</span> <span class="o">*</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="n">len_molecule_id</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
     <span class="k">return</span> <span class="n">res</span>
 
 
-<span class="n">END</span> <span class="o">=</span> <span class="s2">&quot;END&quot;</span>
+<span class="n">END</span> <span class="o">=</span> <span class="s2">"END"</span>
 
 
 <div class="viewcode-block" id="PDBWriter"><a class="viewcode-back" href="../../../api_reference/io/generated/mdpy.io.PDBWriter.html#mdpy.io.PDBWriter">[docs]</a><span class="k">class</span> <span class="nc">PDBWriter</span><span class="p">:</span>
 <div class="viewcode-block" id="PDBWriter.__init__"><a class="viewcode-back" href="../../../api_reference/io/generated/mdpy.io.PDBWriter.html#mdpy.io.PDBWriter.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span>
+        <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"w"</span><span class="p">,</span>
         <span class="n">topology</span><span class="p">:</span> <span class="n">Topology</span> <span class="o">=</span> <span class="n">Topology</span><span class="p">(),</span>
         <span class="n">pbc_matrix</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">NUMPY_FLOAT</span><span class="p">),</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pdb&quot;</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">FileFormatError</span><span class="p">(</span><span class="s2">&quot;The file should end with .pdb suffix&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".pdb"</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">FileFormatError</span><span class="p">(</span><span class="s2">"The file should end with .pdb suffix"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="n">file_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">mode</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">topology</span><span class="p">,</span> <span class="n">Topology</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="s2">&quot;The topology attribute should be the instance of mdpy.core.Topology class&quot;</span>
+                <span class="s2">"The topology attribute should be the instance of mdpy.core.Topology class"</span>
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_topology</span> <span class="o">=</span> <span class="n">topology</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pbc_matrix</span> <span class="o">=</span> <span class="n">check_quantity_value</span><span class="p">(</span><span class="n">pbc_matrix</span><span class="p">,</span> <span class="n">default_length_unit</span><span class="p">)</span>
@@ -447,11 +457,11 @@
             <span class="n">is_shape_error</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="n">is_shape_error</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ArrayDimError</span><span class="p">(</span>
-                <span class="s2">&quot;The topology contain </span><span class="si">%s</span><span class="s2"> particles while a positions array with shape </span><span class="si">%s</span><span class="s2"> is provided&quot;</span>
+                <span class="s2">"The topology contain </span><span class="si">%s</span><span class="s2"> particles while a positions array with shape </span><span class="si">%s</span><span class="s2"> is provided"</span>
                 <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_topology</span><span class="o">.</span><span class="n">num_particles</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">shape</span><span class="p">))</span>
             <span class="p">)</span>
         <span class="c1"># HEADER</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_header</span> <span class="ow">and</span> <span class="ow">not</span> <span class="s2">&quot;a&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_header</span> <span class="ow">and</span> <span class="ow">not</span> <span class="s2">"a"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_write_header</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_is_header</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1"># MODEL</span>
@@ -465,13 +475,13 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_write_end</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_write_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_write_header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">header</span> <span class="o">=</span> <span class="n">HEADER</span> <span class="o">%</span> <span class="p">(</span>
-            <span class="s2">&quot;PDB FILE CREATED WITH MDPY&quot;</span><span class="p">,</span>
-            <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">-%b-%Y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span>
+            <span class="s2">"PDB FILE CREATED WITH MDPY"</span><span class="p">,</span>
+            <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"</span><span class="si">%d</span><span class="s2">-%b-%Y"</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span>
         <span class="p">)</span>
         <span class="c1"># Transport for the correction of origin transport in mdpy.core.State class</span>
         <span class="n">pbc_len</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pbc_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -562,7 +572,7 @@
     <span class="k">def</span> <span class="nf">topology</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topology</span><span class="p">:</span> <span class="n">Topology</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">topology</span><span class="p">,</span> <span class="n">Topology</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="s2">&quot;The topology attribute should be the instance of mdpy.core.Topology class&quot;</span>
+                <span class="s2">"The topology attribute should be the instance of mdpy.core.Topology class"</span>
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_topology</span> <span class="o">=</span> <span class="n">topology</span>
 
@@ -614,8 +624,9 @@
     </aside>
   </div>
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>

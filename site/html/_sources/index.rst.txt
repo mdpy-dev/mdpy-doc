@@ -10,9 +10,7 @@ Table of content
    :maxdepth: 1
    :caption: Quick start
 
-   quick_start/overview
-   quick_start/installation
-   quick_start/cite
+   quick_start/index
 
 .. toctree::
    :maxdepth: 1
@@ -20,7 +18,7 @@ Table of content
 
    theory_behind_mdpy/default_unit
    theory_behind_mdpy/neighbor_list
-   theory_behind_mdpy/pme
+   theory_behind_mdpy/ewald_sum
    theory_behind_mdpy/thermostat
    theory_behind_mdpy/barostat
 
@@ -29,6 +27,7 @@ Table of content
    :caption: Tutorial
 
    tutorial/how_to_use_unit_package
+   tutorial/how_to_create_an_ensemble
 
 .. toctree::
    :maxdepth: 1
@@ -42,6 +41,7 @@ Table of content
    api_reference/core/index
    api_reference/io/index
    api_reference/constraint/index
+   api_reference/recipe/index
    api_reference/minimizer/index
    api_reference/integrator/index
 
@@ -50,3 +50,9 @@ Table of content
    :caption: Exception reference
 
    exception_reference/index
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Reference
+
+   reference/index

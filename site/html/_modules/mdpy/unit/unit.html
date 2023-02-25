@@ -1,13 +1,13 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
         <title>mdpy.unit.unit - MDPy</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -148,28 +148,31 @@
   <span class="sidebar-brand-text">MDPy</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Quick start</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/cite.html">Cite MDPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html#framework">Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html#performance">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/index.html#cite-mdpy">Cite MDPy</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Theory behind MDPy</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/default_unit.html">Default unit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/neighbor_list.html">Neighbor list</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/pme.html">Particle Mesh Ewald</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/ewald_sum.html">Ewald summation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/thermostat.html">Thermostat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/barostat.html">Barostat</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorial/how_to_use_unit_package.html">How to use mdpy.unit package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/how_to_create_an_ensemble.html">How to create an Ensemble object</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API reference</span></p>
 <ul>
@@ -210,12 +213,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/constraint/generated/mdpy.constraint.CharmmImproperConstraint.html">mdpy.constraint.CharmmImproperConstraint</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/minimizer/index.html">mdpy.minimizer</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/recipe/index.html">mdpy.recipe</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/recipe/generated/mdpy.recipe.CharmmRecipe.html">mdpy.recipe.CharmmRecipe</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/minimizer/index.html">mdpy.minimizer</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/minimizer/generated/mdpy.minimizer.SteepestDescentMinimizer.html">mdpy.minimizer.SteepestDescentMinimizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/minimizer/generated/mdpy.minimizer.ConjugateGradientMinimizer.html">mdpy.minimizer.ConjugateGradientMinimizer</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/integrator/index.html">mdpy.integrator</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/integrator/index.html">mdpy.integrator</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/integrator/generated/mdpy.integrator.VerletIntegrator.html">mdpy.integrator.VerletIntegrator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/integrator/generated/mdpy.integrator.LangevinIntegrator.html">mdpy.integrator.LangevinIntegrator</a></li>
 </ul>
@@ -224,6 +231,10 @@
 <p class="caption" role="heading"><span class="caption-text">Exception reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../exception_reference/index.html">Exception reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a></li>
 </ul>
 
 </div>
@@ -242,8 +253,7 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -260,12 +270,12 @@
           <h1>Source code for mdpy.unit.unit</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- encoding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">file : unit.py</span>
 <span class="sd">created time : 2021/09/28</span>
 <span class="sd">author : Zhenyu Wei</span>
 <span class="sd">copyright : (C)Copyright 2021-present, mdpy organization</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
@@ -276,49 +286,49 @@
 
 <div class="viewcode-block" id="Unit"><a class="viewcode-back" href="../../../api_reference/unit/generated/mdpy.unit.Unit.html#mdpy.unit.Unit">[docs]</a><span class="k">class</span> <span class="nc">Unit</span><span class="p">:</span>
 <div class="viewcode-block" id="Unit.__init__"><a class="viewcode-back" href="../../../api_reference/unit/generated/mdpy.unit.Unit.html#mdpy.unit.Unit.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_dimension</span><span class="p">:</span> <span class="n">BaseDimension</span><span class="p">,</span> <span class="n">relative_value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">"""</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        base_dimension : BaseDimension</span>
 <span class="sd">            the dimension of unit</span>
 <span class="sd">        relative_value : int or float</span>
 <span class="sd">            the relative value of ``self`` to the basic unit of ``base_dimension``</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span> <span class="o">=</span> <span class="n">base_dimension</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span> <span class="o">=</span> <span class="n">UNIT_FLOAT</span><span class="p">(</span>
             <span class="n">relative_value</span>
         <span class="p">)</span>  <span class="c1"># The relative value to the normal unit like angstrom in Length</span></div>
 
     <span class="k">def</span> <span class="nf">is_dimension_less</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">"""</span>
 <span class="sd">        is_dimension_less judges wether ``self`` is dimensionless</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        bool</span>
 <span class="sd">            - True, the unit is dimensionless</span>
-<span class="sd">            - False, the unit isn&#39;t dimensionless</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            - False, the unit isn't dimensionless</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span><span class="o">.</span><span class="n">is_dimension_less</span><span class="p">():</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">set_relative_value_to_one</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">"""</span>
 <span class="sd">        set_relative_value_to_one sets ``self.relative_value = 1``</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span> <span class="o">=</span> <span class="mi">1</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;&lt;Unit object: </span><span class="si">%.2e</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> at 0x</span><span class="si">%x</span><span class="s2">&gt;&quot;</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="k">return</span> <span class="s2">"&lt;Unit object: </span><span class="si">%.2e</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> at 0x</span><span class="si">%x</span><span class="s2">&gt;"</span> <span class="o">%</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.2e</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">"</span><span class="si">%.2e</span><span class="s2"> </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="n">err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span>
@@ -338,12 +348,12 @@
                 <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">UnitDimensionMismatchedError</span><span class="p">(</span>
-                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2"> can&#39;t be added together&quot;</span>
+                    <span class="s2">"</span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2"> can't be added together"</span>
                     <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">base_dimension</span><span class="p">)</span>
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s2">&quot;+ between </span><span class="si">%s</span><span class="s2"> and mdpy.unit.Unit is not implemented&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+                <span class="s2">"+ between </span><span class="si">%s</span><span class="s2"> and mdpy.unit.Unit is not implemented"</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
             <span class="p">)</span>
 
     <span class="fm">__iadd__</span> <span class="o">=</span> <span class="fm">__add__</span>
@@ -354,12 +364,12 @@
                 <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">UnitDimensionMismatchedError</span><span class="p">(</span>
-                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2"> can not be added&quot;</span>
+                    <span class="s2">"</span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2"> can not be added"</span>
                     <span class="o">%</span> <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">base_dimension</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span><span class="p">)</span>
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s2">&quot;+ between mdpy.unit.Unit and </span><span class="si">%s</span><span class="s2"> is not implemented&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+                <span class="s2">"+ between mdpy.unit.Unit and </span><span class="si">%s</span><span class="s2"> is not implemented"</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -368,12 +378,12 @@
                 <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">UnitDimensionMismatchedError</span><span class="p">(</span>
-                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2"> can not be subbed&quot;</span>
+                    <span class="s2">"</span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2"> can not be subbed"</span>
                     <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">base_dimension</span><span class="p">)</span>
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s2">&quot;- between </span><span class="si">%s</span><span class="s2"> and mdpy.unit.Unit is not implemented&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+                <span class="s2">"- between </span><span class="si">%s</span><span class="s2"> and mdpy.unit.Unit is not implemented"</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
             <span class="p">)</span>
 
     <span class="fm">__isub__</span> <span class="o">=</span> <span class="fm">__sub__</span>
@@ -384,12 +394,12 @@
                 <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">UnitDimensionMismatchedError</span><span class="p">(</span>
-                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2"> can not be subbed&quot;</span>
+                    <span class="s2">"</span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2"> can not be subbed"</span>
                     <span class="o">%</span> <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">base_dimension</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span><span class="p">)</span>
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s2">&quot;- between mdpy.unit.Unit and </span><span class="si">%s</span><span class="s2"> is not implemented&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+                <span class="s2">"- between mdpy.unit.Unit and </span><span class="si">%s</span><span class="s2"> is not implemented"</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -400,7 +410,7 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s2">&quot;* between </span><span class="si">%s</span><span class="s2"> and mdpy.unit.Unit is not implemented&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+                <span class="s2">"* between </span><span class="si">%s</span><span class="s2"> and mdpy.unit.Unit is not implemented"</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
             <span class="p">)</span>
 
     <span class="fm">__imul__</span> <span class="o">=</span> <span class="fm">__mul__</span>
@@ -414,7 +424,7 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s2">&quot;/ between </span><span class="si">%s</span><span class="s2"> and mdpy.unit.Unit is not implemented&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+                <span class="s2">"/ between </span><span class="si">%s</span><span class="s2"> and mdpy.unit.Unit is not implemented"</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
             <span class="p">)</span>
 
     <span class="fm">__itruediv__</span> <span class="o">=</span> <span class="fm">__truediv__</span>
@@ -429,7 +439,7 @@
             <span class="k">return</span> <span class="n">Unit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span><span class="o">**-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s2">&quot;/ between mdpy.unit.Unit and </span><span class="si">%s</span><span class="s2"> is not implemented&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+                <span class="s2">"/ between mdpy.unit.Unit and </span><span class="si">%s</span><span class="s2"> is not implemented"</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
@@ -437,53 +447,53 @@
             <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Unit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span><span class="o">**</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span><span class="o">**</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The power term should be a single number&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"The power term should be a single number"</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">"""</span>
 <span class="sd">        sqrt returns square root of Unit</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        Unit</span>
 <span class="sd">            square root of ``self``</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">Unit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span><span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">unit_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">"""</span>
 <span class="sd">        unit_name gets the name of the unit</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        str</span>
 <span class="sd">            the name of unit</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_dimension</span><span class="o">.</span><span class="n">name</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">base_dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">"""</span>
 <span class="sd">        base_dimension gets the dimension of the unit</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        BaseDimension</span>
 <span class="sd">            the dimension of unit</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_dimension</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">relative_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">"""</span>
 <span class="sd">        relative_value gets the relative value to the basic unit</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        int or float</span>
 <span class="sd">            the relative value to the basic unit</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_relative_value</span></div>
 </pre></div>
         </article>
@@ -525,8 +535,9 @@
     </aside>
   </div>
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>
