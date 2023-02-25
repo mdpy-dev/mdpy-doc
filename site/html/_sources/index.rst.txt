@@ -26,8 +26,8 @@ Table of content
    :maxdepth: 1
    :caption: Tutorial
 
-   tutorial/how_to_use_unit_package
-   tutorial/how_to_create_an_ensemble
+   tutorial/unit
+   tutorial/ensemble
 
 .. toctree::
    :maxdepth: 1

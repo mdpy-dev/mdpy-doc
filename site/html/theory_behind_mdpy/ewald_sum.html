@@ -172,8 +172,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/how_to_use_unit_package.html">How to use mdpy.unit package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/how_to_create_an_ensemble.html">How to create an Ensemble object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/unit.html">How to use mdpy.unit package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/ensemble.html">How to create an ensemble</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API reference</span></p>
 <ul>
@@ -270,11 +270,14 @@
         <article role="main">
           <section id="ewald-summation">
 <h1>Ewald summation<a class="headerlink" href="#ewald-summation" title="Permalink to this headline">#</a></h1>
-<div class="math-wrapper"><div class="math notranslate nohighlight">
-\[\begin{split}\begin{cases}
+<div class="math-wrapper"><div class="math notranslate nohighlight" id="equation-euler">
+<span class="eqno">(1)<a class="headerlink" href="#equation-euler" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{equation}
+\begin{cases}
     \displaystyle \phi _{\text{G}}(r)=\frac{q}{4\pi \varepsilon _0r}\text{erf(}\alpha r\text{),erf(}x)=\frac{2}{\pi ^{\text{1/}2}}\int_0^x{\text{e}^{-x^2}}\text{d}x \\\\
     \displaystyle \phi _{\delta}(r)=\frac{q}{4\pi \varepsilon _0r}
-\end{cases}\end{split}\]</div></div>
+\end{cases}
+\label{equation}
+\end{equation}\end{split}\]</div></div>
 <p>PME <span id="id1">[<a class="reference internal" href="../reference/index.html#id2" title="Tom Darden, Darrin York, and Lee Pedersen. Particle mesh ewald: an \emph N ·log( \emph N ) method for ewald sums in large systems. The Journal of Chemical Physics, 98(12):10089–10092, June 1993. doi:10.1063/1.464397.">1</a>, <a class="reference internal" href="../reference/index.html#id3" title="Ulrich Essmann, Lalith Perera, Max L. Berkowitz, Tom Darden, Hsing Lee, and Lee G. Pedersen. A smooth particle mesh ewald method. The Journal of Chemical Physics, 103(19):8577–8593, November 1995. doi:10.1063/1.470117.">2</a>]</span>, Particle-Particle Particle Mesh <span id="id2">[<a class="reference internal" href="../reference/index.html#id4" title="Roger W. Hockney and James W. Eastwood. Computer Simulation Using Particles. Inst. of Physics Publ, Bristol, reprinted edition, 1999. ISBN 978-0-85274-392-8.">3</a>, <a class="reference internal" href="../reference/index.html#id5" title="E.L. Pollock and Jim Glosli. Comments on p3m, fmm, and the ewald method for large periodic coulombic systems. Computer Physics Communications, 95(2-3):93–110, June 1996. doi:10.1016/0010-4655(96)00043-4.">4</a>]</span> (PPPM or P3M) method</p>
 </section>
 
@@ -339,6 +342,8 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/furo.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>

@@ -34,6 +34,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.autosummary",
     "sphinxcontrib.bibtex",
+    "nbsphinx",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -73,3 +74,13 @@ html_title = "MDPy"
 html_static_path = ["_static"]
 
 bibtex_bibfiles = ["./reference/refs.bib"]
+
+math_numfig = True
+numfig = True
+numfig_secnum_depth = 3
+numfig_format = {
+    "figure": "Fig. %s",
+    "table": "Table %s",
+    "code-block": "Listing %s",
+    "section": "Section %s",
+}
