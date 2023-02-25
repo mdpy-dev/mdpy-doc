@@ -302,7 +302,7 @@
     "`mdpy.unit` package has two main job:\n",
     "\n",
     "- Convert all kind of unit system to the **default unit system** used in MDPy\n",
-    "- Convert the result from MDPy to frequently used unit system\n",
+    "- Convert the result from MDPy in the **default unit system** to frequently used unit system\n",
     "\n",
     "To achieve this, `Quantity` class provide `convert_to` method:"
    ]
