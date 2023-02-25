@@ -14,7 +14,6 @@
    .. autosummary::
    
       ~State.__init__
-      ~State.generator
       ~State.set_pbc_matrix
       ~State.set_positions
       ~State.set_velocities
@@ -33,10 +32,10 @@
       ~State.device_pbc_matrix
       ~State.half_pbc_diag
       ~State.matrix_shape
-      ~State.neighbor_list
       ~State.pbc_diag
       ~State.pbc_matrix
       ~State.positions
+      ~State.sorted_positions
       ~State.velocities
    
    

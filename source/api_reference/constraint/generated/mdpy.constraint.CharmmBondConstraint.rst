@@ -16,6 +16,7 @@
       ~CharmmBondConstraint.__init__
       ~CharmmBondConstraint.bind_ensemble
       ~CharmmBondConstraint.set_cutoff_radius
+      ~CharmmBondConstraint.sort_attributes
       ~CharmmBondConstraint.update
    
    

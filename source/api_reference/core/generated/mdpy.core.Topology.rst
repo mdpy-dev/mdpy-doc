@@ -36,14 +36,16 @@
    .. autosummary::
    
       ~Topology.angles
-      ~Topology.bonded_particles
       ~Topology.bonds
       ~Topology.charges
-      ~Topology.device_bonded_particles
       ~Topology.device_charges
+      ~Topology.device_excluded_particles
+      ~Topology.device_exclusion_map
       ~Topology.device_masses
-      ~Topology.device_scaling_particles
+      ~Topology.device_scaled_particles
+      ~Topology.device_sorted_charges
       ~Topology.dihedrals
+      ~Topology.excluded_particles
       ~Topology.impropers
       ~Topology.is_joined
       ~Topology.masses
@@ -53,6 +55,6 @@
       ~Topology.num_impropers
       ~Topology.num_particles
       ~Topology.particles
-      ~Topology.scaling_particles
+      ~Topology.scaled_particles
    
    

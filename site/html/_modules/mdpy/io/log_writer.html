@@ -1,13 +1,13 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>mdpy.io.log_writer - MDPy</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -148,7 +148,7 @@
   <span class="sidebar-brand-text">MDPy</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -157,7 +157,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quick_start/overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quick_start/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/framework.html">Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quick_start/cite.html">Cite MDPy</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Theory behind MDPy</span></p>
@@ -182,7 +181,7 @@
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/core/index.html">mdpy.core</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.Particle.html">mdpy.core.Particle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.NeighborList.html">mdpy.core.NeighborList</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.TileList.html">mdpy.core.TileList</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.Topology.html">mdpy.core.Topology</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.State.html">mdpy.core.State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.Trajectory.html">mdpy.core.Trajectory</a></li>
@@ -243,7 +242,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -260,12 +260,12 @@
           <h1>Source code for mdpy.io.log_writer</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- encoding: utf-8 -*-</span>
-<span class="sd">'''</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">file : log_writer.py</span>
 <span class="sd">created time : 2022/04/06</span>
 <span class="sd">author : Zhenyu Wei</span>
 <span class="sd">copyright : (C)Copyright 2021-present, mdpy organization</span>
-<span class="sd">'''</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
@@ -274,28 +274,30 @@
 <span class="kn">from</span> <span class="nn">mdpy.utils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">mdpy.error</span> <span class="kn">import</span> <span class="o">*</span>
 
+
 <div class="viewcode-block" id="LogWriter"><a class="viewcode-back" href="../../../api_reference/io/generated/mdpy.io.LogWriter.html#mdpy.io.LogWriter">[docs]</a><span class="k">class</span> <span class="nc">LogWriter</span><span class="p">:</span>
 <div class="viewcode-block" id="LogWriter.__init__"><a class="viewcode-back" href="../../../api_reference/io/generated/mdpy.io.LogWriter.html#mdpy.io.LogWriter.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">time_step</span><span class="p">,</span>
-        <span class="n">step</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">sim_time</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">sim_speed</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">potential_energy</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">kinetic_energy</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">total_energy</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">temperature</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">pressure</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">volume</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">density</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">cpu_time</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">rest_time</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">total_step</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-        <span class="n">seperator</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">'</span><span class="se">\t</span><span class="s1">'</span>
+        <span class="n">step</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">sim_time</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">sim_speed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">potential_energy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">kinetic_energy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">total_energy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">pressure</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">volume</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">density</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">cpu_time</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">rest_time</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">total_step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">seperator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># Input</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.log'</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">FileFormatError</span><span class="p">(</span><span class="s1">'The file should end with .log suffix'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.log&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">FileFormatError</span><span class="p">(</span><span class="s2">&quot;The file should end with .log suffix&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="n">file_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_time_step</span> <span class="o">=</span> <span class="n">check_quantity_value</span><span class="p">(</span><span class="n">time_step</span><span class="p">,</span> <span class="n">default_time_unit</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">=</span> <span class="n">step</span>
@@ -314,10 +316,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span> <span class="o">=</span> <span class="n">seperator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_step</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rest_time</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">IOPoorDefinedError</span><span class="p">(</span>
-                <span class="s1">'mdpy.core.LogDumper cannot provide rest_time without specifying total_step'</span>
+                <span class="s2">&quot;mdpy.core.LogDumper cannot provide rest_time without specifying total_step&quot;</span>
             <span class="p">)</span>
         <span class="c1"># Refresh file</span>
-        <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="c1"># Variables</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initial_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_now</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cur_write_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_now</span><span class="p">()</span>
@@ -330,13 +332,13 @@
         <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_write_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="s1">'a'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ensemble</span><span class="p">:</span> <span class="n">Ensemble</span><span class="p">,</span> <span class="n">cur_step</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cur_write_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_now</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpu_time</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cur_write_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_time</span><span class="p">)</span>
-        <span class="n">write_info</span> <span class="o">=</span> <span class="s1">''</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cpu_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cur_write_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_time</span>
+        <span class="n">write_info</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="p">:</span>
             <span class="n">write_info</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_step</span><span class="p">(</span><span class="n">cur_step</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim_time</span><span class="p">:</span>
@@ -361,112 +363,125 @@
             <span class="n">write_info</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_sim_speed</span><span class="p">(</span><span class="n">cur_step</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rest_time</span><span class="p">:</span>
             <span class="n">write_info</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_rest_time</span><span class="p">(</span><span class="n">cur_step</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
-        <span class="k">if</span> <span class="n">write_info</span> <span class="o">!=</span> <span class="s1">''</span><span class="p">:</span>
-            <span class="n">write_info</span> <span class="o">+=</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span>
+        <span class="k">if</span> <span class="n">write_info</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">write_info</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_write_info</span><span class="p">(</span><span class="n">write_info</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_write_header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">header</span> <span class="o">=</span> <span class="s1">''</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="p">:</span>
-            <span class="n">header</span> <span class="o">+=</span> <span class="s1">'Step'</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="s2">&quot;Step&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim_time</span><span class="p">:</span>
-            <span class="n">header</span> <span class="o">+=</span> <span class="s1">'Time (ns)'</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="s2">&quot;Time (ns)&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_potential_energy</span><span class="p">:</span>
-            <span class="n">header</span> <span class="o">+=</span> <span class="s1">'E_p (kj/mol)'</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="s2">&quot;E_p (kj/mol)&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kinetic_energy</span><span class="p">:</span>
-            <span class="n">header</span> <span class="o">+=</span> <span class="s1">'E_k (kj/mol)'</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="s2">&quot;E_k (kj/mol)&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_energy</span><span class="p">:</span>
-            <span class="n">header</span> <span class="o">+=</span> <span class="s1">'E_t (kj/mol)'</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="s2">&quot;E_t (kj/mol)&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_temperature</span><span class="p">:</span>
-            <span class="n">header</span> <span class="o">+=</span> <span class="s1">'Temperature (K)'</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="s2">&quot;Temperature (K)&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_volume</span><span class="p">:</span>
-            <span class="n">header</span> <span class="o">+=</span> <span class="s1">'Volume (nm^3)'</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="s2">&quot;Volume (nm^3)&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pressure</span><span class="p">:</span>
-            <span class="n">header</span> <span class="o">+=</span> <span class="s1">'Pressure (atm)'</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="s2">&quot;Pressure (atm)&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_density</span><span class="p">:</span>
-            <span class="n">header</span> <span class="o">+=</span> <span class="s1">'Density (1e3*kg/m^3)'</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="s2">&quot;Density (1e3*kg/m^3)&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cpu_time</span><span class="p">:</span>
-            <span class="n">header</span> <span class="o">+=</span> <span class="s1">'CPU Time'</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="s2">&quot;CPU Time&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim_speed</span><span class="p">:</span>
-            <span class="n">header</span> <span class="o">+=</span> <span class="s1">'Speed (ns/day)'</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="s2">&quot;Speed (ns/day)&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rest_time</span><span class="p">:</span>
-            <span class="n">header</span> <span class="o">+=</span> <span class="s1">'Rest Time'</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
-        <span class="k">if</span> <span class="n">header</span> <span class="o">!=</span> <span class="s1">''</span><span class="p">:</span>
-            <span class="n">header</span> <span class="o">+=</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="s2">&quot;Rest Time&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seperator</span>
+        <span class="k">if</span> <span class="n">header</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_write_info</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cur_step</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">'</span><span class="si">%d</span><span class="s1">'</span> <span class="o">%</span><span class="p">(</span><span class="n">cur_step</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cur_step</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_sim_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cur_step</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="n">sim_time</span> <span class="o">=</span> <span class="n">cur_step</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time_step</span>
         <span class="n">sim_time</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="n">sim_time</span><span class="p">,</span> <span class="n">default_time_unit</span><span class="p">)</span><span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">nanosecond</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-        <span class="k">return</span> <span class="s1">'</span><span class="si">%.2e</span><span class="s1">'</span> <span class="o">%</span><span class="n">sim_time</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.2e</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">sim_time</span>
 
     <span class="k">def</span> <span class="nf">_get_potential_energy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ensemble</span><span class="p">:</span> <span class="n">Ensemble</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">'</span><span class="si">%.3f</span><span class="s1">'</span> <span class="o">%</span><span class="n">Quantity</span><span class="p">(</span>
-            <span class="n">ensemble</span><span class="o">.</span><span class="n">potential_energy</span><span class="p">,</span> <span class="n">default_energy_unit</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">kilojoule_permol</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2">&quot;</span>
+            <span class="o">%</span> <span class="n">Quantity</span><span class="p">(</span><span class="n">ensemble</span><span class="o">.</span><span class="n">potential_energy</span><span class="p">,</span> <span class="n">default_energy_unit</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">kilojoule_permol</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">value</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_kinetic_energy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ensemble</span><span class="p">:</span> <span class="n">Ensemble</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">'</span><span class="si">%.3f</span><span class="s1">'</span> <span class="o">%</span><span class="n">Quantity</span><span class="p">(</span>
-            <span class="n">ensemble</span><span class="o">.</span><span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">default_energy_unit</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">kilojoule_permol</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2">&quot;</span>
+            <span class="o">%</span> <span class="n">Quantity</span><span class="p">(</span><span class="n">ensemble</span><span class="o">.</span><span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">default_energy_unit</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">kilojoule_permol</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">value</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_total_energy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ensemble</span><span class="p">:</span> <span class="n">Ensemble</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">'</span><span class="si">%.3f</span><span class="s1">'</span> <span class="o">%</span><span class="n">Quantity</span><span class="p">(</span>
-            <span class="n">ensemble</span><span class="o">.</span><span class="n">total_energy</span><span class="p">,</span> <span class="n">default_energy_unit</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">kilojoule_permol</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2">&quot;</span>
+            <span class="o">%</span> <span class="n">Quantity</span><span class="p">(</span><span class="n">ensemble</span><span class="o">.</span><span class="n">total_energy</span><span class="p">,</span> <span class="n">default_energy_unit</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">kilojoule_permol</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">value</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ensemble</span><span class="p">:</span> <span class="n">Ensemble</span><span class="p">):</span>
         <span class="n">kinetic_energy</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="n">ensemble</span><span class="o">.</span><span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">default_energy_unit</span><span class="p">)</span>
         <span class="n">num_particles</span> <span class="o">=</span> <span class="n">ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">num_particles</span>
         <span class="n">temperature</span> <span class="o">=</span> <span class="n">kinetic_energy</span> <span class="o">*</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">/</span> <span class="n">num_particles</span><span class="p">)</span> <span class="o">/</span> <span class="n">KB</span>
-        <span class="k">return</span> <span class="s1">'</span><span class="si">%.2f</span><span class="s1">'</span> <span class="o">%</span><span class="n">temperature</span><span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">default_temperature_unit</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">temperature</span><span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">default_temperature_unit</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
 
     <span class="k">def</span> <span class="nf">_get_volume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ensemble</span><span class="p">:</span> <span class="n">Ensemble</span><span class="p">):</span>
         <span class="n">pbc_matrix</span> <span class="o">=</span> <span class="n">ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">pbc_matrix</span>
         <span class="n">volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">pbc_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">pbc_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
         <span class="n">volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">volume</span><span class="p">,</span> <span class="n">pbc_matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:])</span>
-        <span class="n">volume</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">volume</span><span class="p">),</span>
-            <span class="n">default_length_unit</span><span class="o">**</span><span class="mi">3</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">nanometer</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-        <span class="k">return</span> <span class="s1">'</span><span class="si">%.3f</span><span class="s1">'</span> <span class="o">%</span><span class="n">volume</span>
+        <span class="n">volume</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">Quantity</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">volume</span><span class="p">),</span> <span class="n">default_length_unit</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">nanometer</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">value</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">volume</span>
 
     <span class="k">def</span> <span class="nf">_get_density</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ensemble</span><span class="p">:</span> <span class="n">Ensemble</span><span class="p">):</span>
         <span class="n">pbc_matrix</span> <span class="o">=</span> <span class="n">ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">pbc_matrix</span>
         <span class="n">volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">pbc_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">pbc_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
         <span class="n">volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">volume</span><span class="p">,</span> <span class="n">pbc_matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]))</span>
         <span class="n">mass</span> <span class="o">=</span> <span class="n">ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">masses</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-        <span class="n">density</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span>
-            <span class="n">mass</span><span class="o">/</span><span class="n">volume</span><span class="p">,</span>
-            <span class="n">default_mass_unit</span><span class="o">/</span><span class="n">default_length_unit</span><span class="o">**</span><span class="mi">3</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">kilogram</span><span class="o">/</span><span class="n">meter</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-        <span class="k">return</span> <span class="s1">'</span><span class="si">%.3f</span><span class="s1">'</span> <span class="o">%</span><span class="p">(</span><span class="n">density</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="n">density</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">Quantity</span><span class="p">(</span><span class="n">mass</span> <span class="o">/</span> <span class="n">volume</span><span class="p">,</span> <span class="n">default_mass_unit</span> <span class="o">/</span> <span class="n">default_length_unit</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">kilogram</span> <span class="o">/</span> <span class="n">meter</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">value</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">density</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_cpu_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">'</span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cpu_time</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cpu_time</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_rest_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cur_step</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">cur_step</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s1">'--:--:--'</span>
+            <span class="k">return</span> <span class="s2">&quot;--:--:--&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">unfinished_ratio</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">cur_step</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_step</span><span class="p">)</span>
             <span class="n">cpu_seconds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cpu_time</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
             <span class="n">rest_seconds</span> <span class="o">=</span> <span class="n">cpu_seconds</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">unfinished_ratio</span><span class="p">)</span> <span class="o">*</span> <span class="n">unfinished_ratio</span>
-            <span class="k">return</span> <span class="s1">'</span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">rest_seconds</span><span class="p">))</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">rest_seconds</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_get_sim_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cur_step</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cur_write_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_now</span><span class="p">()</span>
         <span class="n">cpu_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cpu_time</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">cpu_time</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s1">'--:--:--'</span>
+            <span class="k">return</span> <span class="s2">&quot;--:--:--&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">cpu_time</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="n">cpu_time</span><span class="p">,</span> <span class="n">second</span><span class="p">)</span><span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">day</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
             <span class="n">sim_time</span> <span class="o">=</span> <span class="n">cur_step</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time_step</span>
-            <span class="n">sim_time</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="n">sim_time</span><span class="p">,</span> <span class="n">default_time_unit</span><span class="p">)</span><span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">nanosecond</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-            <span class="k">return</span> <span class="s1">'</span><span class="si">%.4f</span><span class="s1">'</span> <span class="o">%</span><span class="p">(</span><span class="n">sim_time</span> <span class="o">/</span> <span class="n">cpu_time</span><span class="p">)</span></div>
+            <span class="n">sim_time</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">Quantity</span><span class="p">(</span><span class="n">sim_time</span><span class="p">,</span> <span class="n">default_time_unit</span><span class="p">)</span><span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">nanosecond</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sim_time</span> <span class="o">/</span> <span class="n">cpu_time</span><span class="p">)</span></div>
 </pre></div>
         </article>
       </div>
@@ -507,9 +522,8 @@
     </aside>
   </div>
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>

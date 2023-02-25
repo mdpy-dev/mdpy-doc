@@ -1,13 +1,13 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>mdpy.constraint.electrostatic_pme_constraint - MDPy</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -148,7 +148,7 @@
   <span class="sidebar-brand-text">MDPy</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -157,7 +157,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quick_start/overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quick_start/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/framework.html">Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quick_start/cite.html">Cite MDPy</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Theory behind MDPy</span></p>
@@ -182,7 +181,7 @@
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/core/index.html">mdpy.core</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.Particle.html">mdpy.core.Particle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.NeighborList.html">mdpy.core.NeighborList</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.TileList.html">mdpy.core.TileList</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.Topology.html">mdpy.core.Topology</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.State.html">mdpy.core.State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.Trajectory.html">mdpy.core.Trajectory</a></li>
@@ -243,7 +242,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -260,12 +260,12 @@
           <h1>Source code for mdpy.constraint.electrostatic_pme_constraint</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- encoding: utf-8 -*-</span>
-<span class="sd">'''</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">file : electrostatic_pme_constraint.py</span>
 <span class="sd">created time : 2022/04/07</span>
 <span class="sd">author : Zhenyu Wei</span>
 <span class="sd">copyright : (C)Copyright 2021-present, mdpy organization</span>
-<span class="sd">'''</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -275,34 +275,39 @@
 <span class="kn">from</span> <span class="nn">mdpy</span> <span class="kn">import</span> <span class="n">SPATIAL_DIM</span>
 <span class="kn">from</span> <span class="nn">mdpy.environment</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">mdpy.core</span> <span class="kn">import</span> <span class="n">Ensemble</span>
-<span class="kn">from</span> <span class="nn">mdpy.core</span> <span class="kn">import</span> <span class="n">MAX_NUM_BONDED_PARTICLES</span>
+<span class="kn">from</span> <span class="nn">mdpy.core</span> <span class="kn">import</span> <span class="n">NUM_PARTICLES_PER_TILE</span>
 <span class="kn">from</span> <span class="nn">mdpy.constraint</span> <span class="kn">import</span> <span class="n">Constraint</span>
 <span class="kn">from</span> <span class="nn">mdpy.utils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">mdpy.unit</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">mdpy.error</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">PME_ORDER</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">THREAD_PER_BLOCK</span> <span class="o">=</span> <span class="p">(</span><span class="mi">64</span><span class="p">)</span>
+<span class="n">THREAD_PER_BLOCK</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">TILES_PER_THREAD</span> <span class="o">=</span> <span class="mi">4</span>
+
 
 <span class="k">def</span> <span class="nf">bspline</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">0</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="n">x</span> <span class="o">*</span> <span class="n">bspline</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">order</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">order</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span>
-            <span class="p">(</span><span class="n">order</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">bspline</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">order</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">order</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">bspline</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">order</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">order</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">order</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">bspline</span><span class="p">(</span>
+            <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">order</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">order</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">gamma_sum</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">num_grids</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">m</span> <span class="o">/</span> <span class="n">num_grids</span>
     <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">51</span><span class="p">)</span>
     <span class="n">res</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="p">((</span><span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">k</span><span class="p">))</span><span class="o">**</span><span class="n">order</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="n">res</span> <span class="o">+=</span> <span class="p">((</span><span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">k</span><span class="p">))</span><span class="o">**</span><span class="n">order</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="p">((</span><span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">k</span><span class="p">))</span> <span class="o">**</span> <span class="n">order</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="p">((</span><span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">k</span><span class="p">))</span> <span class="o">**</span> <span class="n">order</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">res</span>
 
+
 <div class="viewcode-block" id="ElectrostaticPMEConstraint"><a class="viewcode-back" href="../../../api_reference/constraint/generated/mdpy.constraint.ElectrostaticPMEConstraint.html#mdpy.constraint.ElectrostaticPMEConstraint">[docs]</a><span class="k">class</span> <span class="nc">ElectrostaticPMEConstraint</span><span class="p">(</span><span class="n">Constraint</span><span class="p">):</span>
-<div class="viewcode-block" id="ElectrostaticPMEConstraint.__init__"><a class="viewcode-back" href="../../../api_reference/constraint/generated/mdpy.constraint.ElectrostaticPMEConstraint.html#mdpy.constraint.ElectrostaticPMEConstraint.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cutoff_radius</span><span class="o">=</span><span class="n">Quantity</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">angstrom</span><span class="p">),</span> <span class="n">direct_sum_energy_tolerance</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="ElectrostaticPMEConstraint.__init__"><a class="viewcode-back" href="../../../api_reference/constraint/generated/mdpy.constraint.ElectrostaticPMEConstraint.html#mdpy.constraint.ElectrostaticPMEConstraint.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">cutoff_radius</span><span class="o">=</span><span class="n">Quantity</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">angstrom</span><span class="p">),</span> <span class="n">direct_sum_energy_tolerance</span><span class="o">=</span><span class="mf">1e-5</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cutoff_radius</span> <span class="o">=</span> <span class="n">check_quantity_value</span><span class="p">(</span><span class="n">cutoff_radius</span><span class="p">,</span> <span class="n">default_length_unit</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_cutoff_radius</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_cutoff_radius</span><span class="p">],</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
@@ -310,58 +315,84 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_ewald_coefficient</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_ewald_coefficient</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_ewald_coefficient</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_ewald_coefficient</span><span class="p">],</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_k</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">EPSILON0</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_device_k</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">EPSILON0</span><span class="o">.</span><span class="n">value</span><span class="p">],</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_k</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_k</span><span class="p">],</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_inverse_k</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_k</span><span class="p">],</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
         <span class="c1"># Attribute</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_grid_size</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_b_grid</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c_grid</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># Kernel</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_direct_part</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">jit</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">void</span><span class="p">(</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># charges</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># k</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># ewald_coefficient</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># cutoff_radius</span>
-            <span class="n">NUMBA_INT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># bonded_particles</span>
-            <span class="n">NUMBA_INT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># neighbor_list</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># neighbor_vec_list</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># force</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[::</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># potential_energy</span>
-        <span class="p">))(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_direct_part_kernel</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_bspline</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">jit</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">void</span><span class="p">(</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># position</span>
-            <span class="n">NUMBA_INT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># grid_size,</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># pbc_matrix</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># spline_coefficient</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># spline_derivative_coefficient</span>
-            <span class="n">NUMBA_INT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># grid_map</span>
-        <span class="p">))(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_bspline_kernel</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_charge_map</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">jit</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">void</span><span class="p">(</span>
-            <span class="n">NUMBA_INT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># num_particles</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># spline_coefficient</span>
-            <span class="n">NUMBA_INT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># grid_map</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># charges</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># charge_map</span>
-        <span class="p">))(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_charge_map_kernel</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_electric_potential_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_reciprocal_electric_potential_map_kernel</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_reciprocal_force</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">jit</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">void</span><span class="p">(</span>
-            <span class="n">NUMBA_INT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># num_particles</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># spline_coefficient</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># spline_derivative_coefficient</span>
-            <span class="n">NUMBA_INT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># grid_map</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># electric_potential_map</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># charges</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># forces</span>
-            <span class="n">NUMBA_FLOAT</span><span class="p">[::</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># potential_energy</span>
-        <span class="p">))(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_reciprocal_force_kernel</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_pme_direct_part</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">jit</span><span class="p">(</span>
+            <span class="n">nb</span><span class="o">.</span><span class="n">void</span><span class="p">(</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># inverse_k</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># ewald_coefficient</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># cutoff_radius</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># pbc_matrix</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># sorted_positions</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># sorted_charges</span>
+                <span class="n">NUMBA_BIT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># exclusion_map</span>
+                <span class="n">NUMBA_INT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># tile_neighbors</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># sorted_forces</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># potential_energy</span>
+            <span class="p">),</span>
+            <span class="n">fastmath</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">max_registers</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+        <span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_pme_direct_part_kernel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_excluded_pme_direct_part</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">jit</span><span class="p">(</span>
+            <span class="n">nb</span><span class="o">.</span><span class="n">void</span><span class="p">(</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># inverse_k</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># ewald_coefficient</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># cutoff_radius</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># pbc_matrix</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># positions</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># charges</span>
+                <span class="n">NUMBA_INT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># excluded_particles</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># forces</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># potential_energy</span>
+            <span class="p">)</span>
+        <span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_excluded_pme_direct_part_kernel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_bspline</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">jit</span><span class="p">(</span>
+            <span class="n">nb</span><span class="o">.</span><span class="n">void</span><span class="p">(</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># position</span>
+                <span class="n">NUMBA_INT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># grid_size,</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># pbc_matrix</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># spline_coefficient</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># spline_derivative_coefficient</span>
+                <span class="n">NUMBA_INT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># grid_map</span>
+            <span class="p">)</span>
+        <span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_bspline_kernel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_charge_map</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">jit</span><span class="p">(</span>
+            <span class="n">nb</span><span class="o">.</span><span class="n">void</span><span class="p">(</span>
+                <span class="n">NUMBA_INT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># num_particles</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># spline_coefficient</span>
+                <span class="n">NUMBA_INT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># grid_map</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># charges</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># charge_map</span>
+            <span class="p">)</span>
+        <span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_charge_map_kernel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_electric_potential_map</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_reciprocal_electric_potential_map_kernel</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_reciprocal_force</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">jit</span><span class="p">(</span>
+            <span class="n">nb</span><span class="o">.</span><span class="n">void</span><span class="p">(</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># spline_coefficient</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># spline_derivative_coefficient</span>
+                <span class="n">NUMBA_INT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># grid_map</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># electric_potential_map</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># charges</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[:,</span> <span class="p">::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># forces</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># potential_energy</span>
+            <span class="p">)</span>
+        <span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_reciprocal_force_kernel</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">'&lt;mdpy.constraint.ElectrostaticPMEConstraint object&gt;'</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;mdpy.constraint.ElectrostaticPMEConstraint object&gt;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">'PME electrostatic constraint'</span>
+        <span class="k">return</span> <span class="s2">&quot;PME electrostatic constraint&quot;</span>
 
     <span class="k">def</span> <span class="nf">_get_ewald_coefficient</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Using Newton interation solve ewald coefficient</span>
 
 <span class="sd">        Essentially, the Ewald coefficient is mathematical shorthand for 1/2s,</span>
@@ -373,32 +404,34 @@
 <span class="sd">        proving truncation yielding no big error</span>
 
 <span class="sd">        f(alpha) = erfc(alpha*cutoff_radius) / cutoff_radius - direct_sum_energy_tolerance</span>
-<span class="sd">        f'(alpha) = - 2/sqrt(pi) * exp[-(alpha*cutoff_radius)^2]</span>
+<span class="sd">        f&#39;(alpha) = - 2/sqrt(pi) * exp[-(alpha*cutoff_radius)^2]</span>
 
-<span class="sd">        alpha_new = alpha_old - f(alpha_old) / f'(alpha_old)</span>
-<span class="sd">        '''</span>
+<span class="sd">        alpha_new = alpha_old - f(alpha_old) / f&#39;(alpha_old)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
         <span class="n">sqrt_pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">f</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">math</span><span class="o">.</span><span class="n">erfc</span><span class="p">(</span><span class="n">alpha</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_cutoff_radius</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">_cutoff_radius</span> <span class="o">-</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_direct_sum_energy_tolerance</span>
+                <span class="n">math</span><span class="o">.</span><span class="n">erfc</span><span class="p">(</span><span class="n">alpha</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cutoff_radius</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cutoff_radius</span>
+                <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_direct_sum_energy_tolerance</span>
             <span class="p">)</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">alpha</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_cutoff_radius</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqrt_pi</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">alpha</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cutoff_radius</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">sqrt_pi</span>
             <span class="n">d_alpha</span> <span class="o">=</span> <span class="n">f</span> <span class="o">/</span> <span class="n">df</span>
-            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">d_alpha</span><span class="o">/</span><span class="n">alpha</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-5</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">d_alpha</span> <span class="o">/</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-5</span><span class="p">:</span>
                 <span class="k">break</span>
             <span class="n">alpha</span> <span class="o">-=</span> <span class="n">d_alpha</span>
         <span class="k">return</span> <span class="n">alpha</span>
 
     <span class="k">def</span> <span class="nf">_get_grid_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the grid size with spacing around 0.5 angstrom and power to 2 for better fft performance</span>
-<span class="sd">        '''</span>
-        <span class="n">pbc_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">Quantity</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">pbc_matrix</span><span class="p">,</span> <span class="n">default_length_unit</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">angstrom</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-        <span class="n">grid_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">pbc_diag</span><span class="o">/</span><span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="mi">32</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pbc_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span>
+            <span class="n">Quantity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">pbc_matrix</span><span class="p">,</span> <span class="n">default_length_unit</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">angstrom</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">value</span>
+        <span class="p">)</span>
+        <span class="n">grid_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">pbc_diag</span> <span class="o">/</span> <span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="mi">32</span>
         <span class="k">return</span> <span class="n">grid_size</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">NUMPY_INT</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_b_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -423,9 +456,9 @@
             <span class="c1"># Handle small denominator</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_grids</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">denominator</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1e-7</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">num_grids</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">num_grids</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="c1"># Replace with mean value of two neighbor points</span>
-                        <span class="n">denominator</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">denominator</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">denominator</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+                        <span class="n">denominator</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">denominator</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">denominator</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="c1"># Boundary point set to a very high value, 0 for denominator</span>
                         <span class="n">denominator</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e7</span>
@@ -439,14 +472,14 @@
                 <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">nominator</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">nominator</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">gamma_sum</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">num_grids</span><span class="p">,</span> <span class="n">PME_ORDER</span><span class="p">)</span> <span class="o">/</span> <span class="n">gamma_sum</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">num_grids</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-            <span class="n">b_factor</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nominator</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">denominator</span><span class="p">)</span>
+                    <span class="n">nominator</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">gamma_sum</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">num_grids</span><span class="p">,</span> <span class="n">PME_ORDER</span><span class="p">)</span> <span class="o">/</span> <span class="n">gamma_sum</span><span class="p">(</span>
+                        <span class="n">m</span><span class="p">,</span> <span class="n">num_grids</span><span class="p">,</span> <span class="mi">8</span>
+                    <span class="p">)</span>
+            <span class="n">b_factor</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nominator</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">denominator</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_grid_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_grid_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
                 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_grid_size</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
-                    <span class="n">b_grid</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="n">b_factor</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">b_factor</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">b_factor</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
-                    <span class="p">)</span>
+                    <span class="n">b_grid</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">b_factor</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">b_factor</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">b_factor</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">b_grid</span>
 
     <span class="k">def</span> <span class="nf">_get_c_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -458,7 +491,7 @@
             <span class="n">m_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_grids</span><span class="p">)</span>
             <span class="n">m_vec</span><span class="p">[</span><span class="n">m_vec</span> <span class="o">&gt;</span> <span class="n">half_num_grids</span><span class="p">]</span> <span class="o">-=</span> <span class="n">num_grids</span>
             <span class="n">m_vec</span> <span class="o">=</span> <span class="n">m_vec</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">pbc_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
-            <span class="n">exp_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">m_vec</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">_ewald_coefficient</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">exp_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">m_vec</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ewald_coefficient</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
             <span class="n">freqency_factor</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m_vec</span><span class="p">)</span>
             <span class="n">exp_factor</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">exp_vec</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_grid_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
@@ -470,25 +503,33 @@
                         <span class="n">exp_factor</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">exp_factor</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">exp_factor</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
                     <span class="p">)</span>
                     <span class="n">c_grid</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_grid</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span>
-                        <span class="n">freqency_factor</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
-                        <span class="n">freqency_factor</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
-                        <span class="n">freqency_factor</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+                        <span class="n">freqency_factor</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+                        <span class="o">+</span> <span class="n">freqency_factor</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+                        <span class="o">+</span> <span class="n">freqency_factor</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
                     <span class="p">)</span>
-        <span class="n">c_grid</span> <span class="o">=</span> <span class="n">c_grid</span> <span class="o">/</span> <span class="p">(</span> <span class="c1"># / pi V</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">pbc_matrix</span><span class="p">))</span> <span class="o">/</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_num_grids_total</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+        <span class="n">c_grid</span> <span class="o">=</span> <span class="n">c_grid</span> <span class="o">/</span> <span class="p">(</span>  <span class="c1"># / pi V</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">pbc_matrix</span><span class="p">))</span>
+            <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_grids_total</span>
+            <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">c_grid</span>
 
     <span class="k">def</span> <span class="nf">_get_self_potential_energy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">potential_energy</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">charges</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ewald_coefficient</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_k</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">potential_energy</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">charges</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ewald_coefficient</span>
+            <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_k</span>
+            <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">potential_energy</span>
 
     <span class="k">def</span> <span class="nf">bind_ensemble</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ensemble</span><span class="p">:</span> <span class="n">Ensemble</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span> <span class="o">=</span> <span class="n">ensemble</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_constraint_id</span> <span class="o">=</span> <span class="n">ensemble</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">charges</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">EnsemblePoorDefinedError</span><span class="p">(</span><span class="s1">'mdpy.constraint.ElectrostaticPMEConstraint is bound to a non-neutralized ensemble'</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">EnsemblePoorDefinedError</span><span class="p">(</span>
+                <span class="s2">&quot;mdpy.constraint.ElectrostaticPMEConstraint is bound to a non-neutralized ensemble&quot;</span>
+            <span class="p">)</span>
         <span class="c1"># Grid size</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_grid_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_grid_size</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_grids_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_grid_size</span><span class="p">)</span>
@@ -505,111 +546,211 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_num_particles</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">num_particles</span><span class="p">],</span> <span class="n">CUPY_INT</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_device_self_potential_energy</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_self_potential_energy</span><span class="p">,</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_self_potential_energy</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_self_potential_energy</span><span class="p">,</span> <span class="n">CUPY_FLOAT</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_b_grid</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_b_grid</span><span class="p">,</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_c_grid</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_c_grid</span><span class="p">,</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_bc_grid</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bc_grid</span><span class="p">,</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_reciprocal_factor</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_grid_size</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">pbc_matrix</span><span class="p">),</span> <span class="n">CUPY_FLOAT</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_grid_size</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">pbc_matrix</span><span class="p">),</span>
+            <span class="n">CUPY_FLOAT</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_update_direct_part_kernel</span><span class="p">(</span>
-        <span class="n">charges</span><span class="p">,</span>
-        <span class="n">k</span><span class="p">,</span> <span class="n">ewald_coefficient</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">_update_pme_direct_part_kernel</span><span class="p">(</span>
+        <span class="n">inverse_k</span><span class="p">,</span>
+        <span class="n">ewald_coefficient</span><span class="p">,</span>
         <span class="n">cutoff_radius</span><span class="p">,</span>
-        <span class="n">bonded_particles</span><span class="p">,</span>
-        <span class="n">neighbor_list</span><span class="p">,</span>
-        <span class="n">neighbor_vec_list</span><span class="p">,</span>
-        <span class="n">forces</span><span class="p">,</span> <span class="n">potential_energy</span>
+        <span class="n">pbc_matrix</span><span class="p">,</span>
+        <span class="n">sorted_positions</span><span class="p">,</span>
+        <span class="n">sorted_charges</span><span class="p">,</span>
+        <span class="n">exclusion_map</span><span class="p">,</span>
+        <span class="n">tile_neighbors</span><span class="p">,</span>
+        <span class="n">sorted_forces</span><span class="p">,</span>
+        <span class="n">potential_energy</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="n">particle_id1</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">num_particles</span> <span class="o">=</span> <span class="n">neighbor_list</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">particle_id1</span> <span class="o">&gt;=</span> <span class="n">num_particles</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="c1"># Bonded particle</span>
-        <span class="n">local_bonded_particles</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">MAX_NUM_BONDED_PARTICLES</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">NUMBA_INT</span>
+        <span class="c1"># Particle index information</span>
+        <span class="n">local_thread_x</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">threadIdx</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">local_thread_y</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">threadIdx</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">tile_id1</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">blockIdx</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">TILES_PER_THREAD</span> <span class="o">+</span> <span class="n">local_thread_y</span>
+        <span class="k">if</span> <span class="n">tile_id1</span> <span class="o">&gt;=</span> <span class="n">tile_neighbors</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">return</span>
+        <span class="n">tile1_particle_index</span> <span class="o">=</span> <span class="n">tile_id1</span> <span class="o">*</span> <span class="n">NUM_PARTICLES_PER_TILE</span> <span class="o">+</span> <span class="n">local_thread_x</span>
+        <span class="c1"># shared data</span>
+        <span class="n">local_pbc_matrix</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">SPATIAL_DIM</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span><span class="p">)</span>
+        <span class="n">local_half_pbc_matrix</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">SPATIAL_DIM</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
+            <span class="n">local_pbc_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">pbc_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+            <span class="n">local_half_pbc_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_pbc_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">tile1_positions</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">SPATIAL_DIM</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span><span class="p">)</span>
+        <span class="n">tile2_positions</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">,</span> <span class="n">TILES_PER_THREAD</span><span class="p">,</span> <span class="n">NUM_PARTICLES_PER_TILE</span><span class="p">),</span>
+            <span class="n">NUMBA_FLOAT</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_NUM_BONDED_PARTICLES</span><span class="p">):</span>
-            <span class="n">local_bonded_particles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">bonded_particles</span><span class="p">[</span><span class="n">particle_id1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
-
-        <span class="n">shared_k</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">NUMBA_FLOAT</span><span class="p">)</span>
-        <span class="n">shared_ewald_coefficient</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">NUMBA_FLOAT</span><span class="p">)</span>
-        <span class="n">shared_cutoff_radius</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">NUMBA_FLOAT</span><span class="p">)</span>
-        <span class="n">shared_sqrt_pi</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">NUMBA_FLOAT</span><span class="p">)</span>
-        <span class="n">thread_x</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">threadIdx</span><span class="o">.</span><span class="n">x</span>
-        <span class="k">if</span> <span class="n">thread_x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">shared_k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">shared_ewald_coefficient</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ewald_coefficient</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="n">thread_x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">shared_cutoff_radius</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">cutoff_radius</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">shared_sqrt_pi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">tile2_charges</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">TILES_PER_THREAD</span><span class="p">,</span> <span class="n">NUM_PARTICLES_PER_TILE</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span>
+        <span class="p">)</span>
         <span class="n">cuda</span><span class="o">.</span><span class="n">syncthreads</span><span class="p">()</span>
-
-        <span class="c1"># id1 attribute</span>
-        <span class="n">force_x</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">force_y</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">force_z</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">energy</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">e1</span> <span class="o">=</span> <span class="n">charges</span><span class="p">[</span><span class="n">particle_id1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">neighbor_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">neighbor_list</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-            <span class="n">particle_id2</span> <span class="o">=</span> <span class="n">neighbor_list</span><span class="p">[</span><span class="n">particle_id1</span><span class="p">,</span> <span class="n">neighbor_index</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">particle_id2</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="c1"># self-padding term</span>
+        <span class="c1"># Read data</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
+            <span class="n">tile1_positions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sorted_positions</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">tile1_particle_index</span><span class="p">]</span>
+        <span class="n">tile1_charges</span> <span class="o">=</span> <span class="n">sorted_charges</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">tile1_particle_index</span><span class="p">]</span>
+        <span class="c1"># Local data</span>
+        <span class="n">local_forces</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">SPATIAL_DIM</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span><span class="p">)</span>
+        <span class="n">vec</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">SPATIAL_DIM</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span><span class="p">)</span>
+        <span class="n">energy</span> <span class="o">=</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">inverse_k</span> <span class="o">=</span> <span class="n">inverse_k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">inverse_sqrt_pi</span> <span class="o">=</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
+        <span class="n">ewald_coefficient</span> <span class="o">=</span> <span class="n">ewald_coefficient</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">cutoff_radius</span> <span class="o">=</span> <span class="n">cutoff_radius</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
+            <span class="n">local_forces</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">neighbor_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tile_neighbors</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">tile_id2</span> <span class="o">=</span> <span class="n">tile_neighbors</span><span class="p">[</span><span class="n">tile_id1</span><span class="p">,</span> <span class="n">neighbor_index</span><span class="p">]</span>
+            <span class="n">tile2_particle_index</span> <span class="o">=</span> <span class="n">tile_id2</span> <span class="o">*</span> <span class="n">NUM_PARTICLES_PER_TILE</span> <span class="o">+</span> <span class="n">local_thread_x</span>
+            <span class="n">cuda</span><span class="o">.</span><span class="n">syncwarp</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
+                <span class="n">tile2_positions</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">local_thread_y</span><span class="p">,</span> <span class="n">local_thread_x</span><span class="p">]</span> <span class="o">=</span> <span class="n">sorted_positions</span><span class="p">[</span>
+                    <span class="n">i</span><span class="p">,</span> <span class="n">tile2_particle_index</span>
+                <span class="p">]</span>
+            <span class="n">tile2_charges</span><span class="p">[</span><span class="n">local_thread_y</span><span class="p">,</span> <span class="n">local_thread_x</span><span class="p">]</span> <span class="o">=</span> <span class="n">sorted_charges</span><span class="p">[</span>
+                <span class="mi">0</span><span class="p">,</span> <span class="n">tile2_particle_index</span>
+            <span class="p">]</span>
+            <span class="n">exclusion_flag</span> <span class="o">=</span> <span class="n">exclusion_map</span><span class="p">[</span><span class="n">neighbor_index</span><span class="p">,</span> <span class="n">tile1_particle_index</span><span class="p">]</span>
+            <span class="n">cuda</span><span class="o">.</span><span class="n">syncwarp</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">tile_id2</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
                 <span class="k">break</span>
-            <span class="k">if</span> <span class="n">particle_id1</span> <span class="o">==</span> <span class="n">particle_id2</span><span class="p">:</span>
-                <span class="k">continue</span>
-            <span class="k">if</span> <span class="n">particle_id1</span> <span class="o">==</span> <span class="n">particle_id2</span><span class="p">:</span> <span class="c1"># self-self term</span>
-                <span class="k">continue</span>
-            <span class="n">is_bonded</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">local_bonded_particles</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="c1"># padding of bonded particle</span>
-                    <span class="k">break</span>
-                <span class="k">elif</span> <span class="n">particle_id2</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span> <span class="c1"># self-bonded particle term</span>
-                    <span class="n">is_bonded</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="n">r</span> <span class="o">=</span> <span class="n">neighbor_vec_list</span><span class="p">[</span><span class="n">particle_id1</span><span class="p">,</span> <span class="n">neighbor_index</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-                    <span class="n">scaled_x</span> <span class="o">=</span> <span class="n">neighbor_vec_list</span><span class="p">[</span><span class="n">particle_id1</span><span class="p">,</span> <span class="n">neighbor_index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-                    <span class="n">scaled_y</span> <span class="o">=</span> <span class="n">neighbor_vec_list</span><span class="p">[</span><span class="n">particle_id1</span><span class="p">,</span> <span class="n">neighbor_index</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-                    <span class="n">scaled_z</span> <span class="o">=</span> <span class="n">neighbor_vec_list</span><span class="p">[</span><span class="n">particle_id1</span><span class="p">,</span> <span class="n">neighbor_index</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-                    <span class="n">e1e2</span> <span class="o">=</span> <span class="n">e1</span> <span class="o">*</span> <span class="n">charges</span><span class="p">[</span><span class="n">particle_id2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-                    <span class="n">ewald_r</span> <span class="o">=</span> <span class="n">shared_ewald_coefficient</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">r</span>
-                    <span class="n">erf</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">erf</span><span class="p">(</span><span class="n">ewald_r</span><span class="p">)</span>
-                    <span class="n">force_val</span> <span class="o">=</span> <span class="n">e1e2</span> <span class="o">*</span> <span class="p">(</span>
-                        <span class="mi">2</span><span class="o">*</span><span class="n">shared_ewald_coefficient</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">ewald_r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">shared_sqrt_pi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">erf</span> <span class="o">/</span> <span class="n">r</span>
-                    <span class="p">)</span> <span class="o">/</span> <span class="n">shared_k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">r</span>
-                    <span class="n">force_x</span> <span class="o">-=</span> <span class="n">scaled_x</span> <span class="o">*</span> <span class="n">force_val</span>
-                    <span class="n">force_y</span> <span class="o">-=</span> <span class="n">scaled_y</span> <span class="o">*</span> <span class="n">force_val</span>
-                    <span class="n">force_z</span> <span class="o">-=</span> <span class="n">scaled_z</span> <span class="o">*</span> <span class="n">force_val</span>
-                    <span class="n">energy</span> <span class="o">-=</span> <span class="n">e1e2</span> <span class="o">*</span> <span class="n">erf</span> <span class="o">/</span> <span class="n">shared_k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">r</span> <span class="o">/</span> <span class="mi">2</span>
-                    <span class="k">break</span>
-            <span class="k">if</span> <span class="n">is_bonded</span><span class="p">:</span>
-                <span class="k">continue</span>
-            <span class="n">r</span> <span class="o">=</span> <span class="n">neighbor_vec_list</span><span class="p">[</span><span class="n">particle_id1</span><span class="p">,</span> <span class="n">neighbor_index</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="n">shared_cutoff_radius</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-                <span class="n">scaled_x</span> <span class="o">=</span> <span class="n">neighbor_vec_list</span><span class="p">[</span><span class="n">particle_id1</span><span class="p">,</span> <span class="n">neighbor_index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-                <span class="n">scaled_y</span> <span class="o">=</span> <span class="n">neighbor_vec_list</span><span class="p">[</span><span class="n">particle_id1</span><span class="p">,</span> <span class="n">neighbor_index</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-                <span class="n">scaled_z</span> <span class="o">=</span> <span class="n">neighbor_vec_list</span><span class="p">[</span><span class="n">particle_id1</span><span class="p">,</span> <span class="n">neighbor_index</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-                <span class="n">e1e2</span> <span class="o">=</span> <span class="n">e1</span> <span class="o">*</span> <span class="n">charges</span><span class="p">[</span><span class="n">particle_id2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-                <span class="n">ewald_r</span> <span class="o">=</span> <span class="n">shared_ewald_coefficient</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">r</span>
-                <span class="n">erfc</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">erfc</span><span class="p">(</span><span class="n">ewald_r</span><span class="p">)</span>
-                <span class="n">force_val</span> <span class="o">=</span> <span class="o">-</span> <span class="n">e1e2</span> <span class="o">*</span> <span class="p">(</span>
-                    <span class="mi">2</span><span class="o">*</span><span class="n">shared_ewald_coefficient</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">ewald_r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">shared_sqrt_pi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">erfc</span> <span class="o">/</span> <span class="n">r</span>
-                <span class="p">)</span> <span class="o">/</span> <span class="n">shared_k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">r</span>
-                <span class="n">force_x</span> <span class="o">+=</span> <span class="n">scaled_x</span> <span class="o">*</span> <span class="n">force_val</span>
-                <span class="n">force_y</span> <span class="o">+=</span> <span class="n">scaled_y</span> <span class="o">*</span> <span class="n">force_val</span>
-                <span class="n">force_z</span> <span class="o">+=</span> <span class="n">scaled_z</span> <span class="o">*</span> <span class="n">force_val</span>
-                <span class="n">energy</span> <span class="o">+=</span> <span class="n">e1e2</span> <span class="o">*</span> <span class="n">erfc</span> <span class="o">/</span> <span class="n">shared_k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">r</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="n">cuda</span><span class="o">.</span><span class="n">atomic</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">forces</span><span class="p">,</span> <span class="p">(</span><span class="n">particle_id1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">force_x</span><span class="p">)</span>
-        <span class="n">cuda</span><span class="o">.</span><span class="n">atomic</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">forces</span><span class="p">,</span> <span class="p">(</span><span class="n">particle_id1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">force_y</span><span class="p">)</span>
-        <span class="n">cuda</span><span class="o">.</span><span class="n">atomic</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">forces</span><span class="p">,</span> <span class="p">(</span><span class="n">particle_id1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">force_z</span><span class="p">)</span>
+            <span class="c1"># Computation</span>
+            <span class="k">for</span> <span class="n">particle_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_PARTICLES_PER_TILE</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">exclusion_flag</span> <span class="o">&gt;&gt;</span> <span class="n">particle_index</span> <span class="o">&amp;</span> <span class="mb">0b1</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
+                    <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">tile2_positions</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">local_thread_y</span><span class="p">,</span> <span class="n">particle_index</span><span class="p">]</span>
+                        <span class="o">-</span> <span class="n">tile1_positions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="p">)</span>
+                    <span class="k">if</span> <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">local_half_pbc_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                        <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">local_pbc_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">local_half_pbc_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                        <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">local_pbc_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">r</span> <span class="o">+=</span> <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">cutoff_radius</span><span class="p">:</span>
+                    <span class="n">ewald_r</span> <span class="o">=</span> <span class="n">ewald_coefficient</span> <span class="o">*</span> <span class="n">r</span>
+                    <span class="n">e1e2_over_k</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">tile1_charges</span>
+                        <span class="o">*</span> <span class="n">tile2_charges</span><span class="p">[</span><span class="n">local_thread_y</span><span class="p">,</span> <span class="n">particle_index</span><span class="p">]</span>
+                        <span class="o">*</span> <span class="n">inverse_k</span>
+                    <span class="p">)</span>
+                    <span class="n">inverse_r</span> <span class="o">=</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">r</span>
+                    <span class="n">erfc_over_r</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">erfc</span><span class="p">(</span><span class="n">ewald_r</span><span class="p">)</span> <span class="o">*</span> <span class="n">inverse_r</span>
+                    <span class="n">energy</span> <span class="o">+=</span> <span class="n">e1e2_over_k</span> <span class="o">*</span> <span class="n">erfc_over_r</span> <span class="o">*</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+                    <span class="n">force_val</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="o">-</span><span class="n">e1e2_over_k</span>
+                        <span class="o">*</span> <span class="p">(</span>
+                            <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                            <span class="o">*</span> <span class="n">ewald_coefficient</span>
+                            <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">ewald_r</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+                            <span class="o">*</span> <span class="n">inverse_sqrt_pi</span>
+                            <span class="o">+</span> <span class="n">erfc_over_r</span>
+                        <span class="p">)</span>
+                        <span class="o">*</span> <span class="n">inverse_r</span>
+                        <span class="o">*</span> <span class="n">inverse_r</span>
+                    <span class="p">)</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
+                        <span class="n">local_forces</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">force_val</span> <span class="o">*</span> <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
+            <span class="n">cuda</span><span class="o">.</span><span class="n">atomic</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sorted_forces</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tile1_particle_index</span><span class="p">),</span> <span class="n">local_forces</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
         <span class="n">cuda</span><span class="o">.</span><span class="n">atomic</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">potential_energy</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">energy</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_update_excluded_pme_direct_part_kernel</span><span class="p">(</span>
+        <span class="n">inverse_k</span><span class="p">,</span>
+        <span class="n">ewald_coefficient</span><span class="p">,</span>
+        <span class="n">cutoff_radius</span><span class="p">,</span>
+        <span class="n">pbc_matrix</span><span class="p">,</span>
+        <span class="n">positions</span><span class="p">,</span>
+        <span class="n">charges</span><span class="p">,</span>
+        <span class="n">excluded_particles</span><span class="p">,</span>
+        <span class="n">forces</span><span class="p">,</span>
+        <span class="n">potential_energy</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">particle1</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">local_thread_x</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">threadIdx</span><span class="o">.</span><span class="n">x</span>
+        <span class="k">if</span> <span class="n">particle1</span> <span class="o">&gt;=</span> <span class="n">positions</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">return</span>
+        <span class="n">shared_pbc_matrix</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">SPATIAL_DIM</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span><span class="p">)</span>
+        <span class="n">shared_half_pbc_matrix</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">SPATIAL_DIM</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">local_thread_x</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">shared_pbc_matrix</span><span class="p">[</span><span class="n">local_thread_x</span><span class="p">]</span> <span class="o">=</span> <span class="n">pbc_matrix</span><span class="p">[</span>
+                <span class="n">local_thread_x</span><span class="p">,</span> <span class="n">local_thread_x</span>
+            <span class="p">]</span>
+            <span class="n">shared_half_pbc_matrix</span><span class="p">[</span><span class="n">local_thread_x</span><span class="p">]</span> <span class="o">=</span> <span class="n">shared_pbc_matrix</span><span class="p">[</span>
+                <span class="n">local_thread_x</span>
+            <span class="p">]</span> <span class="o">*</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">cuda</span><span class="o">.</span><span class="n">syncthreads</span><span class="p">()</span>
+        <span class="n">local_positions</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">3</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span><span class="p">)</span>
+        <span class="n">local_forces</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">3</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span><span class="p">)</span>
+        <span class="n">vec</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">3</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span><span class="p">)</span>
+        <span class="n">e1</span> <span class="o">=</span> <span class="n">charges</span><span class="p">[</span><span class="n">particle1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">inverse_k</span> <span class="o">=</span> <span class="n">inverse_k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ewald_coefficient</span> <span class="o">=</span> <span class="n">ewald_coefficient</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">cutoff_radius</span> <span class="o">=</span> <span class="n">cutoff_radius</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">inverse_sqrt_pi</span> <span class="o">=</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
+            <span class="n">local_positions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">particle1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+            <span class="n">local_forces</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">energy</span> <span class="o">=</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">is_excluded</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Prevent atomic add for no excluded particles</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">excluded_particles</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">particle2</span> <span class="o">=</span> <span class="n">excluded_particles</span><span class="p">[</span><span class="n">particle1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">particle2</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">is_excluded</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
+                <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">particle2</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">local_positions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">shared_half_pbc_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">shared_pbc_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">shared_half_pbc_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">shared_pbc_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">r</span> <span class="o">+=</span> <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">cutoff_radius</span><span class="p">:</span>
+                <span class="n">ewald_r</span> <span class="o">=</span> <span class="n">ewald_coefficient</span> <span class="o">*</span> <span class="n">r</span>
+                <span class="n">e1e2_over_k</span> <span class="o">=</span> <span class="n">e1</span> <span class="o">*</span> <span class="n">charges</span><span class="p">[</span><span class="n">particle2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">inverse_k</span>
+                <span class="n">inverse_r</span> <span class="o">=</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">r</span>
+                <span class="n">erf_over_r</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">erf</span><span class="p">(</span><span class="n">ewald_r</span><span class="p">)</span> <span class="o">*</span> <span class="n">inverse_r</span>
+                <span class="n">force_val</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">e1e2_over_k</span>
+                    <span class="o">*</span> <span class="p">(</span>
+                        <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                        <span class="o">*</span> <span class="n">ewald_coefficient</span>
+                        <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">ewald_r</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+                        <span class="o">*</span> <span class="n">inverse_sqrt_pi</span>
+                        <span class="o">-</span> <span class="n">erf_over_r</span>
+                    <span class="p">)</span>
+                    <span class="o">*</span> <span class="n">inverse_r</span>
+                    <span class="o">*</span> <span class="n">inverse_r</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
+                    <span class="n">local_forces</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">force_val</span> <span class="o">*</span> <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">energy</span> <span class="o">-=</span> <span class="n">e1e2_over_k</span> <span class="o">*</span> <span class="n">erf_over_r</span> <span class="o">*</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_excluded</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
+                <span class="n">cuda</span><span class="o">.</span><span class="n">atomic</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">forces</span><span class="p">,</span> <span class="p">(</span><span class="n">particle1</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">local_forces</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">cuda</span><span class="o">.</span><span class="n">atomic</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">potential_energy</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">energy</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_update_bspline_kernel</span><span class="p">(</span>
-        <span class="n">positions</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">,</span> <span class="n">pbc_matrix</span><span class="p">,</span>
+        <span class="n">positions</span><span class="p">,</span>
+        <span class="n">grid_size</span><span class="p">,</span>
+        <span class="n">pbc_matrix</span><span class="p">,</span>
         <span class="n">spline_coefficient</span><span class="p">,</span>
         <span class="n">spline_derivative_coefficient</span><span class="p">,</span>
-        <span class="n">grid_map</span>
+        <span class="n">grid_map</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="n">particle_id</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">thread_x</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">threadIdx</span><span class="o">.</span><span class="n">x</span>
@@ -617,10 +758,10 @@
             <span class="k">return</span> <span class="kc">None</span>
         <span class="c1"># Shared array</span>
         <span class="c1"># PBC matrix</span>
-        <span class="n">shared_pbc_matrix</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">NUMBA_FLOAT</span><span class="p">)</span>
-        <span class="n">shared_half_pbc_matrix</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">NUMBA_FLOAT</span><span class="p">)</span>
+        <span class="n">shared_pbc_matrix</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">SPATIAL_DIM</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span><span class="p">)</span>
+        <span class="n">shared_half_pbc_matrix</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">SPATIAL_DIM</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span><span class="p">)</span>
         <span class="c1"># num_cell_vec</span>
-        <span class="n">shared_grid_size</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">NUMBA_INT</span><span class="p">)</span>
+        <span class="n">shared_grid_size</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">3</span><span class="p">),</span> <span class="n">NUMBA_INT</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">thread_x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">shared_pbc_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">pbc_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
             <span class="n">shared_pbc_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">pbc_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
@@ -648,29 +789,51 @@
         <span class="n">grid_fraction</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid_index_y</span> <span class="o">-</span> <span class="n">grid_index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">grid_fraction</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid_index_z</span> <span class="o">-</span> <span class="n">grid_index</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
-        <span class="n">local_spline_coefficient</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">SPATIAL_DIM</span><span class="p">,</span> <span class="n">PME_ORDER</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span><span class="p">)</span>
-        <span class="n">local_spline_derivative_coefficient</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">SPATIAL_DIM</span><span class="p">,</span> <span class="n">PME_ORDER</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span><span class="p">)</span>
+        <span class="n">local_spline_coefficient</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">,</span> <span class="n">PME_ORDER</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span>
+        <span class="p">)</span>
+        <span class="n">local_spline_derivative_coefficient</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">,</span> <span class="n">PME_ORDER</span><span class="p">),</span> <span class="n">NUMBA_FLOAT</span>
+        <span class="p">)</span>
         <span class="c1"># 3 order B-spline</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
-            <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">grid_fraction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
-            <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">grid_fraction</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
-            <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+            <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">grid_fraction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">grid_fraction</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="p">)</span>
+            <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="o">-</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+                <span class="o">-</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+            <span class="p">)</span>
         <span class="c1"># 4 order derivative coefficient</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
-            <span class="n">local_spline_derivative_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-            <span class="n">local_spline_derivative_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-            <span class="n">local_spline_derivative_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+            <span class="n">local_spline_derivative_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="n">local_spline_derivative_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">local_spline_derivative_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+            <span class="p">)</span>
             <span class="n">local_spline_derivative_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
         <span class="c1"># 4 order spline coefficient</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
-            <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid_fraction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mi">3</span>
+            <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">grid_fraction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+            <span class="p">)</span>
             <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">grid_fraction</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span>
-                <span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="n">grid_fraction</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+                <span class="p">(</span><span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">grid_fraction</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="o">+</span> <span class="p">(</span><span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">grid_fraction</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
             <span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
-            <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">grid_fraction</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">3</span>
-            <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span>
-                <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+            <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">grid_fraction</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="o">*</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+                <span class="o">/</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">NUMBA_FLOAT</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span>
+                <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+                <span class="o">+</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+                <span class="o">+</span> <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
             <span class="p">)</span>
         <span class="c1"># Set value</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SPATIAL_DIM</span><span class="p">):</span>
@@ -678,12 +841,12 @@
                 <span class="n">cuda</span><span class="o">.</span><span class="n">atomic</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
                     <span class="n">spline_coefficient</span><span class="p">,</span>
                     <span class="p">(</span><span class="n">particle_id</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span>
-                    <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+                    <span class="n">local_spline_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span>
                 <span class="p">)</span>
                 <span class="n">cuda</span><span class="o">.</span><span class="n">atomic</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
                     <span class="n">spline_derivative_coefficient</span><span class="p">,</span>
                     <span class="p">(</span><span class="n">particle_id</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span>
-                    <span class="n">local_spline_derivative_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+                    <span class="n">local_spline_derivative_coefficient</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span>
                 <span class="p">)</span>
                 <span class="n">index</span> <span class="o">=</span> <span class="n">grid_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span>
                 <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="n">shared_grid_size</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
@@ -693,13 +856,15 @@
                 <span class="n">cuda</span><span class="o">.</span><span class="n">atomic</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">grid_map</span><span class="p">,</span> <span class="p">(</span><span class="n">particle_id</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">index</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_update_charge_map_kernel</span><span class="p">(</span><span class="n">num_particles</span><span class="p">,</span> <span class="n">spline_coefficient</span><span class="p">,</span> <span class="n">grid_map</span><span class="p">,</span> <span class="n">charges</span><span class="p">,</span> <span class="n">charge_map</span><span class="p">):</span>
-        <span class="sd">'''</span>
+    <span class="k">def</span> <span class="nf">_update_charge_map_kernel</span><span class="p">(</span>
+        <span class="n">num_particles</span><span class="p">,</span> <span class="n">spline_coefficient</span><span class="p">,</span> <span class="n">grid_map</span><span class="p">,</span> <span class="n">charges</span><span class="p">,</span> <span class="n">charge_map</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        spline_coefficient: [num_particles, SPATIAL_DIM, PME_ORDER] The spline coefficient of particles</span>
 <span class="sd">        grid_map: [num_particles, SPATIL_DIM, PME_ORDER]: The indice of grid to add charge of each particles</span>
 <span class="sd">        charges: [num_particles,]: The charges of particles</span>
 <span class="sd">        charge_map: [grid_size_x, grid_size_y, grid_size_z]</span>
-<span class="sd">        '''</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">particle_id</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">num_particles</span> <span class="o">=</span> <span class="n">num_particles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">particle_id</span> <span class="o">&gt;=</span> <span class="n">num_particles</span><span class="p">:</span>
@@ -721,24 +886,28 @@
         <span class="c1"># Convolution</span>
         <span class="n">fft_charge</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftn</span><span class="p">(</span><span class="n">charge_map</span> <span class="o">/</span> <span class="n">k</span><span class="p">)</span>
         <span class="n">fft_charge</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">electric_potential_map</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftn</span><span class="p">(</span><span class="n">fft_charge</span><span class="o">*</span><span class="n">bc_grid</span><span class="p">))</span>
+        <span class="n">electric_potential_map</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftn</span><span class="p">(</span><span class="n">fft_charge</span> <span class="o">*</span> <span class="n">bc_grid</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">electric_potential_map</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">CUPY_FLOAT</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_update_reciprocal_force_kernel</span><span class="p">(</span>
-        <span class="n">num_particles</span><span class="p">,</span> <span class="n">spline_coefficient</span><span class="p">,</span> <span class="n">spline_derivative_coefficient</span><span class="p">,</span>
-        <span class="n">grid_map</span><span class="p">,</span> <span class="n">electric_potential_map</span><span class="p">,</span> <span class="n">charges</span><span class="p">,</span> <span class="n">forces</span><span class="p">,</span> <span class="n">potential_energy</span>
+        <span class="n">spline_coefficient</span><span class="p">,</span>
+        <span class="n">spline_derivative_coefficient</span><span class="p">,</span>
+        <span class="n">grid_map</span><span class="p">,</span>
+        <span class="n">electric_potential_map</span><span class="p">,</span>
+        <span class="n">charges</span><span class="p">,</span>
+        <span class="n">forces</span><span class="p">,</span>
+        <span class="n">potential_energy</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        spline_coefficient: [num_particles, SPATIAL_DIM, PME_ORDER] The spline coefficient of particles</span>
 <span class="sd">        spline_derivative_coefficient: [num_particles, SPATIAL_DIM, PME_ORDER] The spline derivative coefficient of particles</span>
 <span class="sd">        grid_map: [num_particles, SPATIL_DIM, PME_ORDER]: The indice of grid to add charge of each particles</span>
 <span class="sd">        electric_potential_map: [grid_size_x, grid_size_y, grid_size_z]: Electric potential on each grid point</span>
 <span class="sd">        forces: [num_particles, SPATIAL_DIM]</span>
-<span class="sd">        '''</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">particle_id</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">num_particles</span> <span class="o">=</span> <span class="n">num_particles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">particle_id</span> <span class="o">&gt;=</span> <span class="n">num_particles</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">particle_id</span> <span class="o">&gt;=</span> <span class="n">charges</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="n">charge</span> <span class="o">=</span> <span class="n">charges</span><span class="p">[</span><span class="n">particle_id</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
         <span class="n">force_x</span> <span class="o">=</span> <span class="mi">0</span>
@@ -748,30 +917,41 @@
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">PME_ORDER</span><span class="p">):</span>
             <span class="n">grid_x</span> <span class="o">=</span> <span class="n">grid_map</span><span class="p">[</span><span class="n">particle_id</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
             <span class="n">spline_coefficient_x</span> <span class="o">=</span> <span class="n">spline_coefficient</span><span class="p">[</span><span class="n">particle_id</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
-            <span class="n">spline_derivative_coefficient_x</span> <span class="o">=</span> <span class="n">spline_derivative_coefficient</span><span class="p">[</span><span class="n">particle_id</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+            <span class="n">spline_derivative_coefficient_x</span> <span class="o">=</span> <span class="n">spline_derivative_coefficient</span><span class="p">[</span>
+                <span class="n">particle_id</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span>
+            <span class="p">]</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">PME_ORDER</span><span class="p">):</span>
                 <span class="n">grid_y</span> <span class="o">=</span> <span class="n">grid_map</span><span class="p">[</span><span class="n">particle_id</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
                 <span class="n">spline_coefficient_y</span> <span class="o">=</span> <span class="n">spline_coefficient</span><span class="p">[</span><span class="n">particle_id</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-                <span class="n">spline_derivative_coefficient_y</span> <span class="o">=</span> <span class="n">spline_derivative_coefficient</span><span class="p">[</span><span class="n">particle_id</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+                <span class="n">spline_derivative_coefficient_y</span> <span class="o">=</span> <span class="n">spline_derivative_coefficient</span><span class="p">[</span>
+                    <span class="n">particle_id</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span>
+                <span class="p">]</span>
                 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">PME_ORDER</span><span class="p">):</span>
                     <span class="n">grid_z</span> <span class="o">=</span> <span class="n">grid_map</span><span class="p">[</span><span class="n">particle_id</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span>
                     <span class="n">spline_coefficient_z</span> <span class="o">=</span> <span class="n">spline_coefficient</span><span class="p">[</span><span class="n">particle_id</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span>
-                    <span class="n">spline_derivative_coefficient_z</span> <span class="o">=</span> <span class="n">spline_derivative_coefficient</span><span class="p">[</span><span class="n">particle_id</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span>
+                    <span class="n">spline_derivative_coefficient_z</span> <span class="o">=</span> <span class="n">spline_derivative_coefficient</span><span class="p">[</span>
+                        <span class="n">particle_id</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">k</span>
+                    <span class="p">]</span>
                     <span class="n">cur_energy</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="n">spline_coefficient_x</span> <span class="o">*</span> <span class="n">spline_coefficient_y</span> <span class="o">*</span> <span class="n">spline_coefficient_z</span> <span class="o">*</span>
-                        <span class="n">electric_potential_map</span><span class="p">[</span><span class="n">grid_x</span><span class="p">,</span> <span class="n">grid_y</span><span class="p">,</span> <span class="n">grid_z</span><span class="p">]</span>
+                        <span class="n">spline_coefficient_x</span>
+                        <span class="o">*</span> <span class="n">spline_coefficient_y</span>
+                        <span class="o">*</span> <span class="n">spline_coefficient_z</span>
+                        <span class="o">*</span> <span class="n">electric_potential_map</span><span class="p">[</span><span class="n">grid_x</span><span class="p">,</span> <span class="n">grid_y</span><span class="p">,</span> <span class="n">grid_z</span><span class="p">]</span>
                     <span class="p">)</span>
                     <span class="n">force_x</span> <span class="o">-=</span> <span class="p">(</span>
-                        <span class="n">cur_energy</span> <span class="o">/</span> <span class="n">spline_coefficient_x</span> <span class="o">*</span>
-                        <span class="n">spline_derivative_coefficient_x</span>
+                        <span class="n">cur_energy</span>
+                        <span class="o">/</span> <span class="n">spline_coefficient_x</span>
+                        <span class="o">*</span> <span class="n">spline_derivative_coefficient_x</span>
                     <span class="p">)</span>
                     <span class="n">force_y</span> <span class="o">-=</span> <span class="p">(</span>
-                        <span class="n">cur_energy</span> <span class="o">/</span> <span class="n">spline_coefficient_y</span> <span class="o">*</span>
-                        <span class="n">spline_derivative_coefficient_y</span>
+                        <span class="n">cur_energy</span>
+                        <span class="o">/</span> <span class="n">spline_coefficient_y</span>
+                        <span class="o">*</span> <span class="n">spline_derivative_coefficient_y</span>
                     <span class="p">)</span>
                     <span class="n">force_z</span> <span class="o">-=</span> <span class="p">(</span>
-                        <span class="n">cur_energy</span> <span class="o">/</span> <span class="n">spline_coefficient_z</span> <span class="o">*</span>
-                        <span class="n">spline_derivative_coefficient_z</span>
+                        <span class="n">cur_energy</span>
+                        <span class="o">/</span> <span class="n">spline_coefficient_z</span>
+                        <span class="o">*</span> <span class="n">spline_derivative_coefficient_z</span>
                     <span class="p">)</span>
                     <span class="n">energy</span> <span class="o">+=</span> <span class="n">cur_energy</span>
         <span class="n">cuda</span><span class="o">.</span><span class="n">atomic</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">forces</span><span class="p">,</span> <span class="p">(</span><span class="n">particle_id</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">force_x</span> <span class="o">*</span> <span class="n">charge</span><span class="p">)</span>
@@ -781,73 +961,113 @@
 
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_bound_state</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_direct_forces</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">matrix_shape</span><span class="p">,</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_direct_potential_energy</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
         <span class="c1"># Direct part</span>
-        <span class="n">block_per_grid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">num_particles</span> <span class="o">/</span> <span class="n">THREAD_PER_BLOCK</span>
-        <span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_direct_part</span><span class="p">[</span><span class="n">block_per_grid</span><span class="p">,</span> <span class="n">THREAD_PER_BLOCK</span><span class="p">](</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">device_charges</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_device_k</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_direct_potential_energy</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
+        <span class="n">sorted_forces</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">SPATIAL_DIM</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">tile_list</span><span class="o">.</span><span class="n">num_tiles</span> <span class="o">*</span> <span class="n">NUM_PARTICLES_PER_TILE</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">CUPY_FLOAT</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">thread_per_block</span> <span class="o">=</span> <span class="p">(</span><span class="n">NUM_PARTICLES_PER_TILE</span><span class="p">,</span> <span class="n">TILES_PER_THREAD</span><span class="p">)</span>
+        <span class="n">block_per_grid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">tile_list</span><span class="o">.</span><span class="n">num_tiles</span> <span class="o">/</span> <span class="n">TILES_PER_THREAD</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_pme_direct_part</span><span class="p">[</span><span class="n">block_per_grid</span><span class="p">,</span> <span class="n">thread_per_block</span><span class="p">](</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_device_inverse_k</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_device_ewald_coefficient</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_device_cutoff_radius</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">device_bonded_particles</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">neighbor_list</span><span class="o">.</span><span class="n">neighbor_list</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">neighbor_list</span><span class="o">.</span><span class="n">neighbor_vec_list</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_direct_forces</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_direct_potential_energy</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">device_pbc_matrix</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">sorted_positions</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">device_sorted_charges</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">device_exclusion_map</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">tile_list</span><span class="o">.</span><span class="n">tile_neighbors</span><span class="p">,</span>
+            <span class="n">sorted_forces</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_direct_potential_energy</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">thread_per_block</span> <span class="o">=</span> <span class="p">(</span><span class="mi">64</span><span class="p">)</span>
-        <span class="n">block_per_grid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">num_particles</span> <span class="o">/</span> <span class="n">thread_per_block</span>
-        <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_direct_forces</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">tile_list</span><span class="o">.</span><span class="n">unsort_matrix</span><span class="p">(</span>
+            <span class="n">sorted_forces</span>
+        <span class="p">)</span>
+        <span class="n">thread_per_block</span> <span class="o">=</span> <span class="mi">64</span>
+        <span class="n">block_per_grid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">num_particles</span> <span class="o">/</span> <span class="n">thread_per_block</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_excluded_pme_direct_part</span><span class="p">[</span><span class="n">block_per_grid</span><span class="p">,</span> <span class="n">thread_per_block</span><span class="p">](</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_device_inverse_k</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_device_ewald_coefficient</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_device_cutoff_radius</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">device_pbc_matrix</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">positions</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">device_charges</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">device_excluded_particles</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_direct_forces</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_direct_potential_energy</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Reciprocal part</span>
+        <span class="n">thread_per_block</span> <span class="o">=</span> <span class="mi">128</span>
+        <span class="n">block_per_grid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">num_particles</span> <span class="o">/</span> <span class="n">thread_per_block</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="c1"># Bspline</span>
         <span class="n">spline_coefficient</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">num_particles</span><span class="p">,</span> <span class="n">SPATIAL_DIM</span><span class="p">,</span> <span class="n">PME_ORDER</span><span class="p">],</span> <span class="n">CUPY_FLOAT</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">num_particles</span><span class="p">,</span> <span class="n">SPATIAL_DIM</span><span class="p">,</span> <span class="n">PME_ORDER</span><span class="p">],</span>
+            <span class="n">CUPY_FLOAT</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">spline_derivative_coefficient</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">num_particles</span><span class="p">,</span> <span class="n">SPATIAL_DIM</span><span class="p">,</span> <span class="n">PME_ORDER</span><span class="p">],</span> <span class="n">CUPY_FLOAT</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">num_particles</span><span class="p">,</span> <span class="n">SPATIAL_DIM</span><span class="p">,</span> <span class="n">PME_ORDER</span><span class="p">],</span>
+            <span class="n">CUPY_FLOAT</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">grid_map</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">num_particles</span><span class="p">,</span> <span class="n">SPATIAL_DIM</span><span class="p">,</span> <span class="n">PME_ORDER</span><span class="p">],</span> <span class="n">CUPY_INT</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">num_particles</span><span class="p">,</span> <span class="n">SPATIAL_DIM</span><span class="p">,</span> <span class="n">PME_ORDER</span><span class="p">],</span>
+            <span class="n">CUPY_INT</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_bspline</span><span class="p">[</span><span class="n">block_per_grid</span><span class="p">,</span> <span class="n">thread_per_block</span><span class="p">](</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">positions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_grid_size</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">positions</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_device_grid_size</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">device_pbc_matrix</span><span class="p">,</span>
-            <span class="n">spline_coefficient</span><span class="p">,</span> <span class="n">spline_derivative_coefficient</span><span class="p">,</span> <span class="n">grid_map</span>
+            <span class="n">spline_coefficient</span><span class="p">,</span>
+            <span class="n">spline_derivative_coefficient</span><span class="p">,</span>
+            <span class="n">grid_map</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="c1"># Map charge</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_charge_map</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_grid_size</span><span class="p">,</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_charge_map</span><span class="p">[</span><span class="n">block_per_grid</span><span class="p">,</span> <span class="n">thread_per_block</span><span class="p">](</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_device_num_particles</span><span class="p">,</span> <span class="n">spline_coefficient</span><span class="p">,</span> <span class="n">grid_map</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">device_charges</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charge_map</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_device_num_particles</span><span class="p">,</span>
+            <span class="n">spline_coefficient</span><span class="p">,</span>
+            <span class="n">grid_map</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">device_charges</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_charge_map</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="c1"># Reciprocal convolution</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_electric_potential_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_electric_potential_map</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_device_k</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charge_map</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_bc_grid</span>
         <span class="p">)</span>
         <span class="c1"># Reciprocal force</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_forces</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">matrix_shape</span><span class="p">,</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_forces</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">matrix_shape</span><span class="p">,</span> <span class="n">CUPY_FLOAT</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_potential_energy</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_reciprocal_force</span><span class="p">[</span><span class="n">block_per_grid</span><span class="p">,</span> <span class="n">thread_per_block</span><span class="p">](</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_device_num_particles</span><span class="p">,</span>
             <span class="n">spline_coefficient</span><span class="p">,</span>
             <span class="n">spline_derivative_coefficient</span><span class="p">,</span>
             <span class="n">grid_map</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_electric_potential_map</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">device_charges</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_forces</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_potential_energy</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_potential_energy</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_forces</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_forces</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_reciprocal_factor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_forces</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_forces</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_reciprocal_factor</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_forces</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_forces</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="c1"># Summary</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_potential_energy</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_direct_potential_energy</span> <span class="o">+</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_potential_energy</span> <span class="o">-</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_device_self_potential_energy</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_direct_potential_energy</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_potential_energy</span>
+            <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_self_potential_energy</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_forces</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_direct_forces</span> <span class="o">+</span>  <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_forces</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_forces</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_direct_forces</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reciprocal_forces</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">grid_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -856,6 +1076,39 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ewald_coefficient</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ewald_coefficient</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="kn">import</span> <span class="nn">mdpy</span> <span class="k">as</span> <span class="nn">md</span>
+    <span class="kn">from</span> <span class="nn">mdpy.unit</span> <span class="kn">import</span> <span class="o">*</span>
+
+    <span class="n">data_dir</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;/home/zhenyuwei/nutstore/ZhenyuWei/Note_Research/mdpy/mdpy/benchmark/data&quot;</span>
+    <span class="p">)</span>
+    <span class="n">psf_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;str.psf&quot;</span><span class="p">)</span>
+    <span class="n">pdb_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;str.pdb&quot;</span><span class="p">)</span>
+    <span class="n">cutoff_radius</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">angstrom</span><span class="p">)</span>
+    <span class="c1"># IO</span>
+    <span class="n">psf</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">PSFParser</span><span class="p">(</span><span class="n">psf_file</span><span class="p">)</span>
+    <span class="n">pdb</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">PDBParser</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">)</span>
+    <span class="n">charmm_prm</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">CharmmTopparParser</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;par_all36_prot.prm&quot;</span><span class="p">),</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;toppar_water_ions_namd.str&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="c1"># constraint</span>
+    <span class="n">ensemble</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="n">psf</span><span class="o">.</span><span class="n">topology</span><span class="p">,</span> <span class="n">pdb</span><span class="o">.</span><span class="n">pbc_matrix</span><span class="p">)</span>
+    <span class="n">constraint</span> <span class="o">=</span> <span class="n">ElectrostaticPMEConstraint</span><span class="p">()</span>
+    <span class="n">ensemble</span><span class="o">.</span><span class="n">add_constraints</span><span class="p">(</span><span class="n">constraint</span><span class="p">)</span>
+    <span class="n">ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">set_positions</span><span class="p">(</span><span class="n">pdb</span><span class="o">.</span><span class="n">positions</span><span class="p">)</span>
+    <span class="n">ensemble</span><span class="o">.</span><span class="n">update_tile_list</span><span class="p">()</span>
+    <span class="n">constraint</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="c1"># print(constraint.forces)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="n">Quantity</span><span class="p">(</span><span class="n">constraint</span><span class="o">.</span><span class="n">forces</span><span class="p">,</span> <span class="n">default_force_unit</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">kilojoule_permol_over_nanometer</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">value</span>
+    <span class="p">)</span>
 </pre></div>
         </article>
       </div>
@@ -896,9 +1149,8 @@
     </aside>
   </div>
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>

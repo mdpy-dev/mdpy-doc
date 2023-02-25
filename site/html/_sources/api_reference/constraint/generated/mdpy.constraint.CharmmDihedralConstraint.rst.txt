@@ -16,6 +16,7 @@
       ~CharmmDihedralConstraint.__init__
       ~CharmmDihedralConstraint.bind_ensemble
       ~CharmmDihedralConstraint.set_cutoff_radius
+      ~CharmmDihedralConstraint.sort_attributes
       ~CharmmDihedralConstraint.update
    
    

@@ -16,6 +16,7 @@
       ~CharmmImproperConstraint.__init__
       ~CharmmImproperConstraint.bind_ensemble
       ~CharmmImproperConstraint.set_cutoff_radius
+      ~CharmmImproperConstraint.sort_attributes
       ~CharmmImproperConstraint.update
    
    

@@ -16,6 +16,7 @@
       ~CharmmAngleConstraint.__init__
       ~CharmmAngleConstraint.bind_ensemble
       ~CharmmAngleConstraint.set_cutoff_radius
+      ~CharmmAngleConstraint.sort_attributes
       ~CharmmAngleConstraint.update
    
    

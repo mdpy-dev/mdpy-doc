@@ -1,13 +1,13 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>mdpy.core.topology - MDPy</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -148,7 +148,7 @@
   <span class="sidebar-brand-text">MDPy</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -157,7 +157,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quick_start/overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quick_start/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/framework.html">Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quick_start/cite.html">Cite MDPy</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Theory behind MDPy</span></p>
@@ -182,7 +181,7 @@
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/core/index.html">mdpy.core</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.Particle.html">mdpy.core.Particle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.NeighborList.html">mdpy.core.NeighborList</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.TileList.html">mdpy.core.TileList</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.Topology.html">mdpy.core.Topology</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.State.html">mdpy.core.State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.Trajectory.html">mdpy.core.Trajectory</a></li>
@@ -243,7 +242,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -260,21 +260,21 @@
           <h1>Source code for mdpy.core.topology</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- encoding: utf-8 -*-</span>
-<span class="sd">'''</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">file : topology.py</span>
 <span class="sd">created time : 2021/09/28</span>
 <span class="sd">author : Zhenyu Wei</span>
 <span class="sd">copyright : (C)Copyright 2021-present, mdpy organization</span>
-<span class="sd">'''</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">cupy</span> <span class="k">as</span> <span class="nn">cp</span>
-<span class="kn">from</span> <span class="nn">mdpy</span> <span class="kn">import</span> <span class="n">env</span>
-<span class="kn">from</span> <span class="nn">mdpy.core</span> <span class="kn">import</span> <span class="n">MAX_NUM_BONDED_PARTICLES</span><span class="p">,</span> <span class="n">MAX_NUM_SCALING_PARTICLES</span>
+<span class="kn">from</span> <span class="nn">mdpy.core</span> <span class="kn">import</span> <span class="n">MAX_NUM_EXCLUDED_PARTICLES</span><span class="p">,</span> <span class="n">MAX_NUM_SCALED_PARTICLES</span>
 <span class="kn">from</span> <span class="nn">mdpy.core</span> <span class="kn">import</span> <span class="n">Particle</span>
-<span class="kn">from</span> <span class="nn">mdpy.environment</span> <span class="kn">import</span> <span class="n">CUPY_FLOAT</span><span class="p">,</span> <span class="n">CUPY_INT</span>
+<span class="kn">from</span> <span class="nn">mdpy.environment</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">mdpy.error</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">mdpy.unit</span> <span class="kn">import</span> <span class="o">*</span>
+
 
 <div class="viewcode-block" id="Topology"><a class="viewcode-back" href="../../../api_reference/core/generated/mdpy.core.Topology.html#mdpy.core.Topology">[docs]</a><span class="k">class</span> <span class="nc">Topology</span><span class="p">:</span>
 <div class="viewcode-block" id="Topology.__init__"><a class="viewcode-back" href="../../../api_reference/core/generated/mdpy.core.Topology.html#mdpy.core.Topology.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -290,70 +290,94 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_impropers</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_joined</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_masses</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_masses</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_charges</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_bonded_particles</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_scaling_particles</span> <span class="o">=</span> <span class="p">[]</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_charges</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_sorted_charges</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_excluded_particles</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_excluded_particles</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_exclusion_map</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scaled_particles</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_scaled_particles</span> <span class="o">=</span> <span class="p">[]</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">'&lt;mdpy.core.Toplogy object: </span><span class="si">%d</span><span class="s1"> particles at </span><span class="si">%x</span><span class="s1">&gt;'</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;mdpy.core.Toplogy object: </span><span class="si">%d</span><span class="s2"> particles at </span><span class="si">%x</span><span class="s2">&gt;&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span>
+            <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span><span class="p">(</span>
-            <span class="s1">'Toplogy with </span><span class="si">%d</span><span class="s1"> particles, </span><span class="si">%d</span><span class="s1"> bonds, </span><span class="si">%d</span><span class="s1"> angles, </span><span class="si">%d</span><span class="s1"> dihedrals, </span><span class="si">%d</span><span class="s1"> impropers'</span>
-            <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_bonds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_angles</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_dihedrals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_impropers</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="s2">&quot;Toplogy with </span><span class="si">%d</span><span class="s2"> particles, </span><span class="si">%d</span><span class="s2"> bonds, </span><span class="si">%d</span><span class="s2"> angles, </span><span class="si">%d</span><span class="s2"> dihedrals, </span><span class="si">%d</span><span class="s2"> impropers&quot;</span>
+            <span class="o">%</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_num_bonds</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_num_angles</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_num_dihedrals</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_num_impropers</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_check_matrix_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">matrix_ids</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">matrix_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">matrix_ids</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">matrix_id</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">ParticleConflictError</span><span class="p">(</span>
-                    <span class="s1">'Matrix id </span><span class="si">%d</span><span class="s1"> beyonds the range of particles contain in toplogy, '</span> \
-                    <span class="s1">'can not be added as part of topology connection'</span> <span class="o">%</span><span class="n">matrix_id</span>
+                    <span class="s2">&quot;Matrix id </span><span class="si">%d</span><span class="s2"> beyonds the range of particles contain in toplogy, &quot;</span>
+                    <span class="s2">&quot;can not be added as part of topology connection&quot;</span> <span class="o">%</span> <span class="n">matrix_id</span>
                 <span class="p">)</span>
-            <span class="k">if</span> <span class="n">matrix_id</span> <span class="ow">in</span> <span class="n">matrix_ids</span><span class="p">[</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">:]:</span>
-                <span class="k">raise</span> <span class="n">ParticleConflictError</span><span class="p">(</span><span class="s1">'Particle appears twice in a topology connection'</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">matrix_id</span> <span class="ow">in</span> <span class="n">matrix_ids</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]:</span>
+                <span class="k">raise</span> <span class="n">ParticleConflictError</span><span class="p">(</span>
+                    <span class="s2">&quot;Particle appears twice in a topology connection&quot;</span>
+                <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_check_joined</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_joined</span><span class="p">:</span>
-            <span class="k">raise</span>  <span class="n">ModifyJoinedTopologyError</span><span class="p">(</span>
-                <span class="s1">'</span><span class="si">%s</span><span class="s1"> has been joined. No change can be made.'</span> <span class="o">%</span><span class="bp">self</span>
+            <span class="k">raise</span> <span class="n">ModifyJoinedTopologyError</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> has been joined. No change can be made.&quot;</span> <span class="o">%</span> <span class="bp">self</span>
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_masses</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">NUMPY_FLOAT</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_charges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">NUMPY_FLOAT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_masses</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">NUMPY_FLOAT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_charges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">NUMPY_FLOAT</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">particle</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_masses</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">particle</span><span class="o">.</span><span class="n">mass</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_charges</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">particle</span><span class="o">.</span><span class="n">charge</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_bonded_particles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span> <span class="n">MAX_NUM_BONDED_PARTICLES</span>
-        <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">NUMPY_INT</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_scaling_particles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span> <span class="n">MAX_NUM_SCALING_PARTICLES</span>
-        <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">NUMPY_INT</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_excluded_particles</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span> <span class="n">MAX_NUM_EXCLUDED_PARTICLES</span><span class="p">],</span> <span class="n">NUMPY_INT</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scaled_particles</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span> <span class="n">MAX_NUM_SCALED_PARTICLES</span><span class="p">],</span> <span class="n">NUMPY_INT</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="p">)</span>
         <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">particle</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_bonded_particles</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:</span><span class="n">particle</span><span class="o">.</span><span class="n">num_bonded_particles</span><span class="p">]</span> <span class="o">=</span> <span class="n">particle</span><span class="o">.</span><span class="n">bonded_particles</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_scaling_particles</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:</span><span class="n">particle</span><span class="o">.</span><span class="n">num_scaling_particles</span><span class="p">]</span> <span class="o">=</span> <span class="n">particle</span><span class="o">.</span><span class="n">scaling_particles</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_excluded_particles</span><span class="p">[</span>
+                <span class="n">index</span><span class="p">,</span> <span class="p">:</span> <span class="n">particle</span><span class="o">.</span><span class="n">num_excluded_particles</span>
+            <span class="p">]</span> <span class="o">=</span> <span class="n">particle</span><span class="o">.</span><span class="n">excluded_particles</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scaled_particles</span><span class="p">[</span>
+                <span class="n">index</span><span class="p">,</span> <span class="p">:</span> <span class="n">particle</span><span class="o">.</span><span class="n">num_scaled_particles</span>
+            <span class="p">]</span> <span class="o">=</span> <span class="n">particle</span><span class="o">.</span><span class="n">scaled_particles</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_masses</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_masses</span><span class="p">,</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_charges</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_charges</span><span class="p">,</span> <span class="n">CUPY_FLOAT</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_device_bonded_particles</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bonded_particles</span><span class="p">,</span> <span class="n">CUPY_INT</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_device_scaling_particles</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scaling_particles</span><span class="p">,</span> <span class="n">CUPY_INT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_excluded_particles</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_excluded_particles</span><span class="p">,</span> <span class="n">CUPY_INT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_scaled_particles</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scaled_particles</span><span class="p">,</span> <span class="n">CUPY_INT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_joined</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_masses</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_charges</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_bonded_particles</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_scaling_particles</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_excluded_particles</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scaled_particles</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_joined</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">add_particles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">particles</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_joined</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">particle</span> <span class="ow">in</span> <span class="n">particles</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">particle</span><span class="p">,</span> <span class="n">Particle</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'mdpy.core.Particle type is excepted, while </span><span class="si">%s</span><span class="s1"> provided'</span> <span class="o">%</span><span class="nb">type</span><span class="p">(</span><span class="n">particle</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="s2">&quot;mdpy.core.Particle type is excepted, while </span><span class="si">%s</span><span class="s2"> provided&quot;</span>
+                    <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">particle</span><span class="p">)</span>
+                <span class="p">)</span>
             <span class="c1"># if particle in self._particles:</span>
-            <span class="c1">#     raise ParticleConflictError('Particle %s is added twice to Toplogy instance' %particle)</span>
+            <span class="c1">#     raise ParticleConflictError(&#39;Particle %s is added twice to Toplogy instance&#39; %particle)</span>
             <span class="c1"># particle.change_particle_id(self._num_particles) # Deprecated because this work should be done by modeling software</span>
             <span class="n">particle</span><span class="o">.</span><span class="n">change_matrix_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">particle</span><span class="p">)</span>
@@ -361,129 +385,193 @@
 
     <span class="k">def</span> <span class="nf">del_particles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">particles</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_joined</span><span class="p">()</span>
-        <span class="n">particle_list</span><span class="p">,</span> <span class="n">bond_list</span><span class="p">,</span> <span class="n">angle_list</span><span class="p">,</span> <span class="n">dihedral_list</span><span class="p">,</span> <span class="n">improper_list</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="n">particle_list</span><span class="p">,</span> <span class="n">bond_list</span><span class="p">,</span> <span class="n">angle_list</span><span class="p">,</span> <span class="n">dihedral_list</span><span class="p">,</span> <span class="n">improper_list</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">[],</span>
+            <span class="p">[],</span>
+            <span class="p">[],</span>
+            <span class="p">[],</span>
+            <span class="p">[],</span>
+        <span class="p">)</span>
         <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">particle</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">particles</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">particle</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">:</span>
                 <span class="n">particle_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-                <span class="n">bond_list</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">index</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">bond</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bonds</span><span class="p">)</span> <span class="k">if</span> <span class="n">particle</span><span class="o">.</span><span class="n">matrix_id</span> <span class="ow">in</span> <span class="n">bond</span><span class="p">])</span>
-                <span class="n">angle_list</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">index</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">angle</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_angles</span><span class="p">)</span> <span class="k">if</span> <span class="n">particle</span><span class="o">.</span><span class="n">matrix_id</span> <span class="ow">in</span> <span class="n">angle</span><span class="p">])</span>
-                <span class="n">dihedral_list</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">index</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">dihedral</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dihedrals</span><span class="p">)</span> <span class="k">if</span> <span class="n">particle</span><span class="o">.</span><span class="n">matrix_id</span> <span class="ow">in</span> <span class="n">dihedral</span><span class="p">])</span>
-                <span class="n">improper_list</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">index</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">improper</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_impropers</span><span class="p">)</span> <span class="k">if</span> <span class="n">particle</span><span class="o">.</span><span class="n">matrix_id</span> <span class="ow">in</span> <span class="n">improper</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">))</span><span class="o">^</span><span class="nb">set</span><span class="p">(</span><span class="n">particle_list</span><span class="p">)]</span>
+                <span class="n">bond_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="n">index</span>
+                        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">bond</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bonds</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">particle</span><span class="o">.</span><span class="n">matrix_id</span> <span class="ow">in</span> <span class="n">bond</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">angle_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="n">index</span>
+                        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">angle</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_angles</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">particle</span><span class="o">.</span><span class="n">matrix_id</span> <span class="ow">in</span> <span class="n">angle</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">dihedral_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="n">index</span>
+                        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">dihedral</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dihedrals</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">particle</span><span class="o">.</span><span class="n">matrix_id</span> <span class="ow">in</span> <span class="n">dihedral</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">improper_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="n">index</span>
+                        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">improper</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_impropers</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">particle</span><span class="o">.</span><span class="n">matrix_id</span> <span class="ow">in</span> <span class="n">improper</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">))</span> <span class="o">^</span> <span class="nb">set</span><span class="p">(</span><span class="n">particle_list</span><span class="p">)</span>
+        <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_bonds</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bonds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_bonds</span><span class="p">))</span><span class="o">^</span><span class="nb">set</span><span class="p">(</span><span class="n">bond_list</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bonds</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_bonds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_bonds</span><span class="p">))</span> <span class="o">^</span> <span class="nb">set</span><span class="p">(</span><span class="n">bond_list</span><span class="p">)</span>
+        <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_bonds</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bonds</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_angles</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_angles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_angles</span><span class="p">))</span><span class="o">^</span><span class="nb">set</span><span class="p">(</span><span class="n">angle_list</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_angles</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_angles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_angles</span><span class="p">))</span> <span class="o">^</span> <span class="nb">set</span><span class="p">(</span><span class="n">angle_list</span><span class="p">)</span>
+        <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_angles</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_angles</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_dihedrals</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_dihedrals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_dihedrals</span><span class="p">))</span><span class="o">^</span><span class="nb">set</span><span class="p">(</span><span class="n">dihedral_list</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dihedrals</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dihedrals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_dihedrals</span><span class="p">))</span> <span class="o">^</span> <span class="nb">set</span><span class="p">(</span><span class="n">dihedral_list</span><span class="p">)</span>
+        <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_dihedrals</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dihedrals</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_impropers</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_impropers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_impropers</span><span class="p">))</span><span class="o">^</span><span class="nb">set</span><span class="p">(</span><span class="n">improper_list</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_impropers</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_impropers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_impropers</span><span class="p">))</span> <span class="o">^</span> <span class="nb">set</span><span class="p">(</span><span class="n">improper_list</span><span class="p">)</span>
+        <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_impropers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_impropers</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_bond</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bond</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_joined</span><span class="p">()</span>
         <span class="n">num_particles</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bond</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">num_particles</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GeomtryDimError</span><span class="p">(</span><span class="s1">'Bond should be a matrix id list of 2 Particles, instead of </span><span class="si">%d</span><span class="s1">'</span> <span class="o">%</span><span class="n">num_particles</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GeometryDimError</span><span class="p">(</span>
+                <span class="s2">&quot;Bond should be a matrix id list of 2 Particles, instead of </span><span class="si">%d</span><span class="s2">&quot;</span>
+                <span class="o">%</span> <span class="n">num_particles</span>
+            <span class="p">)</span>
         <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">bond</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_matrix_ids</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
         <span class="c1"># bond_replica = [p2, p1]</span>
         <span class="c1"># if not bond in self._bonds and not bond_replica in self._bonds:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bonds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bond</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">add_bonded_particle</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p2</span><span class="p">]</span><span class="o">.</span><span class="n">add_bonded_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">add_excluded_particle</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p2</span><span class="p">]</span><span class="o">.</span><span class="n">add_excluded_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_bonds</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="k">def</span> <span class="nf">del_bond</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bond</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_joined</span><span class="p">()</span>
         <span class="n">num_particles</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bond</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">num_particles</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GeomtryDimError</span><span class="p">(</span><span class="s1">'Bond should be a matrix id list of 2 Particles, instead of </span><span class="si">%d</span><span class="s1">'</span> <span class="o">%</span><span class="n">num_particles</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GeometryDimError</span><span class="p">(</span>
+                <span class="s2">&quot;Bond should be a matrix id list of 2 Particles, instead of </span><span class="si">%d</span><span class="s2">&quot;</span>
+                <span class="o">%</span> <span class="n">num_particles</span>
+            <span class="p">)</span>
         <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">bond</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_matrix_ids</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
         <span class="n">bond_replica</span> <span class="o">=</span> <span class="p">[</span><span class="n">p2</span><span class="p">,</span> <span class="n">p1</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">bond</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bonds</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_bonds</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bond</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">del_bonded_particle</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p2</span><span class="p">]</span><span class="o">.</span><span class="n">del_bonded_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">del_excluded_particle</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p2</span><span class="p">]</span><span class="o">.</span><span class="n">del_excluded_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_num_bonds</span> <span class="o">-=</span> <span class="mi">1</span>
         <span class="k">elif</span> <span class="n">bond_replica</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bonds</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_bonds</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bond_replica</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">del_bonded_particle</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p2</span><span class="p">]</span><span class="o">.</span><span class="n">del_bonded_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">del_excluded_particle</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p2</span><span class="p">]</span><span class="o">.</span><span class="n">del_excluded_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_num_bonds</span> <span class="o">-=</span> <span class="mi">1</span>
 
     <span class="k">def</span> <span class="nf">add_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_joined</span><span class="p">()</span>
         <span class="n">num_particles</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">num_particles</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GeomtryDimError</span><span class="p">(</span><span class="s1">'Angle should be a matrix id list of 3 Particles, instead of </span><span class="si">%d</span><span class="s1">'</span> <span class="o">%</span><span class="n">num_particles</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GeometryDimError</span><span class="p">(</span>
+                <span class="s2">&quot;Angle should be a matrix id list of 3 Particles, instead of </span><span class="si">%d</span><span class="s2">&quot;</span>
+                <span class="o">%</span> <span class="n">num_particles</span>
+            <span class="p">)</span>
         <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">angle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_matrix_ids</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">)</span>
         <span class="c1"># angle_replica = [p3, p2, p1]</span>
         <span class="c1"># if not angle in self._angles and not angle_replica in self._angles:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_angles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">add_bonded_particle</span><span class="p">(</span><span class="n">p3</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p3</span><span class="p">]</span><span class="o">.</span><span class="n">add_bonded_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">add_excluded_particle</span><span class="p">(</span><span class="n">p3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p3</span><span class="p">]</span><span class="o">.</span><span class="n">add_excluded_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_angles</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="k">def</span> <span class="nf">del_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_joined</span><span class="p">()</span>
         <span class="n">num_particles</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">num_particles</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GeomtryDimError</span><span class="p">(</span><span class="s1">'Angle should be a matrix id list of 3 Particles, instead of </span><span class="si">%d</span><span class="s1">'</span> <span class="o">%</span><span class="n">num_particles</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GeometryDimError</span><span class="p">(</span>
+                <span class="s2">&quot;Angle should be a matrix id list of 3 Particles, instead of </span><span class="si">%d</span><span class="s2">&quot;</span>
+                <span class="o">%</span> <span class="n">num_particles</span>
+            <span class="p">)</span>
         <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">angle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_matrix_ids</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">)</span>
         <span class="n">angle_replica</span> <span class="o">=</span> <span class="p">[</span><span class="n">p3</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p1</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">angle</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_angles</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_angles</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">del_bonded_particle</span><span class="p">(</span><span class="n">p3</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p3</span><span class="p">]</span><span class="o">.</span><span class="n">del_bonded_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">del_excluded_particle</span><span class="p">(</span><span class="n">p3</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p3</span><span class="p">]</span><span class="o">.</span><span class="n">del_excluded_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_num_angles</span> <span class="o">-=</span> <span class="mi">1</span>
         <span class="k">elif</span> <span class="n">angle_replica</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_angles</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_angles</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">angle_replica</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">del_bonded_particle</span><span class="p">(</span><span class="n">p3</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p3</span><span class="p">]</span><span class="o">.</span><span class="n">del_bonded_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">del_excluded_particle</span><span class="p">(</span><span class="n">p3</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p3</span><span class="p">]</span><span class="o">.</span><span class="n">del_excluded_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_num_angles</span> <span class="o">-=</span> <span class="mi">1</span>
 
     <span class="k">def</span> <span class="nf">add_dihedral</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dihedral</span><span class="p">,</span> <span class="n">scaling_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_joined</span><span class="p">()</span>
         <span class="n">num_particles</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dihedral</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">num_particles</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GeomtryDimError</span><span class="p">(</span><span class="s1">'Dihedral should be a matrix id list of 4 Particles, instead of </span><span class="si">%d</span><span class="s1">'</span> <span class="o">%</span><span class="n">num_particles</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GeometryDimError</span><span class="p">(</span>
+                <span class="s2">&quot;Dihedral should be a matrix id list of 4 Particles, instead of </span><span class="si">%d</span><span class="s2">&quot;</span>
+                <span class="o">%</span> <span class="n">num_particles</span>
+            <span class="p">)</span>
         <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span> <span class="o">=</span> <span class="n">dihedral</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_matrix_ids</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">)</span>
         <span class="c1"># dihedral_replica = [p4, p3, p2, p1]</span>
         <span class="c1"># if not dihedral in self._dihedrals and not dihedral_replica in self._dihedrals:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dihedrals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dihedral</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">add_scaling_particle</span><span class="p">(</span><span class="n">p4</span><span class="p">,</span> <span class="n">scaling_factor</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p4</span><span class="p">]</span><span class="o">.</span><span class="n">add_scaling_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">scaling_factor</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">add_scaled_particle</span><span class="p">(</span><span class="n">p4</span><span class="p">,</span> <span class="n">scaling_factor</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p4</span><span class="p">]</span><span class="o">.</span><span class="n">add_scaled_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">scaling_factor</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_dihedrals</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="k">def</span> <span class="nf">del_dihedral</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dihedral</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_joined</span><span class="p">()</span>
         <span class="n">num_particles</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dihedral</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">num_particles</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GeomtryDimError</span><span class="p">(</span><span class="s1">'Dihedral should be a matrix id list of 4 Particles, instead of </span><span class="si">%d</span><span class="s1">'</span> <span class="o">%</span><span class="n">num_particles</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GeometryDimError</span><span class="p">(</span>
+                <span class="s2">&quot;Dihedral should be a matrix id list of 4 Particles, instead of </span><span class="si">%d</span><span class="s2">&quot;</span>
+                <span class="o">%</span> <span class="n">num_particles</span>
+            <span class="p">)</span>
         <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span> <span class="o">=</span> <span class="n">dihedral</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_matrix_ids</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">)</span>
         <span class="n">dihedral_replica</span> <span class="o">=</span> <span class="p">[</span><span class="n">p4</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p1</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">dihedral</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dihedrals</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dihedrals</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dihedral</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">del_scaling_particle</span><span class="p">(</span><span class="n">p4</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p4</span><span class="p">]</span><span class="o">.</span><span class="n">del_scaling_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">del_scaled_particle</span><span class="p">(</span><span class="n">p4</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p4</span><span class="p">]</span><span class="o">.</span><span class="n">del_scaled_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_num_dihedrals</span> <span class="o">-=</span> <span class="mi">1</span>
         <span class="k">elif</span> <span class="n">dihedral_replica</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dihedrals</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dihedrals</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dihedral_replica</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">del_scaling_particle</span><span class="p">(</span><span class="n">p4</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p4</span><span class="p">]</span><span class="o">.</span><span class="n">del_scaling_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">.</span><span class="n">del_scaled_particle</span><span class="p">(</span><span class="n">p4</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span><span class="p">[</span><span class="n">p4</span><span class="p">]</span><span class="o">.</span><span class="n">del_scaled_particle</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_num_dihedrals</span> <span class="o">-=</span> <span class="mi">1</span>
 
     <span class="k">def</span> <span class="nf">add_improper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">improper</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_joined</span><span class="p">()</span>
         <span class="n">num_particles</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">improper</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">num_particles</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GeomtryDimError</span><span class="p">(</span><span class="s1">'Improper should be a matrix id list of 4 Particles, instead of </span><span class="si">%d</span><span class="s1">'</span> <span class="o">%</span><span class="n">num_particles</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GeometryDimError</span><span class="p">(</span>
+                <span class="s2">&quot;Improper should be a matrix id list of 4 Particles, instead of </span><span class="si">%d</span><span class="s2">&quot;</span>
+                <span class="o">%</span> <span class="n">num_particles</span>
+            <span class="p">)</span>
         <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span> <span class="o">=</span> <span class="n">improper</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_matrix_ids</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">)</span>
         <span class="c1"># if not improper in self._impropers:</span>
@@ -494,7 +582,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_joined</span><span class="p">()</span>
         <span class="n">num_particles</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">improper</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">num_particles</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GeomtryDimError</span><span class="p">(</span><span class="s1">'Improper should be a matrix id list of 4 Particles, instead of </span><span class="si">%d</span><span class="s1">'</span> <span class="o">%</span><span class="n">num_particles</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GeometryDimError</span><span class="p">(</span>
+                <span class="s2">&quot;Improper should be a matrix id list of 4 Particles, instead of </span><span class="si">%d</span><span class="s2">&quot;</span>
+                <span class="o">%</span> <span class="n">num_particles</span>
+            <span class="p">)</span>
         <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span> <span class="o">=</span> <span class="n">improper</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_matrix_ids</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">improper</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_impropers</span><span class="p">:</span>
@@ -502,79 +593,95 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_num_impropers</span> <span class="o">-=</span> <span class="mi">1</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">masses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">masses</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_masses</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">device_masses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">device_masses</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">cp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_masses</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">charges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">charges</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_charges</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">device_charges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">device_charges</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">cp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_charges</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">bonded_particles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bonded_particles</span>
+    <span class="k">def</span> <span class="nf">device_sorted_charges</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">cp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_sorted_charges</span>
+
+    <span class="nd">@device_sorted_charges</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">device_sorted_charges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sorted_charges</span><span class="p">:</span> <span class="n">cp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_sorted_charges</span> <span class="o">=</span> <span class="n">sorted_charges</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">device_bonded_particles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_bonded_particles</span>
+    <span class="k">def</span> <span class="nf">excluded_particles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_excluded_particles</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">scaling_particles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scaling_particles</span>
+    <span class="k">def</span> <span class="nf">device_excluded_particles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">cp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_excluded_particles</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">device_scaling_particles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_scaling_particles</span>
+    <span class="k">def</span> <span class="nf">device_exclusion_map</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">cp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_exclusion_map</span>
+
+    <span class="nd">@device_exclusion_map</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">device_exclusion_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exclusion_map</span><span class="p">:</span> <span class="n">cp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_exclusion_map</span> <span class="o">=</span> <span class="n">exclusion_map</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">scaled_particles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scaled_particles</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">device_scaled_particles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">cp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_scaled_particles</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">particles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Particle</span><span class="p">]:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_particles</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">num_particles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">num_particles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">bonds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">bonds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bonds</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">num_bonds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">num_bonds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_bonds</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">angles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">angles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_angles</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">num_angles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">num_angles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_angles</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">dihedrals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">dihedrals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dihedrals</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">num_dihedrals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">num_dihedrals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_dihedrals</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">impropers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">impropers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_impropers</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">num_impropers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">num_impropers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_impropers</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_joined</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">is_joined</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_joined</span></div>
 </pre></div>
         </article>
@@ -616,9 +723,8 @@
     </aside>
   </div>
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>

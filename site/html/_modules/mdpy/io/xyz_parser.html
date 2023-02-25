@@ -1,13 +1,13 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>mdpy.io.xyz_parser - MDPy</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -148,7 +148,7 @@
   <span class="sidebar-brand-text">MDPy</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -157,7 +157,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quick_start/overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quick_start/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quick_start/framework.html">Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quick_start/cite.html">Cite MDPy</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Theory behind MDPy</span></p>
@@ -182,7 +181,7 @@
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../api_reference/core/index.html">mdpy.core</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.Particle.html">mdpy.core.Particle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.NeighborList.html">mdpy.core.NeighborList</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.TileList.html">mdpy.core.TileList</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.Topology.html">mdpy.core.Topology</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.State.html">mdpy.core.State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api_reference/core/generated/mdpy.core.Trajectory.html">mdpy.core.Trajectory</a></li>
@@ -243,7 +242,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -260,12 +260,12 @@
           <h1>Source code for mdpy.io.xyz_parser</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- encoding: utf-8 -*-</span>
-<span class="sd">'''</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">file : xyz_parser.py</span>
 <span class="sd">created time : 2022/04/26</span>
 <span class="sd">author : Yinong Zhao</span>
 <span class="sd">copyright : (C)Copyright 2021-present, mdpy organization</span>
-<span class="sd">'''</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">turtle</span> <span class="kn">import</span> <span class="n">end_fill</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -273,15 +273,16 @@
 <span class="kn">from</span> <span class="nn">mdpy.environment</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">mdpy.error</span> <span class="kn">import</span> <span class="o">*</span>
 
+
 <div class="viewcode-block" id="XYZParser"><a class="viewcode-back" href="../../../api_reference/io/generated/mdpy.io.XYZParser.html#mdpy.io.XYZParser">[docs]</a><span class="k">class</span> <span class="nc">XYZParser</span><span class="p">:</span>
 <div class="viewcode-block" id="XYZParser.__init__"><a class="viewcode-back" href="../../../api_reference/io/generated/mdpy.io.XYZParser.html#mdpy.io.XYZParser.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">is_parse_all</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># Initial reader and parser setting</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.xyz'</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">FileFormatError</span><span class="p">(</span><span class="s1">'The file should end with .xyz suffix'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.xyz&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">FileFormatError</span><span class="p">(</span><span class="s2">&quot;The file should end with .xyz suffix&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="n">file_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_parse_all</span> <span class="o">=</span> <span class="n">is_parse_all</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
         <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 
@@ -293,9 +294,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_num_frames</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span> <span class="o">!=</span> <span class="n">multiframe_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="n">ArrayDimError</span><span class="p">(</span>
-                <span class="s1">'XYZ file contains </span><span class="si">%d</span><span class="s1"> particles, while positions of </span><span class="si">%d</span><span class="s1"> particles are provided'</span> <span class="o">%</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span> <span class="n">multiframe_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="p">)</span>
+                <span class="s2">&quot;XYZ file contains </span><span class="si">%d</span><span class="s2"> particles, while positions of </span><span class="si">%d</span><span class="s2"> particles are provided&quot;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span> <span class="n">multiframe_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_frames</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_positions</span> <span class="o">=</span> <span class="n">multiframe_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -311,10 +311,10 @@
 
     <span class="k">def</span> <span class="nf">_parse_single_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">particle_types</span><span class="p">,</span> <span class="n">positions</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span> <span class="c1"># Skip num particle line</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span> <span class="c1"># Skip comment line</span>
-        <span class="k">while</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'</span><span class="si">%d</span><span class="s1">'</span> <span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">line</span> <span class="o">==</span> <span class="s1">''</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>  <span class="c1"># Skip num particle line</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>  <span class="c1"># Skip comment line</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
                 <span class="k">break</span>
             <span class="n">particle_type</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_single_line</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
             <span class="n">particle_types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">particle_type</span><span class="p">)</span>
@@ -327,19 +327,23 @@
         <span class="k">if</span> <span class="n">num_target_frames</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_frames</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">ArrayDimError</span><span class="p">(</span>
-                    <span class="s1">'</span><span class="si">%d</span><span class="s1"> beyond the number of frames </span><span class="si">%d</span><span class="s1"> stored in pdb file'</span>
-                    <span class="o">%</span><span class="p">(</span><span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_frames</span><span class="p">)</span>
+                    <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> beyond the number of frames </span><span class="si">%d</span><span class="s2"> stored in pdb file&quot;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_frames</span><span class="p">)</span>
                 <span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reader</span><span class="o">.</span><span class="n">trajectory</span><span class="p">[</span><span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">positions</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">NUMPY_FLOAT</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_reader</span><span class="o">.</span><span class="n">trajectory</span><span class="p">[</span><span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">positions</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">NUMPY_FLOAT</span><span class="p">)</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">num_target_frames</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_particles</span><span class="p">,</span> <span class="n">SPATIAL_DIM</span><span class="p">])</span>
             <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">frame</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">frames</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">frame</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_frames</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="n">ArrayDimError</span><span class="p">(</span>
-                        <span class="s1">'</span><span class="si">%d</span><span class="s1"> beyond the number of frames </span><span class="si">%d</span><span class="s1"> stored in pdb file'</span>
-                        <span class="o">%</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_frames</span><span class="p">)</span>
+                        <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> beyond the number of frames </span><span class="si">%d</span><span class="s2"> stored in pdb file&quot;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_frames</span><span class="p">)</span>
                     <span class="p">)</span>
-                <span class="n">result</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reader</span><span class="o">.</span><span class="n">trajectory</span><span class="p">[</span><span class="n">frame</span><span class="p">]</span><span class="o">.</span><span class="n">positions</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">NUMPY_FLOAT</span><span class="p">)</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reader</span><span class="o">.</span><span class="n">trajectory</span><span class="p">[</span><span class="n">frame</span><span class="p">]</span><span class="o">.</span><span class="n">positions</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+                    <span class="n">NUMPY_FLOAT</span>
+                <span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span>
 
     <span class="nd">@property</span>
@@ -358,7 +362,7 @@
     <span class="k">def</span> <span class="nf">positions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_parse_all</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">IOPoorDefinedError</span><span class="p">(</span>
-                <span class="s1">'positions property is not supported as `is_parse_all==False`, calling `get_position` method'</span>
+                <span class="s2">&quot;positions property is not supported as `is_parse_all==False`, calling `get_position` method&quot;</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_positions</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
 </pre></div>
@@ -401,9 +405,8 @@
     </aside>
   </div>
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>

@@ -8,7 +8,7 @@ mdpy.core
     :nosignatures:
 
     mdpy.core.Particle
-    mdpy.core.NeighborList
+    mdpy.core.TileList
     mdpy.core.Topology
     mdpy.core.State
     mdpy.core.Trajectory

@@ -16,6 +16,7 @@
       ~ElectrostaticPMEConstraint.__init__
       ~ElectrostaticPMEConstraint.bind_ensemble
       ~ElectrostaticPMEConstraint.set_cutoff_radius
+      ~ElectrostaticPMEConstraint.sort_attributes
       ~ElectrostaticPMEConstraint.update
    
    

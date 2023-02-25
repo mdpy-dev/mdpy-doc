@@ -3,10 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to mdpy's documentation!
-================================
-
-
 Table of content
 ==================
 
@@ -16,7 +12,6 @@ Table of content
 
    quick_start/overview
    quick_start/installation
-   quick_start/framework
    quick_start/cite
 
 .. toctree::

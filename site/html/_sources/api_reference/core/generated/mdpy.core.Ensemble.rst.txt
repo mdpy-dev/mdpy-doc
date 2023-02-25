@@ -15,7 +15,8 @@
    
       ~Ensemble.__init__
       ~Ensemble.add_constraints
-      ~Ensemble.update
+      ~Ensemble.update_constraints
+      ~Ensemble.update_tile_list
    
    
 
@@ -31,6 +32,7 @@
       ~Ensemble.num_constraints
       ~Ensemble.potential_energy
       ~Ensemble.state
+      ~Ensemble.tile_list
       ~Ensemble.topology
       ~Ensemble.total_energy
    

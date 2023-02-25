@@ -16,6 +16,7 @@
       ~ElectrostaticCutoffConstraint.__init__
       ~ElectrostaticCutoffConstraint.bind_ensemble
       ~ElectrostaticCutoffConstraint.set_cutoff_radius
+      ~ElectrostaticCutoffConstraint.sort_attributes
       ~ElectrostaticCutoffConstraint.update
    
    

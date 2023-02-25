@@ -16,6 +16,7 @@
       ~CharmmVDWConstraint.__init__
       ~CharmmVDWConstraint.bind_ensemble
       ~CharmmVDWConstraint.set_cutoff_radius
+      ~CharmmVDWConstraint.sort_attributes
       ~CharmmVDWConstraint.update
    
    
