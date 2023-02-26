@@ -2,9 +2,9 @@
 Unit system
 ============
 
-In most of cases, **SI unit system** is frequently chosen to describe a physical quantity. However, the scale of MD simulation is much smaller then the SI unit system. In this case, using SI system to perform numerical operation like addition yields big **numerical error**.
+In most cases, the **SI unit system** is frequently chosen to describe physical quantities. However, the scale of MD simulation is much smaller than the SI unit system. In this case, using the SI system to perform numerical operations like addition yields big **numerical errors**.
 
-To ensure the **convergence** and **accuracy** of simulation, most MD package chose a new unit system that comparable to the atomic scale. Here we list the **default unit system** used in MDPy.
+To ensure the **convergence** and **accuracy** of the simulation, most MD packages choose a new unit system that is comparable to the atomic scale. Here, we list the default unit system used in MDPy.
 
 .. list-table:: Unit system
    :header-rows: 1
@@ -17,15 +17,15 @@ To ensure the **convergence** and **accuracy** of simulation, most MD package ch
    * - Length
      - m
      - angstrom
-     - :math:`10^{-10}`
+     - :math:`10^{10}`
    * - Time
      - s
      - femtosecond
-     - :math:`10^{-12}`
+     - :math:`10^{12}`
    * - Mass
      - kg
      - dalton
-     - :math:`1.66\times10^{-27}`
+     - :math:`6.023\times10^{26}`
    * - Temperature
      - kelvin
      - kelvin
@@ -33,13 +33,13 @@ To ensure the **convergence** and **accuracy** of simulation, most MD package ch
    * - Charge
      - coulomb
      - e
-     - :math:`1.60\times10^{-19}`
+     - :math:`6.24\times10^{18}`
    * - Amount of substance
      - mol
      - mol
      - :math:`1`
 
-The other unit like energy and force are derived from the multiplation and division of the basic unit.
+Other units, such as energy and force, are derived from the multiplication and division of the basic units.
 
 .. tip::
     To get more information of unit system of MDPy, check tutorial: :doc:`../tutorial/unit`

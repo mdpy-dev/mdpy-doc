@@ -1,13 +1,13 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>mdpy.core.particle - MDPy</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -148,7 +148,7 @@
   <span class="sidebar-brand-text">MDPy</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -164,7 +164,7 @@
 <p class="caption" role="heading"><span class="caption-text">Theory behind MDPy</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/unit_system.html">Unit system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/neighbor_list.html">Neighbor list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/neighbor_list.html">Cell list</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/ewald_sum.html">Ewald summation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/thermostat.html">Thermostat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/barostat.html">Barostat</a></li>
@@ -253,7 +253,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -270,12 +271,12 @@
           <h1>Source code for mdpy.core.particle</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- encoding: utf-8 -*-</span>
-<span class="sd">"""</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">file : particle.py</span>
 <span class="sd">created time : 2021/09/28</span>
 <span class="sd">author : Zhenyu Wei</span>
 <span class="sd">copyright : (C)Copyright 2021-present, mdpy organization</span>
-<span class="sd">"""</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">mdpy.utils</span> <span class="kn">import</span> <span class="n">check_quantity_value</span>
 <span class="kn">from</span> <span class="nn">mdpy.unit</span> <span class="kn">import</span> <span class="o">*</span>
@@ -314,7 +315,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_scaled_particles</span> <span class="o">=</span> <span class="mi">0</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">"&lt;mdpy.core.Particle object: </span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%d</span><span class="s2"> at </span><span class="si">%x</span><span class="s2">&gt;"</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;mdpy.core.Particle object: </span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%d</span><span class="s2"> at </span><span class="si">%x</span><span class="s2">&gt;&quot;</span> <span class="o">%</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_molecule_type</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_particle_type</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_particle_id</span><span class="p">,</span>
@@ -322,7 +323,7 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%d</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_molecule_type</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_particle_type</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_particle_id</span><span class="p">,</span>
@@ -340,12 +341,12 @@
     <span class="k">def</span> <span class="nf">add_excluded_particle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">particle_matrix_id</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">particle_matrix_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_excluded_particles</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ParticleConflictError</span><span class="p">(</span>
-                <span class="s2">"Particle </span><span class="si">%d</span><span class="s2"> has been added twice to the excluded_particles of Particle </span><span class="si">%d</span><span class="s2">"</span>
+                <span class="s2">&quot;Particle </span><span class="si">%d</span><span class="s2"> has been added twice to the excluded_particles of Particle </span><span class="si">%d</span><span class="s2">&quot;</span>
                 <span class="o">%</span> <span class="p">(</span><span class="n">particle_matrix_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix_id</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">particle_matrix_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix_id</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ParticleConflictError</span><span class="p">(</span>
-                <span class="s2">"Particle itself can not be added to the excluded_particles list."</span>
+                <span class="s2">&quot;Particle itself can not be added to the excluded_particles list.&quot;</span>
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_excluded_particles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">particle_matrix_id</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_excluded_particles</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -359,7 +360,7 @@
         <span class="c1"># Benzene give two dihedral with same 1 4 particles</span>
         <span class="k">if</span> <span class="n">particle_matrix_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix_id</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ParticleConflictError</span><span class="p">(</span>
-                <span class="s2">"Particle itself can not be added to the scaled_particles list."</span>
+                <span class="s2">&quot;Particle itself can not be added to the scaled_particles list.&quot;</span>
             <span class="p">)</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="n">particle_matrix_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scaled_particles</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_scaled_particles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">particle_matrix_id</span><span class="p">)</span>
@@ -469,9 +470,8 @@
     </aside>
   </div>
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

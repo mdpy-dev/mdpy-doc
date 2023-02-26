@@ -1,14 +1,14 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="Exception reference" href="../exception_reference/index.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>Reference - MDPy</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -149,7 +149,7 @@
   <span class="sidebar-brand-text">MDPy</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -165,7 +165,7 @@
 <p class="caption" role="heading"><span class="caption-text">Theory behind MDPy</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../theory_behind_mdpy/unit_system.html">Unit system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../theory_behind_mdpy/neighbor_list.html">Neighbor list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theory_behind_mdpy/neighbor_list.html">Cell list</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../theory_behind_mdpy/ewald_sum.html">Ewald summation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../theory_behind_mdpy/thermostat.html">Thermostat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../theory_behind_mdpy/barostat.html">Barostat</a></li>
@@ -254,7 +254,9 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -269,22 +271,37 @@
         </div>
         <article role="main">
           <section id="reference">
-<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">#</a></h1>
+<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this heading">#</a></h1>
 <div class="docutils container" id="id1">
-<dl class="citation">
-<dt class="label" id="id2"><span class="brackets">1</span></dt>
-<dd><p>Tom Darden, Darrin York, and Lee Pedersen. Particle mesh ewald: an \emph N ·log( \emph N ) method for ewald sums in large systems. <em>The Journal of Chemical Physics</em>, 98(12):10089–10092, June 1993. <a class="reference external" href="https://doi.org/10.1063/1.464397">doi:10.1063/1.464397</a>.</p>
-</dd>
-<dt class="label" id="id3"><span class="brackets">2</span></dt>
-<dd><p>Ulrich Essmann, Lalith Perera, Max L. Berkowitz, Tom Darden, Hsing Lee, and Lee G. Pedersen. A smooth particle mesh ewald method. <em>The Journal of Chemical Physics</em>, 103(19):8577–8593, November 1995. <a class="reference external" href="https://doi.org/10.1063/1.470117">doi:10.1063/1.470117</a>.</p>
-</dd>
-<dt class="label" id="id4"><span class="brackets">3</span></dt>
-<dd><p>Roger W. Hockney and James W. Eastwood. <em>Computer Simulation Using Particles</em>. Inst. of Physics Publ, Bristol, reprinted edition, 1999. ISBN 978-0-85274-392-8.</p>
-</dd>
-<dt class="label" id="id5"><span class="brackets">4</span></dt>
-<dd><p>E.L. Pollock and Jim Glosli. Comments on p3m, fmm, and the ewald method for large periodic coulombic systems. <em>Computer Physics Communications</em>, 95(2-3):93–110, June 1996. <a class="reference external" href="https://doi.org/10.1016/0010-4655(96)00043-4">doi:10.1016/0010-4655(96)00043-4</a>.</p>
-</dd>
-</dl>
+<div class="citation" id="id2" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>Wikipedia. Cell lists. 2022. URL: <a class="reference external" href="https://en.wikipedia.org/wiki/Cell_lists">https://en.wikipedia.org/wiki/Cell_lists</a>.</p>
+</div>
+<div class="citation" id="id3" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<p>Che-Rung Lee. System integration and implementation. 2010. URL: <a class="reference external" href="http://www.cs.nthu.edu.tw/~cherung/teaching/2010gpucell/">http://www.cs.nthu.edu.tw/~cherung/teaching/2010gpucell/</a>.</p>
+</div>
+<div class="citation" id="id4" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
+<p>Xah Lee. Space-filling curve. 2013. URL: <a class="reference external" href="http://xahlee.info/math/space-filling_curve.html">http://xahlee.info/math/space-filling_curve.html</a>.</p>
+</div>
+<div class="citation" id="id5" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></span>
+<p>Tom Darden, Darrin York, and Lee Pedersen. Particle mesh ewald: an \emph N ·log( \emph N ) method for ewald sums in large systems. <em>The Journal of Chemical Physics</em>, 98(12):10089–10092, June 1993. <a class="reference external" href="https://doi.org/10.1063/1.464397">doi:10.1063/1.464397</a>.</p>
+</div>
+<div class="citation" id="id6" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></span>
+<p>Ulrich Essmann, Lalith Perera, Max L. Berkowitz, Tom Darden, Hsing Lee, and Lee G. Pedersen. A smooth particle mesh ewald method. <em>The Journal of Chemical Physics</em>, 103(19):8577–8593, November 1995. <a class="reference external" href="https://doi.org/10.1063/1.470117">doi:10.1063/1.470117</a>.</p>
+</div>
+<div class="citation" id="id7" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></span>
+<p>Roger W. Hockney and James W. Eastwood. <em>Computer Simulation Using Particles</em>. Inst. of Physics Publ, Bristol, reprinted edition, 1999. ISBN 978-0-85274-392-8.</p>
+</div>
+<div class="citation" id="id8" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></span>
+<p>E.L. Pollock and Jim Glosli. Comments on p3m, fmm, and the ewald method for large periodic coulombic systems. <em>Computer Physics Communications</em>, 95(2-3):93–110, June 1996. <a class="reference external" href="https://doi.org/10.1016/0010-4655(96)00043-4">doi:10.1016/0010-4655(96)00043-4</a>.</p>
+</div>
+</div>
 </div>
 </section>
 
@@ -295,7 +312,7 @@
         <div class="related-pages">
           
           <a class="prev-page" href="../exception_reference/index.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -337,9 +354,8 @@
     </aside>
   </div>
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

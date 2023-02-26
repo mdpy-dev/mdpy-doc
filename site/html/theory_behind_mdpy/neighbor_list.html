@@ -1,14 +1,14 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Ewald summation" href="ewald_sum.html" /><link rel="prev" title="Unit system" href="unit_system.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
-        <title>Neighbor list - MDPy</title>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+        <title>Cell list - MDPy</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -149,7 +149,7 @@
   <span class="sidebar-brand-text">MDPy</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -165,7 +165,7 @@
 <p class="caption" role="heading"><span class="caption-text">Theory behind MDPy</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="unit_system.html">Unit system</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Neighbor list</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Cell list</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ewald_sum.html">Ewald summation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="thermostat.html">Thermostat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="barostat.html">Barostat</a></li>
@@ -254,7 +254,9 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -262,14 +264,67 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="neighbor-list">
-<h1>Neighbor list<a class="headerlink" href="#neighbor-list" title="Permalink to this headline">#</a></h1>
+          <section id="cell-list">
+<h1>Cell list<a class="headerlink" href="#cell-list" title="Permalink to this heading">#</a></h1>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading">#</a></h2>
+<p>In many cases, particles only interact with each other over short distances, and these interactions can be described using short-range potentials.</p>
+<p>The Lennard-Jones potential is a common example of a short-range potential used to describe the Van der Waals interaction between particles.</p>
+<div class="math-wrapper docutils container" id="equation-neighbor-list-eq-vdw">
+<div class="math notranslate nohighlight" id="equation-neighbor-list-eq-vdw">
+<span class="eqno">(1)<a class="headerlink" href="#equation-neighbor-list-eq-vdw" title="Permalink to this equation">#</a></span>\[U_{\text{vdw}}=\sum_{i\ne j}^{N_{\text{p}}}{4}\varepsilon _{ij}\left[ \left( \frac{\sigma _{ij}}{r_{ij}} \right) ^{12}-\left( \frac{\sigma _{ij}}{r_{ij}} \right) ^6 \right]\]</div>
+</div>
+<p>As shown in Eq <a class="reference internal" href="#equation-neighbor-list-eq-vdw">(1)</a>, the computation of pairwise interactions has a complexity that scales with the square of the number of particles, denoted as <span class="math notranslate nohighlight">\(N_{\text{p}}\)</span>. This leads to a quadratic increase in computational cost as the number of particles increases. However, since only particles in close proximity to a given central particle have a significant effect on it, it is important to use a data structure that efficiently identifies the neighboring particles.</p>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="../_images/cell_list.png"><img alt="../_images/cell_list.png" src="../_images/cell_list.png" style="width: 250px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Illustration of cell-list <span id="id1">[<a class="reference internal" href="../reference/index.html#id2" title="Wikipedia. Cell lists. 2022. URL: https://en.wikipedia.org/wiki/Cell_lists.">1</a>]</span></span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The cell-list is a data structure commonly used in computational physics and chemistry simulations to efficiently compute pairwise interactions between particles in a system. It works by dividing the simulation domain into a grid of cells and assigning each particle to the cell that contains its position.</p>
+<p>By doing this, particles in nearby cells are likely to interact with each other, while particles in distant cells are unlikely to interact. This reduces the number of pairwise interactions that need to be computed, resulting in a significant computational speedup.</p>
+</section>
+<section id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h2>
+<section id="cutoff-radius">
+<h3>Cutoff radius<a class="headerlink" href="#cutoff-radius" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="memory-coalescing">
+<h3>Memory coalescing<a class="headerlink" href="#memory-coalescing" title="Permalink to this heading">#</a></h3>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="../_images/coalsed-memory.png"><img alt="../_images/coalsed-memory.png" src="../_images/coalsed-memory.png" style="width: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Comparison between coalesced and uncoalesced memory accessing <span id="id2">[<a class="reference internal" href="../reference/index.html#id3" title="Che-Rung Lee. System integration and implementation. 2010. URL: http://www.cs.nthu.edu.tw/~cherung/teaching/2010gpucell/.">2</a>]</span>. “In this scenario, accessing memory in a coalesced manner requires only one request, whereas accessing memory in an uncoalesced manner requires 32 separate requests.</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Memory coalescing is a technique used in computer systems to optimize memory access patterns and improve performance. It involves grouping memory requests from multiple threads or blocks of threads into larger, more contiguous requests.</p>
+<p>When a GPU executes a kernel, it does so in parallel across many threads. These threads are grouped into blocks, and each block is assigned to a streaming multiprocessor (SM) on the GPU. When a thread needs to access memory, it issues a memory request. If multiple threads in a block issue memory requests for adjacent locations in memory, these requests can be combined into a single request that reads or writes a larger block of memory.</p>
+<p>By grouping memory requests in this way, memory coalescing reduces the number of requests that need to be sent to memory, which can improve overall performance. It also helps to reduce memory bandwidth usage, which can be a bottleneck in GPU performance.</p>
+</section>
+<section id="space-filling-curve">
+<h3>Space filling curve<a class="headerlink" href="#space-filling-curve" title="Permalink to this heading">#</a></h3>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="../_images/space_filling_curve.png"><img alt="../_images/space_filling_curve.png" src="../_images/space_filling_curve.png" style="width: 550px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of the Hilbert curve <span id="id3">[<a class="reference internal" href="../reference/index.html#id4" title="Xah Lee. Space-filling curve. 2013. URL: http://xahlee.info/math/space-filling_curve.html.">3</a>]</span>.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>A space-filling curve is a mathematical construct that maps a one-dimensional sequence of numbers to a two-dimensional or higher-dimensional space in a way that preserves locality. In other words, it is a curve that traverses a space in a way that maximizes the continuity of nearby points.</p>
+<p>The idea behind space-filling curves is that they provide a way to traverse a multi-dimensional space in a linear order, which can be useful for indexing or searching large datasets. By mapping the points in a multi-dimensional space to a one-dimensional sequence, space-filling curves can reduce the overhead of accessing and processing data.</p>
+<figure class="align-center" id="id7">
+<a class="reference internal image-reference" href="../_images/space-partition.png"><img alt="../_images/space-partition.png" src="../_images/space-partition.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Space partition result</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
 </section>
 
         </article>
@@ -284,10 +339,10 @@
                 </div>
                 <div class="title">Ewald summation</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="unit_system.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -322,17 +377,43 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Cell list</a><ul>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#implementation">Implementation</a><ul>
+<li><a class="reference internal" href="#cutoff-radius">Cutoff radius</a></li>
+<li><a class="reference internal" href="#memory-coalescing">Memory coalescing</a></li>
+<li><a class="reference internal" href="#space-filling-curve">Space filling curve</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
   </div>
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>

@@ -1,13 +1,13 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>mdpy.constraint.electrostatic_pme_constraint - MDPy</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -148,7 +148,7 @@
   <span class="sidebar-brand-text">MDPy</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -164,7 +164,7 @@
 <p class="caption" role="heading"><span class="caption-text">Theory behind MDPy</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/unit_system.html">Unit system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/neighbor_list.html">Neighbor list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/neighbor_list.html">Cell list</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/ewald_sum.html">Ewald summation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/thermostat.html">Thermostat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theory_behind_mdpy/barostat.html">Barostat</a></li>
@@ -253,7 +253,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -270,12 +271,12 @@
           <h1>Source code for mdpy.constraint.electrostatic_pme_constraint</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- encoding: utf-8 -*-</span>
-<span class="sd">"""</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">file : electrostatic_pme_constraint.py</span>
 <span class="sd">created time : 2022/04/07</span>
 <span class="sd">author : Zhenyu Wei</span>
 <span class="sd">copyright : (C)Copyright 2021-present, mdpy organization</span>
-<span class="sd">"""</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -396,13 +397,13 @@
         <span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_reciprocal_force_kernel</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">"&lt;mdpy.constraint.ElectrostaticPMEConstraint object&gt;"</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;mdpy.constraint.ElectrostaticPMEConstraint object&gt;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">"PME electrostatic constraint"</span>
+        <span class="k">return</span> <span class="s2">&quot;PME electrostatic constraint&quot;</span>
 
     <span class="k">def</span> <span class="nf">_get_ewald_coefficient</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Using Newton interation solve ewald coefficient</span>
 
 <span class="sd">        Essentially, the Ewald coefficient is mathematical shorthand for 1/2s,</span>
@@ -414,10 +415,10 @@
 <span class="sd">        proving truncation yielding no big error</span>
 
 <span class="sd">        f(alpha) = erfc(alpha*cutoff_radius) / cutoff_radius - direct_sum_energy_tolerance</span>
-<span class="sd">        f'(alpha) = - 2/sqrt(pi) * exp[-(alpha*cutoff_radius)^2]</span>
+<span class="sd">        f&#39;(alpha) = - 2/sqrt(pi) * exp[-(alpha*cutoff_radius)^2]</span>
 
-<span class="sd">        alpha_new = alpha_old - f(alpha_old) / f'(alpha_old)</span>
-<span class="sd">        """</span>
+<span class="sd">        alpha_new = alpha_old - f(alpha_old) / f&#39;(alpha_old)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
         <span class="n">sqrt_pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -433,9 +434,9 @@
         <span class="k">return</span> <span class="n">alpha</span>
 
     <span class="k">def</span> <span class="nf">_get_grid_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the grid size with spacing around 0.5 angstrom and power to 2 for better fft performance</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pbc_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span>
             <span class="n">Quantity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">pbc_matrix</span><span class="p">,</span> <span class="n">default_length_unit</span><span class="p">)</span>
             <span class="o">.</span><span class="n">convert_to</span><span class="p">(</span><span class="n">angstrom</span><span class="p">)</span>
@@ -538,7 +539,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_constraint_id</span> <span class="o">=</span> <span class="n">ensemble</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_ensemble</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">charges</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">EnsemblePoorDefinedError</span><span class="p">(</span>
-                <span class="s2">"mdpy.constraint.ElectrostaticPMEConstraint is bound to a non-neutralized ensemble"</span>
+                <span class="s2">&quot;mdpy.constraint.ElectrostaticPMEConstraint is bound to a non-neutralized ensemble&quot;</span>
             <span class="p">)</span>
         <span class="c1"># Grid size</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_grid_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_grid_size</span><span class="p">()</span>
@@ -869,12 +870,12 @@
     <span class="k">def</span> <span class="nf">_update_charge_map_kernel</span><span class="p">(</span>
         <span class="n">num_particles</span><span class="p">,</span> <span class="n">spline_coefficient</span><span class="p">,</span> <span class="n">grid_map</span><span class="p">,</span> <span class="n">charges</span><span class="p">,</span> <span class="n">charge_map</span>
     <span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        spline_coefficient: [num_particles, SPATIAL_DIM, PME_ORDER] The spline coefficient of particles</span>
 <span class="sd">        grid_map: [num_particles, SPATIL_DIM, PME_ORDER]: The indice of grid to add charge of each particles</span>
 <span class="sd">        charges: [num_particles,]: The charges of particles</span>
 <span class="sd">        charge_map: [grid_size_x, grid_size_y, grid_size_z]</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">particle_id</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">num_particles</span> <span class="o">=</span> <span class="n">num_particles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">particle_id</span> <span class="o">&gt;=</span> <span class="n">num_particles</span><span class="p">:</span>
@@ -909,13 +910,13 @@
         <span class="n">forces</span><span class="p">,</span>
         <span class="n">potential_energy</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        spline_coefficient: [num_particles, SPATIAL_DIM, PME_ORDER] The spline coefficient of particles</span>
 <span class="sd">        spline_derivative_coefficient: [num_particles, SPATIAL_DIM, PME_ORDER] The spline derivative coefficient of particles</span>
 <span class="sd">        grid_map: [num_particles, SPATIL_DIM, PME_ORDER]: The indice of grid to add charge of each particles</span>
 <span class="sd">        electric_potential_map: [grid_size_x, grid_size_y, grid_size_z]: Electric potential on each grid point</span>
 <span class="sd">        forces: [num_particles, SPATIAL_DIM]</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">particle_id</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">particle_id</span> <span class="o">&gt;=</span> <span class="n">charges</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
             <span class="k">return</span> <span class="kc">None</span>
@@ -1088,23 +1089,23 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ewald_coefficient</span></div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">os</span>
     <span class="kn">import</span> <span class="nn">mdpy</span> <span class="k">as</span> <span class="nn">md</span>
     <span class="kn">from</span> <span class="nn">mdpy.unit</span> <span class="kn">import</span> <span class="o">*</span>
 
     <span class="n">data_dir</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s2">"/home/zhenyuwei/nutstore/ZhenyuWei/Note_Research/mdpy/mdpy/benchmark/data"</span>
+        <span class="s2">&quot;/home/zhenyuwei/nutstore/ZhenyuWei/Note_Research/mdpy/mdpy/benchmark/data&quot;</span>
     <span class="p">)</span>
-    <span class="n">psf_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">"str.psf"</span><span class="p">)</span>
-    <span class="n">pdb_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">"str.pdb"</span><span class="p">)</span>
+    <span class="n">psf_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;str.psf&quot;</span><span class="p">)</span>
+    <span class="n">pdb_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;str.pdb&quot;</span><span class="p">)</span>
     <span class="n">cutoff_radius</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">angstrom</span><span class="p">)</span>
     <span class="c1"># IO</span>
     <span class="n">psf</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">PSFParser</span><span class="p">(</span><span class="n">psf_file</span><span class="p">)</span>
     <span class="n">pdb</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">PDBParser</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">)</span>
     <span class="n">charmm_prm</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">CharmmTopparParser</span><span class="p">(</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">"par_all36_prot.prm"</span><span class="p">),</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">"toppar_water_ions_namd.str"</span><span class="p">),</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;par_all36_prot.prm&quot;</span><span class="p">),</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;toppar_water_ions_namd.str&quot;</span><span class="p">),</span>
     <span class="p">)</span>
     <span class="c1"># constraint</span>
     <span class="n">ensemble</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="n">psf</span><span class="o">.</span><span class="n">topology</span><span class="p">,</span> <span class="n">pdb</span><span class="o">.</span><span class="n">pbc_matrix</span><span class="p">)</span>
@@ -1159,9 +1160,8 @@
     </aside>
   </div>
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

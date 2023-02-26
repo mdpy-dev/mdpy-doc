@@ -1,14 +1,14 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Unit system" href="../theory_behind_mdpy/unit_system.html" /><link rel="prev" title="Table of content" href="../index.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>Overview - MDPy</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -149,7 +149,7 @@
   <span class="sidebar-brand-text">MDPy</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -165,7 +165,7 @@
 <p class="caption" role="heading"><span class="caption-text">Theory behind MDPy</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../theory_behind_mdpy/unit_system.html">Unit system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../theory_behind_mdpy/neighbor_list.html">Neighbor list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theory_behind_mdpy/neighbor_list.html">Cell list</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../theory_behind_mdpy/ewald_sum.html">Ewald summation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../theory_behind_mdpy/thermostat.html">Thermostat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../theory_behind_mdpy/barostat.html">Barostat</a></li>
@@ -254,7 +254,9 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -262,72 +264,72 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
           <section id="overview">
-<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h1>
-<p>MDPy is a <strong>GPU</strong> accelerated Molecular Dynamics (MD) package based on <strong>Python</strong>, distributed freely under the terms of <strong>BSD</strong> License. It is designed for researchers with no c++ or fortran coding background to efficiently implement new theoretical model with GPU acceleration.</p>
-<p>MDPy is developed and maintaining by <strong>Zhenyu Wei</strong> (<a class="reference external" href="mailto:zhenyuwei99%40gmail.com">zhenyuwei99<span>@</span>gmail<span>.</span>com</a>), from <strong>Yunfei Chen</strong>’s group in Southeast University. As a newly developed program, we always welcome developers to contact us or discuss in our <a class="reference external" href="https://github.com/mdpy-dev/mdpy">Github site</a></p>
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h1>
+<p>MDPy is a freely distributed Molecular Dynamics (MD) package based on <strong>Python</strong>, which is <strong>GPU-accelerated</strong> and licensed under the <strong>BSD</strong> License. It is designed to enable researchers with no prior experience in coding with C++ or Fortran to implement new theoretical models with GPU acceleration efficiently.</p>
+<p><strong>Zhenyu Wei</strong> (<a class="reference external" href="mailto:zhenyuwei99&#37;&#52;&#48;gmail&#46;com">zhenyuwei99<span>&#64;</span>gmail<span>&#46;</span>com</a>), from <strong>Yunfei Chen</strong>’s group in Southeast University, developed and maintains MDPy. As a newly developed program, we always welcome developers to contact us or discuss in our <a class="reference external" href="https://github.com/mdpy-dev/mdpy">Github site</a>.</p>
 <p>The document is organized in four parts:</p>
 <ol class="arabic simple">
-<li><p><strong>Quick start</strong> contains introduction of our program and the installation suggestions.</p></li>
-<li><p><strong>Theory behind MDPy</strong> introduce the physical models and mathematical tricks implemented in MDPy.</p></li>
-<li><p><strong>Tutorial</strong> gives basic example codes to give user a directive intuition of MDPy’s features and workflow.</p></li>
-<li><p><strong>API reference</strong> gives detailed description of all packages and classes of MDPy.</p></li>
+<li><p><strong>Quick start</strong>: This section provides an introduction to our program and installation suggestions.</p></li>
+<li><p><strong>Theory behind MDPy</strong>: This section introduces the physical models and mathematical tricks implemented in MDPy.</p></li>
+<li><p><strong>Tutorial</strong>: This section provides basic example codes to give users a clear understanding of MDPy’s features and workflow.</p></li>
+<li><p><strong>API reference</strong>: This section gives a detailed description of all packages and classes of MDPy.</p></li>
 </ol>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>We strongly recommend beginner of MD simulation to read <strong>Theory behind MDPy</strong> before using MDPy.</p>
+<p>We highly recommend that beginners of MD simulation read the “Theory behind MDPy” before utilizing MDPy.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Once user is familiar with MDPy, the <strong>API reference</strong> will be useful for quick code check.</p>
+<p>Once the user becomes familiar with MDPy, the “API reference” will be a useful resource for quickly checking their code.</p>
 </div>
 </section>
 <section id="framework">
-<h1>Framework<a class="headerlink" href="#framework" title="Permalink to this headline">#</a></h1>
+<h1>Framework<a class="headerlink" href="#framework" title="Permalink to this heading">#</a></h1>
 <figure class="align-center">
-<img alt="../_images/framework.png" src="../_images/framework.png"/>
+<img alt="../_images/framework.png" src="../_images/framework.png" />
 </figure>
-<p>In MDPy, he main job of conducting a simulation is creating a well-defined <a class="reference internal" href="../api_reference/core/generated/mdpy.core.Ensemble.html"><span class="doc">Ensemble</span></a> object. A <cite>Ensemble</cite> object included all information required for the MD simulation:</p>
+<p>In MDPy, the main task of conducting a simulation is creating a well-defined <a class="reference internal" href="../api_reference/core/generated/mdpy.core.Ensemble.html"><span class="doc">Ensemble</span></a> object. An <code class="code docutils literal notranslate"><span class="pre">Ensemble</span></code> object includes all the information required for the MD simulation, such as:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../api_reference/core/generated/mdpy.core.Topology.html"><span class="doc">Topology</span></a> contains the <strong>particles’ properties</strong> (e.g: Atom type; Mass; Charge) and the other <strong>topological information</strong> (e.g: Bond, Angle, Dihedrals).</p></li>
-<li><p><a class="reference internal" href="../api_reference/core/generated/mdpy.core.State.html"><span class="doc">State</span></a> contains <strong>spatial coordinates</strong> and <strong>velocities</strong> of each particles in Topology. These information describes the coordinate of Ensemble in the <strong>phase space</strong>. Further, State also contains the information of Periodic Boundary Condition (PBC) and Neighbor list.</p></li>
-<li><p>Constraints is a <code class="code docutils literal notranslate"><span class="pre">list</span></code> of <a class="reference internal" href="../api_reference/constraint/index.html"><span class="doc">Constraint</span></a> object. Each <code class="code docutils literal notranslate"><span class="pre">Constraint</span></code> object describes a <strong>specific interaction between particles</strong>, and returns the <strong>force</strong> on each particles and the <strong>potential energy</strong> of the Ensemble.</p></li>
+<li><p><a class="reference internal" href="../api_reference/core/generated/mdpy.core.Topology.html"><span class="doc">Topology</span></a>: This contains the particles’ properties, such as atom type, mass, and charge, as well as other topological information like bonds, angles, and dihedrals.</p></li>
+<li><p><a class="reference internal" href="../api_reference/core/generated/mdpy.core.State.html"><span class="doc">State</span></a>: This contains the <strong>spatial coordinates</strong> and <strong>velocities</strong> of each particle in the Topology. This information describes the coordinate of the Ensemble in the <strong>phase space</strong>. Additionally, State also includes information about the Periodic Boundary Condition (PBC) and Neighbor list.</p></li>
+<li><p>Constraints: This is a <code class="code docutils literal notranslate"><span class="pre">list</span></code> of <a class="reference internal" href="../api_reference/constraint/index.html"><span class="doc">Constraint</span></a> objects, each of which describes a specific interaction between particles. It returns the force on each particle and the potential energy of the Ensemble.</p></li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>MDPy also provides higher level API for creating typical <code class="code docutils literal notranslate"><span class="pre">Ensemble</span></code>, which includes in the <a class="reference internal" href="../api_reference/recipe/index.html"><span class="doc">mdpy.recipe</span></a> package.</p>
+<p>MDPy also provides a higher-level API for creating typical <code class="code docutils literal notranslate"><span class="pre">Ensemble</span></code>, which is included in the <a class="reference internal" href="../api_reference/recipe/index.html"><span class="doc">mdpy.recipe</span></a> package.</p>
 </div>
-<p>Then user can create operations on the <code class="code docutils literal notranslate"><span class="pre">Ensemble</span></code> object. MDPy supports two types of operators:</p>
+<p>The user can then perform operations on the <code class="code docutils literal notranslate"><span class="pre">Ensemble</span></code> object. MDPy supports two types of operators:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../api_reference/minimizer/index.html"><span class="doc">Minimizer</span></a> takes the <code class="code docutils literal notranslate"><span class="pre">Ensemble</span></code> object as the <strong>input</strong> and <strong>minimize</strong> the total <strong>potential energy</strong> of <code class="code docutils literal notranslate"><span class="pre">Ensemble</span></code>.</p></li>
-<li><p><a class="reference internal" href="../api_reference/integrator/index.html"><span class="doc">Integrator</span></a> takes the <code class="code docutils literal notranslate"><span class="pre">Ensemble</span></code> object as the <strong>input</strong> and <strong>integrate</strong> the <strong>force</strong> acting on each particles in specific manner to sample the <strong>phase space</strong>.</p></li>
+<li><p><a class="reference internal" href="../api_reference/minimizer/index.html"><span class="doc">Minimizer</span></a>: Takes the <code class="code docutils literal notranslate"><span class="pre">Ensemble</span></code> object as input and <strong>minimizes</strong> the total <strong>potential energy</strong> of the <code class="code docutils literal notranslate"><span class="pre">Ensemble</span></code>.</p></li>
+<li><p><a class="reference internal" href="../api_reference/integrator/index.html"><span class="doc">Integrator</span></a>: Takes the <code class="code docutils literal notranslate"><span class="pre">Ensemble</span></code> object as input and <strong>integrates</strong> the <strong>forces</strong> acting on each particle in a specific manner to sample the phase space.</p></li>
 </ul>
 </section>
 <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h1>
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h1>
 <p><strong>Beta version</strong></p>
-<p>We strongly recommend to install mdpy from <strong>source code</strong> in the Beta version. First you need clone this repository to your local device:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/mdpy-dev/mdpy.git
+<p>We strongly recommend installing MDPy from the <strong>source code</strong> for the beta version. First, you need to clone this repository to your local device:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/mdpy-dev/mdpy.git
 </pre></div>
 </div>
 <p>Then go to the path of mdpy, running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install --file requirements.txt -c defaults -c conda-forge
-conda develop .
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>--file<span class="w"> </span>requirements.txt<span class="w"> </span>-c<span class="w"> </span>defaults<span class="w"> </span>-c<span class="w"> </span>conda-forge
+conda<span class="w"> </span>develop<span class="w"> </span>.
 </pre></div>
 </div>
-<p>Now all the change made on the mdpy source code can be reveal in your code without reinstalling mdpy package.</p>
+<p>Now, any changes made to the MDPy source code can be reflected in your code without needing to reinstall the MDPy package.</p>
 </section>
 <section id="performance">
-<h1>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">#</a></h1>
+<h1>Performance<a class="headerlink" href="#performance" title="Permalink to this heading">#</a></h1>
 </section>
 <section id="cite-mdpy">
-<h1>Cite MDPy<a class="headerlink" href="#cite-mdpy" title="Permalink to this headline">#</a></h1>
+<h1>Cite MDPy<a class="headerlink" href="#cite-mdpy" title="Permalink to this heading">#</a></h1>
 </section>
 
         </article>
@@ -342,10 +344,10 @@ conda develop .
                 </div>
                 <div class="title">Unit system</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="../index.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -380,36 +382,15 @@ conda develop .
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            Contents
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">Overview</a></li>
-<li><a class="reference internal" href="#framework">Framework</a></li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#performance">Performance</a></li>
-<li><a class="reference internal" href="#cite-mdpy">Cite MDPy</a></li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>
   </div>
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>
