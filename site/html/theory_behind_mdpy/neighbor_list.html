@@ -289,14 +289,13 @@
 </figure>
 <p>The cell-list is a data structure commonly used in computational physics and chemistry simulations to efficiently compute pairwise interactions between particles in a system. It works by dividing the simulation domain into a grid of cells and assigning each particle to the cell that contains its position.</p>
 <p>By doing this, particles in nearby cells are likely to interact with each other, while particles in distant cells are unlikely to interact. This reduces the number of pairwise interactions that need to be computed, resulting in a significant computational speedup.</p>
+<p>The cell-list algorithm consists of several steps. Firstly, the simulation domain is partitioned into a grid of uniformly sized cells, with each cell defined by a cutoff radius that determines the range of particle interactions. Next, each particle is assigned to the cell containing its position, followed by the identification of neighboring cells for each particle. Finally, interactions are calculated only between the central particle and those in its own cell and neighboring cells, as particles outside of these cells are beyond the cutoff radius.</p>
 </section>
-<section id="implementation">
-<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h2>
-<section id="cutoff-radius">
-<h3>Cutoff radius<a class="headerlink" href="#cutoff-radius" title="Permalink to this heading">#</a></h3>
-</section>
+<section id="implementation-details">
+<h2>Implementation details<a class="headerlink" href="#implementation-details" title="Permalink to this heading">#</a></h2>
 <section id="memory-coalescing">
 <h3>Memory coalescing<a class="headerlink" href="#memory-coalescing" title="Permalink to this heading">#</a></h3>
+<p>In a typical simulation, a large number of particle coordinates must be repeatedly accessed to calculate interactions during each time step. Therefore, optimizing memory access efficiency is crucial for improving the performance of molecular dynamics (MD) simulations. The data structure of the cell-list should also be optimized to achieve this goal.</p>
 <figure class="align-center" id="id5">
 <a class="reference internal image-reference" href="../_images/coalsed-memory.png"><img alt="../_images/coalsed-memory.png" src="../_images/coalsed-memory.png" style="width: 350px;" /></a>
 <figcaption>
@@ -309,20 +308,22 @@
 </section>
 <section id="space-filling-curve">
 <h3>Space filling curve<a class="headerlink" href="#space-filling-curve" title="Permalink to this heading">#</a></h3>
+<p>To improve memory coalescence, we aim to access the coordinates of multiple particles simultaneously. In other words, we want to handle groups of particles in similar environments. In MDPy, we group particles in the same cell and close proximity into a <strong>tile</strong> containing 32 or fewer particles to meet GPU requirements. We then re-sequence the coordinates to follow the tile sequence, ensuring that the data of particles in the same tile is contiguous. Finally, each GPU block calculates the interactions between particles in two tiles in center or neighboring cells, allowing each block to access coalesced memory.</p>
 <figure class="align-center" id="id6">
 <a class="reference internal image-reference" href="../_images/space_filling_curve.png"><img alt="../_images/space_filling_curve.png" src="../_images/space_filling_curve.png" style="width: 550px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of the Hilbert curve <span id="id3">[<a class="reference internal" href="../reference/index.html#id4" title="Xah Lee. Space-filling curve. 2013. URL: http://xahlee.info/math/space-filling_curve.html.">3</a>]</span>.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>A space-filling curve is a mathematical construct that maps a one-dimensional sequence of numbers to a two-dimensional or higher-dimensional space in a way that preserves locality. In other words, it is a curve that traverses a space in a way that maximizes the continuity of nearby points.</p>
+<p>MDPy uses a space-filling curve to group particles that are close together in space. A space-filling curve is a mathematical construct that maps a one-dimensional sequence of numbers to a two-dimensional or higher-dimensional space, preserving locality. In other words, it is a curve that traverses a space in a way that maximizes the continuity of nearby points.</p>
 <p>The idea behind space-filling curves is that they provide a way to traverse a multi-dimensional space in a linear order, which can be useful for indexing or searching large datasets. By mapping the points in a multi-dimensional space to a one-dimensional sequence, space-filling curves can reduce the overhead of accessing and processing data.</p>
 <figure class="align-center" id="id7">
 <a class="reference internal image-reference" href="../_images/space-partition.png"><img alt="../_images/space-partition.png" src="../_images/space-partition.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Space partition result</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Space partition result.</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<p>The use of a space-filling curve enables us to hash the 3D coordinates of particles to obtain a sequence of particles in each cell. Based on the hashing result, we can construct a tile by re-sequencing the particle hash value.</p>
 </section>
 </section>
 </section>
@@ -391,8 +392,7 @@
             <ul>
 <li><a class="reference internal" href="#">Cell list</a><ul>
 <li><a class="reference internal" href="#background">Background</a></li>
-<li><a class="reference internal" href="#implementation">Implementation</a><ul>
-<li><a class="reference internal" href="#cutoff-radius">Cutoff radius</a></li>
+<li><a class="reference internal" href="#implementation-details">Implementation details</a><ul>
 <li><a class="reference internal" href="#memory-coalescing">Memory coalescing</a></li>
 <li><a class="reference internal" href="#space-filling-curve">Space filling curve</a></li>
 </ul>

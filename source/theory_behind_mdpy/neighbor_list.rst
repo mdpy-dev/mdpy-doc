@@ -27,16 +27,15 @@ The cell-list is a data structure commonly used in computational physics and che
 
 By doing this, particles in nearby cells are likely to interact with each other, while particles in distant cells are unlikely to interact. This reduces the number of pairwise interactions that need to be computed, resulting in a significant computational speedup.
 
-Implementation
---------------
+The cell-list algorithm consists of several steps. Firstly, the simulation domain is partitioned into a grid of uniformly sized cells, with each cell defined by a cutoff radius that determines the range of particle interactions. Next, each particle is assigned to the cell containing its position, followed by the identification of neighboring cells for each particle. Finally, interactions are calculated only between the central particle and those in its own cell and neighboring cells, as particles outside of these cells are beyond the cutoff radius.
 
-Cutoff radius
-+++++++++++++
-
-
+Implementation details
+----------------------
 
 Memory coalescing
 +++++++++++++++++++
+
+In a typical simulation, a large number of particle coordinates must be repeatedly accessed to calculate interactions during each time step. Therefore, optimizing memory access efficiency is crucial for improving the performance of molecular dynamics (MD) simulations. The data structure of the cell-list should also be optimized to achieve this goal.
 
 .. figure:: ../_static/image/cell_list/coalsed-memory.png
     :align: center
@@ -53,6 +52,8 @@ By grouping memory requests in this way, memory coalescing reduces the number of
 Space filling curve
 +++++++++++++++++++
 
+To improve memory coalescence, we aim to access the coordinates of multiple particles simultaneously. In other words, we want to handle groups of particles in similar environments. In MDPy, we group particles in the same cell and close proximity into a **tile** containing 32 or fewer particles to meet GPU requirements. We then re-sequence the coordinates to follow the tile sequence, ensuring that the data of particles in the same tile is contiguous. Finally, each GPU block calculates the interactions between particles in two tiles in center or neighboring cells, allowing each block to access coalesced memory.
+
 
 .. figure:: ../_static/image/cell_list/space_filling_curve.png
     :align: center
@@ -60,7 +61,7 @@ Space filling curve
 
     Illustration of the Hilbert curve :cite:`cell-list-space-filling-curve-png`.
 
-A space-filling curve is a mathematical construct that maps a one-dimensional sequence of numbers to a two-dimensional or higher-dimensional space in a way that preserves locality. In other words, it is a curve that traverses a space in a way that maximizes the continuity of nearby points.
+MDPy uses a space-filling curve to group particles that are close together in space. A space-filling curve is a mathematical construct that maps a one-dimensional sequence of numbers to a two-dimensional or higher-dimensional space, preserving locality. In other words, it is a curve that traverses a space in a way that maximizes the continuity of nearby points.
 
 The idea behind space-filling curves is that they provide a way to traverse a multi-dimensional space in a linear order, which can be useful for indexing or searching large datasets. By mapping the points in a multi-dimensional space to a one-dimensional sequence, space-filling curves can reduce the overhead of accessing and processing data.
 
@@ -68,4 +69,6 @@ The idea behind space-filling curves is that they provide a way to traverse a mu
     :align: center
     :width: 450
 
-    Space partition result
+    Space partition result.
+
+The use of a space-filling curve enables us to hash the 3D coordinates of particles to obtain a sequence of particles in each cell. Based on the hashing result, we can construct a tile by re-sequencing the particle hash value.
