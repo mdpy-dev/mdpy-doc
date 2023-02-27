@@ -77,7 +77,7 @@ bibtex_bibfiles = ["./reference/refs.bib"]
 
 math_numfig = True
 numfig = True
-numfig_secnum_depth = 1
+numfig_secnum_depth = 2
 numfig_format = {
     "figure": "Fig. %s",
     "table": "Table %s",

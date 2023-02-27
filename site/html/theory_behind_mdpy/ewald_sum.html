@@ -274,15 +274,27 @@
 <h1>Ewald summation<a class="headerlink" href="#ewald-summation" title="Permalink to this heading">#</a></h1>
 <section id="background">
 <h2>Background<a class="headerlink" href="#background" title="Permalink to this heading">#</a></h2>
-<figure class="align-center" id="id4">
+<p>Different from the short-ranged interactions, the electrostatic interaction describing by the coulomb law will not vanish beyond specific range for a dense system as:</p>
+<div class="math-wrapper docutils container" id="equation-ewald-sum-eq-long-range-prove">
+<div class="math notranslate nohighlight" id="equation-ewald-sum-eq-long-range-prove">
+<span class="eqno">(2)<a class="headerlink" href="#equation-ewald-sum-eq-long-range-prove" title="Permalink to this equation">#</a></span>\[U_{\mathrm{ele}}(r+\mathrm{d}r) =  \frac{q_sq_n}{4\pi\varepsilon_0 r}\times n_0 \pi r^2 dr = n_0 \frac{q_sq_n}{4\varepsilon_0} r \mathrm{d}r\]</div>
+</div>
+<p>According to Equation <a class="reference internal" href="#equation-ewald-sum-eq-long-range-prove">(2)</a>, the interaction energy between central particles and their neighboring particles within the range of <span class="math notranslate nohighlight">\([r, r + \mathrm{d}r]\)</span> increases linearly as the distance increases. Therefore, it is not feasible to simplify the calculation of electrostatic interaction by setting a cutoff radius and ignoring particles beyond it. Additionally, the presence of periodic boundary conditions (PBC) results in an infinite sum that cannot be easily calculated, further adding to the complexity of the electrostatic interaction calculation.</p>
+<figure class="align-center" id="id5">
 <a class="reference internal image-reference" href="../_images/screening.png"><img alt="../_images/screening.png" src="../_images/screening.png" style="width: 550px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Illustration of ewald summation <span id="id1">[<a class="reference internal" href="../reference/index.html#id5" title="S Stenberg and B Stenqvist. An exact ewald summation method in theory and practice. The Journal of Physical Chemistry A, 124(19):3943–3946, 2020.">4</a>]</span></span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Idea of ewald summation <span id="id1">[<a class="reference internal" href="../reference/index.html#id5" title="S Stenberg and B Stenqvist. An exact ewald summation method in theory and practice. The Journal of Physical Chemistry A, 124(19):3943–3946, 2020.">4</a>]</span></span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="math-wrapper docutils container" id="equation-euler">
-<div class="math notranslate nohighlight" id="equation-euler">
-<span class="eqno">(2)<a class="headerlink" href="#equation-euler" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{equation}
+<p>Ewald summation is a mathematical method utilized in computational chemistry and physics to precisely calculate the long-range electrostatic interactions between charged particles in a periodic system. The fundamental concept involves transforming the original delta-like charge distribution into the superposition of a screening distribution and a Gaussian-like distribution, as depicted above. The screening distribution is composed of the original distribution and a Gaussian with an opposite charge sign, <strong>similar</strong> to dipoles. Approximately, the energy is altered to:</p>
+<div class="math-wrapper docutils container" id="equation-ewald-sum-eq-screen-short-range-prove">
+<div class="math notranslate nohighlight" id="equation-ewald-sum-eq-screen-short-range-prove">
+<span class="eqno">(3)<a class="headerlink" href="#equation-ewald-sum-eq-screen-short-range-prove" title="Permalink to this equation">#</a></span>\[U_{\mathrm{ele}}(r+\mathrm{d}r) =  \frac{q_sq_n}{4\pi\varepsilon_0 r^3}\times n_0 \pi r^2 dr = n_0 \frac{q_sq_n}{4\varepsilon_0r} \mathrm{d}r\]</div>
+</div>
+<p>As the distance increases, the energy now diminishes. Precisely, the energy of the screening distribution can be expressed as follows:</p>
+<div class="math-wrapper docutils container" id="equation-ewald-sum-eq-phi-expression">
+<div class="math notranslate nohighlight" id="equation-ewald-sum-eq-phi-expression">
+<span class="eqno">(4)<a class="headerlink" href="#equation-ewald-sum-eq-phi-expression" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{equation}
 \begin{cases}
     \displaystyle \phi _{\text{G}}(r)=\frac{q}{4\pi \varepsilon _0r}\text{erf(}\alpha r\text{),erf(}x)=\frac{2}{\pi ^{\text{1/}2}}\int_0^x{\text{e}^{-x^2}}\text{d}x \\\\
     \displaystyle \phi _{\delta}(r)=\frac{q}{4\pi \varepsilon _0r}
@@ -290,10 +302,62 @@
 \label{equation}
 \end{equation}\end{split}\]</div>
 </div>
-<p>PME <span id="id2">[<a class="reference internal" href="../reference/index.html#id6" title="Tom Darden, Darrin York, and Lee Pedersen. Particle mesh ewald: an \emph N ·log( \emph N ) method for ewald sums in large systems. The Journal of Chemical Physics, 98(12):10089–10092, June 1993. doi:10.1063/1.464397.">5</a>, <a class="reference internal" href="../reference/index.html#id7" title="Ulrich Essmann, Lalith Perera, Max L. Berkowitz, Tom Darden, Hsing Lee, and Lee G. Pedersen. A smooth particle mesh ewald method. The Journal of Chemical Physics, 103(19):8577–8593, November 1995. doi:10.1063/1.470117.">6</a>]</span>, Particle-Particle Particle Mesh <span id="id3">[<a class="reference internal" href="../reference/index.html#id8" title="Roger W. Hockney and James W. Eastwood. Computer Simulation Using Particles. Inst. of Physics Publ, Bristol, reprinted edition, 1999. ISBN 978-0-85274-392-8.">7</a>, <a class="reference internal" href="../reference/index.html#id9" title="E.L. Pollock and Jim Glosli. Comments on p3m, fmm, and the ewald method for large periodic coulombic systems. Computer Physics Communications, 95(2-3):93–110, June 1996. doi:10.1016/0010-4655(96)00043-4.">8</a>]</span> (PPPM or P3M) method</p>
+<div class="math-wrapper docutils container" id="equation-ewald-sum-eq-screening-energy">
+<div class="math notranslate nohighlight" id="equation-ewald-sum-eq-screening-energy">
+<span class="eqno">(5)<a class="headerlink" href="#equation-ewald-sum-eq-screening-energy" title="Permalink to this equation">#</a></span>\[E_{\text{short}}=\sum_{i\ne j,\lVert \mathbf{r}_i-\mathbf{r}_i \rVert \le r_c}^{N_{\text{p}}}{\frac{q_iq_j}{4\pi \varepsilon _0 \lVert \mathbf{r}_i-\mathbf{r}_j \rVert }\left[ 1-\text{erf}\left(\alpha \lVert\mathbf{r}_i-\mathbf{r}_j\rVert\right) \right]}\]</div>
+</div>
+<p>Moreover, for the Gaussian-like distribution, we can substitute the summation in real space with the summation in reciprocal space, since the Gaussian distribution is periodic owing to the presence of PBC. First, considering the Poisson equation in reciprocal space:</p>
+<div class="math-wrapper docutils container" id="equation-ewald-sum-eq-poisson-reciprocal">
+<div class="math notranslate nohighlight" id="equation-ewald-sum-eq-poisson-reciprocal">
+<span class="eqno">(6)<a class="headerlink" href="#equation-ewald-sum-eq-poisson-reciprocal" title="Permalink to this equation">#</a></span>\[\lVert \mathbf{k} \rVert ^2\tilde{\phi}(\mathbf{k})=\frac{\tilde{\rho}(\mathbf{k})}{\varepsilon _0}\]</div>
+</div>
+<p>, the electric potential of Gaussian-like distribution in the reciprocal space expresses as:</p>
+<div class="math-wrapper docutils container" id="equation-ewald-sum-eq-phi-reciprocal">
+<div class="math notranslate nohighlight" id="equation-ewald-sum-eq-phi-reciprocal">
+<span class="eqno">(7)<a class="headerlink" href="#equation-ewald-sum-eq-phi-reciprocal" title="Permalink to this equation">#</a></span>\[\tilde{\phi}_{\text{G}}(\mathbf{k})=\frac{1}{\varepsilon _0\lVert \mathbf{k} \rVert ^2}\int{\sum_{j=1}^{N_{\text{p}}}{q_j}}G(\mathbf{r}-\mathbf{r}_j\text{)e}^{-i\mathbf{kr}}\text{d}\mathbf{r}=\frac{1}{\varepsilon _0\lVert \mathbf{k} \rVert ^2}\sum_{j=1}^{N_{\text{p}}}{q_j}\exp \left( -\frac{\lVert \mathbf{k} \rVert ^2}{4\alpha ^2}-i\mathbf{kr} \right)\]</div>
+</div>
+<p>Next, we utilize the Poisson summation to convert the potential in reciprocal space into real space and give the potential energy:</p>
+<div class="math-wrapper docutils container" id="equation-ewald-sum-eq-phi-poisson-summation">
+<div class="math notranslate nohighlight" id="equation-ewald-sum-eq-phi-poisson-summation">
+<span class="eqno">(8)<a class="headerlink" href="#equation-ewald-sum-eq-phi-poisson-summation" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{array}{rcl}
+    \displaystyle\phi _{\text{G}}(\mathbf{r}) &amp; = &amp;
+    \displaystyle \sum_{\mathbf{n}\in \mathbb{Z}^3}{\phi _{\text{G}}}'(\mathbf{r}+\mathbf{nL})=\frac{1}{V}\sum_{\mathbf{k}}{\tilde{\phi}_{\text{G}}}(\mathbf{k}\text{)e}^{i\mathbf{kr}}\\\\
+    &amp; = &amp; \displaystyle \frac{1}{\varepsilon _0V}\sum_{\mathbf{k}}{\sum_{j=1}^{N_{\text{p}}}{\frac{q_j}{\lVert \mathbf{k} \rVert ^2}}}\exp \left[ -\frac{\lVert \mathbf{k} \rVert ^2}{4\alpha ^2}-i\mathbf{k}(\mathbf{r}-\mathbf{r}_j) \right]
+\end{array}\end{split}\]</div>
+</div>
+<div class="math-wrapper docutils container" id="equation-ewald-sum-eq-long-range-potential-energy">
+<div class="math notranslate nohighlight" id="equation-ewald-sum-eq-long-range-potential-energy">
+<span class="eqno">(9)<a class="headerlink" href="#equation-ewald-sum-eq-long-range-potential-energy" title="Permalink to this equation">#</a></span>\[E_{\text{G}}=\frac{1}{\varepsilon _0V}\sum_{\mathbf{k}}{\sum_{i,j}^{N_{\text{p}}}{\frac{q_iq_j}{\lVert \mathbf{k} \rVert ^2}}}\exp \left[ -\frac{\lVert \mathbf{k} \rVert ^2}{4\alpha ^2}-i\mathbf{k}(\mathbf{r}_i-\mathbf{r}_j) \right]\]</div>
+</div>
+<p>The summation over <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> converges rapidly owing to the presence of <span class="math notranslate nohighlight">\(\lVert \mathbf{k} \rVert ^2\)</span> in the denominator and the exponential term. However, there are still two issues with Equation <a class="reference internal" href="#equation-ewald-sum-eq-long-range-potential-energy">(9)</a>: (a) the value of the summation term when k = 0, and (b) the existence of self-interaction. The first question can be resolved when simulating an electroneutral system <span id="id2">[<a class="reference internal" href="../reference/index.html#id6" title="Zhonghan Hu. Infinite boundary terms of ewald sums and pairwise interactions for electrostatics in bulk and at interfaces. Journal of Chemical Theory and Computation, 10(12):5254–5264, December 2014. doi:10.1021/ct500704m.">5</a>]</span>. In contrast to disregarding all <span class="math notranslate nohighlight">\(i=j\)</span> pairs in Equation <a class="reference internal" href="#equation-ewald-sum-eq-screening-energy">(5)</a>, we must manually eliminate the self-interaction term for the second question. The self-interaction term describes the interaction between the delta-like charge and the surrounding same charged Gaussian:</p>
+<div class="math-wrapper docutils container" id="equation-ewald-sum-eq-self-energy">
+<div class="math notranslate nohighlight" id="equation-ewald-sum-eq-self-energy">
+<span class="eqno">(10)<a class="headerlink" href="#equation-ewald-sum-eq-self-energy" title="Permalink to this equation">#</a></span>\[E_{\text{self}}=\sum_{i=1}^{N_{\text{p}}}{\lim_{r\rightarrow 0}}q_i\phi _{\text{G}}(r)=\sum_{i=1}^{N_{\text{p}}}{\frac{\alpha q_{i}^{2}}{2\varepsilon _0\pi ^{\text{3/}2}}}\]</div>
+</div>
+<p>Then the total electric potential energy can be written as:</p>
+<div class="math-wrapper docutils container" id="equation-ewald-sum-eq-total-energy">
+<div class="math notranslate nohighlight" id="equation-ewald-sum-eq-total-energy">
+<span class="eqno">(11)<a class="headerlink" href="#equation-ewald-sum-eq-total-energy" title="Permalink to this equation">#</a></span>\[U_{\text{ele}}=E_{\text{short}}+E_{\text{long}}-E_{\text{self}}\]</div>
+</div>
+<p>In practical applications, the Fast Fourier Transform (FFT) algorithm is utilized to hasten the calculation of long-range electrostatic interactions, and its implementation necessitates the discretization (griding) of space. Two common algorithms, namely the the Particle Mesh Ewald <span id="id3">[<a class="reference internal" href="../reference/index.html#id7" title="Tom Darden, Darrin York, and Lee Pedersen. Particle mesh ewald: an \emph N ·log( \emph N ) method for ewald sums in large systems. The Journal of Chemical Physics, 98(12):10089–10092, June 1993. doi:10.1063/1.464397.">6</a>, <a class="reference internal" href="../reference/index.html#id8" title="Ulrich Essmann, Lalith Perera, Max L. Berkowitz, Tom Darden, Hsing Lee, and Lee G. Pedersen. A smooth particle mesh ewald method. The Journal of Chemical Physics, 103(19):8577–8593, November 1995. doi:10.1063/1.470117.">7</a>]</span> (PME) method and Particle-Particle Particle Mesh <span id="id4">[<a class="reference internal" href="../reference/index.html#id9" title="Roger W. Hockney and James W. Eastwood. Computer Simulation Using Particles. Inst. of Physics Publ, Bristol, reprinted edition, 1999. ISBN 978-0-85274-392-8.">8</a>, <a class="reference internal" href="../reference/index.html#id10" title="E.L. Pollock and Jim Glosli. Comments on p3m, fmm, and the ewald method for large periodic coulombic systems. Computer Physics Communications, 95(2-3):93–110, June 1996. doi:10.1016/0010-4655(96)00043-4.">9</a>]</span> (PPPM or P3M) method, have been introduced to tackle this issue. In MDPy, the PME method is implemented to evaluate electrostatic interactions.</p>
 </section>
 <section id="particle-mesh-ewald">
 <h2>Particle Mesh Ewald<a class="headerlink" href="#particle-mesh-ewald" title="Permalink to this heading">#</a></h2>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="../_images/res.png"><img alt="../_images/res.png" src="../_images/res.png" style="width: 750px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Illustration of: (Right) B-spline interpolation, (Left) Electric potential.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="ewald-coefficient">
+<h3>Ewald coefficient<a class="headerlink" href="#ewald-coefficient" title="Permalink to this heading">#</a></h3>
+<p>As shown in Equation <a class="reference internal" href="#equation-ewald-sum-eq-phi-expression">(4)</a>, the Ewald coefficient <span class="math notranslate nohighlight">\(alpha\)</span> determines the width of the Gaussian-like charge distribution, which in turn affects the electric potential expression of the screening distribution and the choice of the cutoff radius. In the PME method, the user specifies the cutoff radius <span class="math notranslate nohighlight">\(r_c\)</span> and error tolerance <span class="math notranslate nohighlight">\(e\)</span> as the input parameters to calculate the Ewald coefficient. The Ewald coefficient must satisfy the following equation:</p>
+<div class="math-wrapper docutils container" id="equation-ewald-sum-eq-ewald-coefficient">
+<div class="math notranslate nohighlight" id="equation-ewald-sum-eq-ewald-coefficient">
+<span class="eqno">(12)<a class="headerlink" href="#equation-ewald-sum-eq-ewald-coefficient" title="Permalink to this equation">#</a></span>\[e = 1-\text{erf}\left(\alpha \lVert\mathbf{r}_i-\mathbf{r}_j\rVert\right)\]</div>
+</div>
+<p>In MDPy, the Ewald coefficient is calculated by solving Equation <a class="reference internal" href="#equation-ewald-sum-eq-ewald-coefficient">(12)</a> via the Newton method.</p>
+</section>
 <section id="bspline-interpolation">
 <h3>Bspline interpolation<a class="headerlink" href="#bspline-interpolation" title="Permalink to this heading">#</a></h3>
 </section>
@@ -365,6 +429,7 @@
 <li><a class="reference internal" href="#">Ewald summation</a><ul>
 <li><a class="reference internal" href="#background">Background</a></li>
 <li><a class="reference internal" href="#particle-mesh-ewald">Particle Mesh Ewald</a><ul>
+<li><a class="reference internal" href="#ewald-coefficient">Ewald coefficient</a></li>
 <li><a class="reference internal" href="#bspline-interpolation">Bspline interpolation</a></li>
 </ul>
 </li>

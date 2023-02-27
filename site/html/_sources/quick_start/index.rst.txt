@@ -28,6 +28,8 @@ Framework
 .. figure:: ../_static/image/quick_start/framework.png
     :align: center
 
+    Framework of MDPy
+
 In MDPy, the main task of conducting a simulation is creating a well-defined :doc:`Ensemble <../api_reference/core/generated/mdpy.core.Ensemble>` object. An :code:`Ensemble` object includes all the information required for the MD simulation, such as:
 
 - :doc:`Topology <../api_reference/core/generated/mdpy.core.Topology>`: This contains the particles' properties, such as atom type, mass, and charge, as well as other topological information like bonds, angles, and dihedrals.

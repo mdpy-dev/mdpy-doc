@@ -284,7 +284,7 @@
 <figure class="align-center" id="id4">
 <a class="reference internal image-reference" href="../_images/cell_list.png"><img alt="../_images/cell_list.png" src="../_images/cell_list.png" style="width: 250px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Illustration of cell-list <span id="id1">[<a class="reference internal" href="../reference/index.html#id2" title="Wikipedia. Cell lists. 2022. URL: https://en.wikipedia.org/wiki/Cell_lists.">1</a>]</span></span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Illustration of cell-list <span id="id1">[<a class="reference internal" href="../reference/index.html#id2" title="Wikipedia. Cell lists. 2022. URL: https://en.wikipedia.org/wiki/Cell_lists.">1</a>]</span></span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The cell-list is a data structure commonly used in computational physics and chemistry simulations to efficiently compute pairwise interactions between particles in a system. It works by dividing the simulation domain into a grid of cells and assigning each particle to the cell that contains its position.</p>
@@ -299,7 +299,7 @@
 <figure class="align-center" id="id5">
 <a class="reference internal image-reference" href="../_images/coalsed-memory.png"><img alt="../_images/coalsed-memory.png" src="../_images/coalsed-memory.png" style="width: 350px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Comparison between coalesced and uncoalesced memory accessing <span id="id2">[<a class="reference internal" href="../reference/index.html#id3" title="Che-Rung Lee. System integration and implementation. 2010. URL: http://www.cs.nthu.edu.tw/~cherung/teaching/2010gpucell/.">2</a>]</span>. “In this scenario, accessing memory in a coalesced manner requires only one request, whereas accessing memory in an uncoalesced manner requires 32 separate requests.</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Comparison between coalesced and uncoalesced memory accessing <span id="id2">[<a class="reference internal" href="../reference/index.html#id3" title="Che-Rung Lee. System integration and implementation. 2010. URL: http://www.cs.nthu.edu.tw/~cherung/teaching/2010gpucell/.">2</a>]</span>. “In this scenario, accessing memory in a coalesced manner requires only one request, whereas accessing memory in an uncoalesced manner requires 32 separate requests.</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Memory coalescing is a technique used in computer systems to optimize memory access patterns and improve performance. It involves grouping memory requests from multiple threads or blocks of threads into larger, more contiguous requests.</p>
@@ -312,7 +312,7 @@
 <figure class="align-center" id="id6">
 <a class="reference internal image-reference" href="../_images/space_filling_curve.png"><img alt="../_images/space_filling_curve.png" src="../_images/space_filling_curve.png" style="width: 550px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of the Hilbert curve <span id="id3">[<a class="reference internal" href="../reference/index.html#id4" title="Xah Lee. Space-filling curve. 2013. URL: http://xahlee.info/math/space-filling_curve.html.">3</a>]</span>.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of the Hilbert curve <span id="id3">[<a class="reference internal" href="../reference/index.html#id4" title="Xah Lee. Space-filling curve. 2013. URL: http://xahlee.info/math/space-filling_curve.html.">3</a>]</span>.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>MDPy uses a space-filling curve to group particles that are close together in space. A space-filling curve is a mathematical construct that maps a one-dimensional sequence of numbers to a two-dimensional or higher-dimensional space, preserving locality. In other words, it is a curve that traverses a space in a way that maximizes the continuity of nearby points.</p>
@@ -320,7 +320,7 @@
 <figure class="align-center" id="id7">
 <a class="reference internal image-reference" href="../_images/space-partition.png"><img alt="../_images/space-partition.png" src="../_images/space-partition.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Space partition result.</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Space partition result.</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The use of a space-filling curve enables us to hash the 3D coordinates of particles to obtain a sequence of particles in each cell. Based on the hashing result, we can construct a tile by re-sequencing the particle hash value.</p>
