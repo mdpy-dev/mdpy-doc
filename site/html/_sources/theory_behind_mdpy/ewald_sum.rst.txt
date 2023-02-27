@@ -2,6 +2,15 @@
 Ewald summation
 ===================
 
+Background
+----------
+
+.. figure:: ../_static/image/ewald_sum/screening.png
+    :align: center
+    :width: 550
+
+    Illustration of ewald summation :cite:`ewald-sum-illstration`
+
 .. math::
     \begin{equation}
     \begin{cases}
@@ -13,3 +22,11 @@ Ewald summation
     :label: euler
 
 PME :cite:`ewald_sum_pme_01,ewald_sum_pme_02`, Particle-Particle Particle Mesh :cite:`ewald_sum_p3m_01,ewald_sum_p3m_02` (PPPM or P3M) method
+
+
+Particle Mesh Ewald
+-------------------
+
+
+Bspline interpolation
+++++++++++++++++++++++

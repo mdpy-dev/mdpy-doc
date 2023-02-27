@@ -353,7 +353,7 @@
             <span class="n">is_hdf5_file_poor_defined</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="c1"># Output</span>
         <span class="k">if</span> <span class="n">is_hdf5_file_poor_defined</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">HDF5FilePoorDefinedError</span><span class="p">(</span>
+            <span class="k">raise</span> <span class="n">IOPoorDefinedError</span><span class="p">(</span>
                 <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> does not meet the hierarchy of mdpy created HDF5, &quot;</span>
                 <span class="s2">&quot;please check mdpy.io.HDF5_FILE_HIERARCHY&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span>
             <span class="p">)</span>

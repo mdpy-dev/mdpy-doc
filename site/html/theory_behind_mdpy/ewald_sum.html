@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -264,7 +264,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -272,6 +272,14 @@
         <article role="main">
           <section id="ewald-summation">
 <h1>Ewald summation<a class="headerlink" href="#ewald-summation" title="Permalink to this heading">#</a></h1>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading">#</a></h2>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="../_images/screening.png"><img alt="../_images/screening.png" src="../_images/screening.png" style="width: 550px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Illustration of ewald summation <span id="id1">[<a class="reference internal" href="../reference/index.html#id5" title="S Stenberg and B Stenqvist. An exact ewald summation method in theory and practice. The Journal of Physical Chemistry A, 124(19):3943–3946, 2020.">4</a>]</span></span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <div class="math-wrapper docutils container" id="equation-euler">
 <div class="math notranslate nohighlight" id="equation-euler">
 <span class="eqno">(2)<a class="headerlink" href="#equation-euler" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{equation}
@@ -282,7 +290,14 @@
 \label{equation}
 \end{equation}\end{split}\]</div>
 </div>
-<p>PME <span id="id1">[<a class="reference internal" href="../reference/index.html#id5" title="Tom Darden, Darrin York, and Lee Pedersen. Particle mesh ewald: an \emph N ·log( \emph N ) method for ewald sums in large systems. The Journal of Chemical Physics, 98(12):10089–10092, June 1993. doi:10.1063/1.464397.">4</a>, <a class="reference internal" href="../reference/index.html#id6" title="Ulrich Essmann, Lalith Perera, Max L. Berkowitz, Tom Darden, Hsing Lee, and Lee G. Pedersen. A smooth particle mesh ewald method. The Journal of Chemical Physics, 103(19):8577–8593, November 1995. doi:10.1063/1.470117.">5</a>]</span>, Particle-Particle Particle Mesh <span id="id2">[<a class="reference internal" href="../reference/index.html#id7" title="Roger W. Hockney and James W. Eastwood. Computer Simulation Using Particles. Inst. of Physics Publ, Bristol, reprinted edition, 1999. ISBN 978-0-85274-392-8.">6</a>, <a class="reference internal" href="../reference/index.html#id8" title="E.L. Pollock and Jim Glosli. Comments on p3m, fmm, and the ewald method for large periodic coulombic systems. Computer Physics Communications, 95(2-3):93–110, June 1996. doi:10.1016/0010-4655(96)00043-4.">7</a>]</span> (PPPM or P3M) method</p>
+<p>PME <span id="id2">[<a class="reference internal" href="../reference/index.html#id6" title="Tom Darden, Darrin York, and Lee Pedersen. Particle mesh ewald: an \emph N ·log( \emph N ) method for ewald sums in large systems. The Journal of Chemical Physics, 98(12):10089–10092, June 1993. doi:10.1063/1.464397.">5</a>, <a class="reference internal" href="../reference/index.html#id7" title="Ulrich Essmann, Lalith Perera, Max L. Berkowitz, Tom Darden, Hsing Lee, and Lee G. Pedersen. A smooth particle mesh ewald method. The Journal of Chemical Physics, 103(19):8577–8593, November 1995. doi:10.1063/1.470117.">6</a>]</span>, Particle-Particle Particle Mesh <span id="id3">[<a class="reference internal" href="../reference/index.html#id8" title="Roger W. Hockney and James W. Eastwood. Computer Simulation Using Particles. Inst. of Physics Publ, Bristol, reprinted edition, 1999. ISBN 978-0-85274-392-8.">7</a>, <a class="reference internal" href="../reference/index.html#id9" title="E.L. Pollock and Jim Glosli. Comments on p3m, fmm, and the ewald method for large periodic coulombic systems. Computer Physics Communications, 95(2-3):93–110, June 1996. doi:10.1016/0010-4655(96)00043-4.">8</a>]</span> (PPPM or P3M) method</p>
+</section>
+<section id="particle-mesh-ewald">
+<h2>Particle Mesh Ewald<a class="headerlink" href="#particle-mesh-ewald" title="Permalink to this heading">#</a></h2>
+<section id="bspline-interpolation">
+<h3>Bspline interpolation<a class="headerlink" href="#bspline-interpolation" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
 </section>
 
         </article>
@@ -335,8 +350,31 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Ewald summation</a><ul>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#particle-mesh-ewald">Particle Mesh Ewald</a><ul>
+<li><a class="reference internal" href="#bspline-interpolation">Bspline interpolation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
