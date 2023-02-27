@@ -280,10 +280,10 @@
 <span class="eqno">(2)<a class="headerlink" href="#equation-ewald-sum-eq-long-range-prove" title="Permalink to this equation">#</a></span>\[U_{\mathrm{ele}}(r+\mathrm{d}r) =  \frac{q_sq_n}{4\pi\varepsilon_0 r}\times n_0 \pi r^2 dr = n_0 \frac{q_sq_n}{4\varepsilon_0} r \mathrm{d}r\]</div>
 </div>
 <p>According to Equation <a class="reference internal" href="#equation-ewald-sum-eq-long-range-prove">(2)</a>, the interaction energy between central particles and their neighboring particles within the range of <span class="math notranslate nohighlight">\([r, r + \mathrm{d}r]\)</span> increases linearly as the distance increases. Therefore, it is not feasible to simplify the calculation of electrostatic interaction by setting a cutoff radius and ignoring particles beyond it. Additionally, the presence of periodic boundary conditions (PBC) results in an infinite sum that cannot be easily calculated, further adding to the complexity of the electrostatic interaction calculation.</p>
-<figure class="align-center" id="id5">
+<figure class="align-center" id="id7">
 <a class="reference internal image-reference" href="../_images/screening.png"><img alt="../_images/screening.png" src="../_images/screening.png" style="width: 550px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Idea of ewald summation <span id="id1">[<a class="reference internal" href="../reference/index.html#id5" title="S Stenberg and B Stenqvist. An exact ewald summation method in theory and practice. The Journal of Physical Chemistry A, 124(19):3943–3946, 2020.">4</a>]</span></span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Idea of ewald summation <span id="id1">[<a class="reference internal" href="../reference/index.html#id5" title="S Stenberg and B Stenqvist. An exact ewald summation method in theory and practice. The Journal of Physical Chemistry A, 124(19):3943–3946, 2020.">4</a>]</span></span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Ewald summation is a mathematical method utilized in computational chemistry and physics to precisely calculate the long-range electrostatic interactions between charged particles in a periodic system. The fundamental concept involves transforming the original delta-like charge distribution into the superposition of a screening distribution and a Gaussian-like distribution, as depicted above. The screening distribution is composed of the original distribution and a Gaussian with an opposite charge sign, <strong>similar</strong> to dipoles. Approximately, the energy is altered to:</p>
@@ -343,15 +343,15 @@
 </section>
 <section id="particle-mesh-ewald">
 <h2>Particle Mesh Ewald<a class="headerlink" href="#particle-mesh-ewald" title="Permalink to this heading">#</a></h2>
-<figure class="align-center" id="id6">
+<figure class="align-center" id="id8">
 <a class="reference internal image-reference" href="../_images/res.png"><img alt="../_images/res.png" src="../_images/res.png" style="width: 750px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Illustration of: (Right) B-spline interpolation, (Left) Electric potential.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Illustration of: (Right) B-spline interpolation, (Left) Electric potential.</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="ewald-coefficient">
 <h3>Ewald coefficient<a class="headerlink" href="#ewald-coefficient" title="Permalink to this heading">#</a></h3>
-<p>As shown in Equation <a class="reference internal" href="#equation-ewald-sum-eq-phi-expression">(4)</a>, the Ewald coefficient <span class="math notranslate nohighlight">\(alpha\)</span> determines the width of the Gaussian-like charge distribution, which in turn affects the electric potential expression of the screening distribution and the choice of the cutoff radius. In the PME method, the user specifies the cutoff radius <span class="math notranslate nohighlight">\(r_c\)</span> and error tolerance <span class="math notranslate nohighlight">\(e\)</span> as the input parameters to calculate the Ewald coefficient. The Ewald coefficient must satisfy the following equation:</p>
+<p>As shown in Equation <a class="reference internal" href="#equation-ewald-sum-eq-phi-expression">(4)</a>, the Ewald coefficient <span class="math notranslate nohighlight">\(\alpha\)</span> determines the width of the Gaussian-like charge distribution, which in turn affects the electric potential expression of the screening distribution and the choice of the cutoff radius. In the PME method, the user specifies the cutoff radius <span class="math notranslate nohighlight">\(r_c\)</span> and error tolerance <span class="math notranslate nohighlight">\(e\)</span> as the input parameters to calculate the Ewald coefficient. The Ewald coefficient must satisfy the following equation:</p>
 <div class="math-wrapper docutils container" id="equation-ewald-sum-eq-ewald-coefficient">
 <div class="math notranslate nohighlight" id="equation-ewald-sum-eq-ewald-coefficient">
 <span class="eqno">(12)<a class="headerlink" href="#equation-ewald-sum-eq-ewald-coefficient" title="Permalink to this equation">#</a></span>\[e = 1-\text{erf}\left(\alpha \lVert\mathbf{r}_i-\mathbf{r}_j\rVert\right)\]</div>
@@ -360,6 +360,19 @@
 </section>
 <section id="bspline-interpolation">
 <h3>Bspline interpolation<a class="headerlink" href="#bspline-interpolation" title="Permalink to this heading">#</a></h3>
+<p>As FFT requires a discretization of space, the particles’ charge should be assigned to the grid points. B-spline interpolation is a widely used technique in numerical analysis and computer graphics to approximate complex functions with a smooth curve. It involves constructing a piecewise polynomial function that passes through a given set of control points, while ensuring a high degree of smoothness and continuity between adjacent curves.</p>
+<p>B-splines are defined by a set of basis functions, which are polynomial functions of a fixed degree that are defined over a specific interval. By combining these basis functions with a set of control points, a smooth curve can be constructed that accurately approximates the original function.</p>
+<figure class="align-center" id="id9">
+<a class="reference internal image-reference" href="../_images/bspline.png"><img alt="../_images/bspline.png" src="../_images/bspline.png" style="width: 550px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Example of charge spreading in 2D for 4th order B-spline; circle sizes signify absolute values of charge contributions <span id="id5">[<a class="reference internal" href="../reference/index.html#id11" title="Iupinov Alexei. Implementation of the particle mesh ewald method on a gpu. 2016.">10</a>]</span>.</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>MDPy employs a 4th order B-spline curve to map the charge to a cubic grid. The above diagram provides a 2D illustration of this process.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>More detailed information can be found in reference <span id="id6">[<a class="reference internal" href="../reference/index.html#id11" title="Iupinov Alexei. Implementation of the particle mesh ewald method on a gpu. 2016.">10</a>]</span>.</p>
+</div>
 </section>
 </section>
 </section>

@@ -94,7 +94,7 @@ Particle Mesh Ewald
 Ewald coefficient
 +++++++++++++++++
 
-As shown in Equation :math:numref:`ewald-sum-eq-phi-expression`, the Ewald coefficient :math:`alpha` determines the width of the Gaussian-like charge distribution, which in turn affects the electric potential expression of the screening distribution and the choice of the cutoff radius. In the PME method, the user specifies the cutoff radius :math:`r_c` and error tolerance :math:`e` as the input parameters to calculate the Ewald coefficient. The Ewald coefficient must satisfy the following equation:
+As shown in Equation :math:numref:`ewald-sum-eq-phi-expression`, the Ewald coefficient :math:`\alpha` determines the width of the Gaussian-like charge distribution, which in turn affects the electric potential expression of the screening distribution and the choice of the cutoff radius. In the PME method, the user specifies the cutoff radius :math:`r_c` and error tolerance :math:`e` as the input parameters to calculate the Ewald coefficient. The Ewald coefficient must satisfy the following equation:
 
 .. math::
     e = 1-\text{erf}\left(\alpha \lVert\mathbf{r}_i-\mathbf{r}_j\rVert\right)
@@ -104,3 +104,19 @@ In MDPy, the Ewald coefficient is calculated by solving Equation :math:numref:`e
 
 Bspline interpolation
 ++++++++++++++++++++++
+
+As FFT requires a discretization of space, the particles' charge should be assigned to the grid points. B-spline interpolation is a widely used technique in numerical analysis and computer graphics to approximate complex functions with a smooth curve. It involves constructing a piecewise polynomial function that passes through a given set of control points, while ensuring a high degree of smoothness and continuity between adjacent curves.
+
+B-splines are defined by a set of basis functions, which are polynomial functions of a fixed degree that are defined over a specific interval. By combining these basis functions with a set of control points, a smooth curve can be constructed that accurately approximates the original function.
+
+.. figure:: ../_static/image/ewald_sum/bspline.png
+    :align: center
+    :width: 550
+
+    Example of charge spreading in 2D for 4th order B-spline; circle sizes signify absolute values of charge contributions :cite:`ewald-sum-b-spline`.
+
+MDPy employs a 4th order B-spline curve to map the charge to a cubic grid. The above diagram provides a 2D illustration of this process.
+
+.. tip::
+
+    More detailed information can be found in reference :cite:`ewald-sum-b-spline`.
